@@ -2,12 +2,18 @@ const TerserPlugin = require('terser-webpack-plugin'),
     OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'),
     paths = require('./paths'),
     rules = require('./rules'),
-    plugins = require('./plugins');
+    plugins = require('./plugins'),
+    pages = require('./pages');
 
 module.exports = (env, argv) => {
     const mode = argv.mode || 'development';
     const isProduction = mode === 'production';
     const analyze = argv.analyze;
+
+    const entry = pages.reduce((acc, page) => {
+        acc[page.id] = paths.sourceFile(`${page.id}.ts`);
+        return acc;
+    }, {});
 
     return {
         devServer: {
@@ -17,9 +23,7 @@ module.exports = (env, argv) => {
             port: 6969,
         },
         devtool: 'source-map',
-        entry: {
-            index: paths.sourceFile('index.ts'),
-        },
+        entry,
         mode,
         output: {
             path: paths.dist,

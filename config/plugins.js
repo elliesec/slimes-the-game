@@ -5,16 +5,20 @@ const { DefinePlugin } = require('webpack'),
     { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer'),
     MiniCssExtractPlugin = require('mini-css-extract-plugin'),
     paths = require('./paths'),
-    env = require('./env');
+    env = require('./env'),
+    pages = require('./pages');
 
 module.exports = (mode, analyze) => {
     const processEnv = env(mode);
     const plugins = [
         new CleanWebpackPlugin(),
         new DefinePlugin({ 'process.env': JSON.stringify(processEnv) }),
-        new HtmlPlugin(htmlPluginConfig(mode)),
         new FaviconsPlugin(faviconsPluginConfig(processEnv)),
     ];
+
+    pages.forEach((page) =>
+        plugins.push(new HtmlPlugin(htmlPluginConfig(mode, page)))
+    );
 
     if (analyze) {
         plugins.push(new BundleAnalyzerPlugin());
@@ -33,10 +37,13 @@ module.exports = (mode, analyze) => {
     return plugins;
 };
 
-function htmlPluginConfig(mode) {
+function htmlPluginConfig(mode, { id, name }) {
     return {
+        filename: `${id}.html`,
+        chunks: [id],
         template: paths.sourceFile('index.ejs'),
         minify: htmlPluginMinifyConfig(mode),
+        title: name,
     };
 }
 
