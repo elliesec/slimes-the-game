@@ -6,6 +6,7 @@
     "scripts": {
         "analyze": "webpack --mode=production --analyze",
         "build": "webpack --mode=production",
+        "build-dev": "webpack",
         "dev": "webpack-dev-server",
         "format": "prettier --write .",
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -29,6 +30,7 @@
         "postcss-preset-env": "^6.7.0",
         "prettier": "^2.0.5",
         "pretty-quick": "^2.0.1",
+        "sass": "^1.26.10",
         "sass-loader": "^9.0.3",
         "source-map-loader": "^1.0.1",
         "style-loader": "^1.2.1",
@@ -45,5 +47,9 @@
         "hooks": {
             "pre-commit": "pretty-quick --staged"
         }
+    },
+    "dependencies": {
+        "preact": "^10.4.7",
+        "reset-css": "^5.0.1"
     }
 }

@@ -5,6 +5,7 @@
         "forceConsistentCasingInFileNames": true,
         "importHelpers": true,
         "jsx": "react",
+        "jsxFactory": "h",
         "lib": ["dom", "es6", "es2017"],
         "module": "esnext",
         "moduleResolution": "node",

@@ -1,4 +1,5 @@
-const TerserPlugin = require('terser-webpack-plugin'),
+const fs = require('fs'),
+    TerserPlugin = require('terser-webpack-plugin'),
     OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'),
     paths = require('./paths'),
     rules = require('./rules'),
@@ -10,8 +11,11 @@ module.exports = (env, argv) => {
     const isProduction = mode === 'production';
     const analyze = argv.analyze;
 
-    const entry = pages.reduce((acc, page) => {
-        acc[page.id] = paths.sourceFile(`${page.id}.ts`);
+    const srcDir = fs.readdirSync(paths.source);
+
+    const entry = pages.reduce((acc, { id }) => {
+        const fileName = srcDir.find((file) => file.startsWith(`${id}.ts`));
+        acc[id] = paths.sourceFile(fileName);
         return acc;
     }, {});
 
@@ -28,7 +32,7 @@ module.exports = (env, argv) => {
         entry,
         mode,
         output: {
-            path: paths.dist,
+            path: isProduction ? paths.dist : paths.distDev,
             publicPath: '/slimes-the-game',
             filename: `[name]${isProduction ? '.[chunkhash]' : ''}.js`,
         },
