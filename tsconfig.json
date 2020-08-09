@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "alwaysStrict": true,
+        "forceConsistentCasingInFileNames": true,
+        "importHelpers": true,
+        "jsx": "react",
+        "lib": ["dom", "es6", "es2017"],
+        "module": "esnext",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "outDir": "dist",
+        "removeComments": true,
+        "resolveJsonModule": true,
+        "rootDirs": ["src"],
+        "sourceMap": true,
+        "target": "es6"
+    },
+    "exclude": ["node_modules", "build", "coverage"],
+    "include": ["src"]
+}
