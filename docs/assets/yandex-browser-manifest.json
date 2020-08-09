@@ -1,8 +1,8 @@
 {
-  "version": "0.0.0",
+  "version": "0.0.1",
   "api_version": 1,
   "layout": {
-    "logo": "/assets/yandex-browser-50x50.png",
+    "logo": "/slimes-the-game/assets/yandex-browser-50x50.png",
     "color": "#e4e4e5",
     "show_title": true
   }
