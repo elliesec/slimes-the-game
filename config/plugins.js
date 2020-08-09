@@ -3,6 +3,7 @@ const { DefinePlugin } = require('webpack'),
     HtmlPlugin = require('html-webpack-plugin'),
     FaviconsPlugin = require('favicons-webpack-plugin'),
     { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer'),
+    ImageminPlugin = require('imagemin-webpack'),
     MiniCssExtractPlugin = require('mini-css-extract-plugin'),
     paths = require('./paths'),
     env = require('./env'),
@@ -14,6 +15,7 @@ module.exports = (mode, analyze) => {
         new CleanWebpackPlugin(),
         new DefinePlugin({ 'process.env': JSON.stringify(processEnv) }),
         new FaviconsPlugin(faviconsPluginConfig(processEnv)),
+        new ImageminPlugin(imageminPluginConfig(mode)),
     ];
 
     pages.forEach((page) =>
@@ -78,6 +80,20 @@ function faviconsPluginConfig(processEnv) {
             theme_color: '#80b12a',
             start_url: '/index.html',
             version: processEnv.APP_VERSION,
+        },
+    };
+}
+
+function imageminPluginConfig(mode) {
+    const isProduction = mode === 'production';
+    return {
+        imageminOptions: {
+            plugins: [
+                ['gifsicle', { optimizationLevel: isProduction ? 3 : 2 }],
+                ['mozjpeg', { quality: 100 }],
+                ['optipng', { optimizationLevel: isProduction ? 5 : 1 }],
+                ['svgo', { plugins: [{ removeViewBox: false }] }],
+            ],
         },
     };
 }
