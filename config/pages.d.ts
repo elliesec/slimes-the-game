@@ -1,7 +1,9 @@
-interface SitePage {
-    id: string;
-    name: string;
+declare namespace pages {
+    export interface SitePage {
+        id: string;
+        name: string;
+    }
 }
+declare const pages: pages.SitePage[];
 
-declare const pages: SitePage[];
 export = pages;
