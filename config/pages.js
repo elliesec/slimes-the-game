@@ -1,7 +1,7 @@
 module.exports = [
     {
         id: 'siteMap',
-        name: 'Map',
+        name: 'Site Map',
     },
     {
         id: 'index',
