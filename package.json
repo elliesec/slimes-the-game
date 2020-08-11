@@ -54,6 +54,7 @@
         }
     },
     "dependencies": {
+        "pixi.js": "^5.3.3",
         "preact": "^10.4.7",
         "reset-css": "^5.0.1"
     }
