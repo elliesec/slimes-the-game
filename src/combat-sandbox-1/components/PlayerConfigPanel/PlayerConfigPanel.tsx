@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Callback } from '../../../common/functions';
 import { Player } from '../../Player';
-import { setDescription, setStat } from '../../redux/actions/player-actions';
+import {
+    setDescription,
+    setPlayer,
+    setStat,
+} from '../../redux/actions/player-actions';
+import { defaultPlayer } from '../../redux/reducers/player-reducer';
 import { State } from '../../redux/store';
 import './PlayerConfigPanel.scss';
 import { PlayerConfigPanelInput } from './PlayerConfigPanelInput';
@@ -12,6 +17,7 @@ import TargetedEvent = JSXInternal.TargetedEvent;
 
 export interface PlayerConfigPanelProps {
     player: Player;
+    onPlayerReset: () => void;
     onNameChange: Callback<TargetedEvent<HTMLInputElement>>;
     onStrengthChange: Callback<TargetedEvent<HTMLInputElement>>;
     onDexterityChange: Callback<TargetedEvent<HTMLInputElement>>;
@@ -25,6 +31,7 @@ export interface PlayerConfigPanelProps {
 
 export const PlayerConfigPanel = ({
     player,
+    onPlayerReset,
     onNameChange,
     onStrengthChange,
     onDexterityChange,
@@ -36,7 +43,10 @@ export const PlayerConfigPanel = ({
     onWillpowerChange,
 }: PlayerConfigPanelProps): VNode => (
     <div className="PlayerConfigPanel">
-        <h3>Player</h3>
+        <h3 className="header-with-buttons">
+            <span>Player</span>
+            <button onClick={onPlayerReset}>Reset</button>
+        </h3>
         <PlayerConfigPanelInput
             id="name-input"
             label="Name"
@@ -126,6 +136,9 @@ function mapDispatchToProps(
     dispatch: Dispatch
 ): Partial<PlayerConfigPanelProps> {
     return {
+        onPlayerReset(): void {
+            dispatch(setPlayer(defaultPlayer()));
+        },
         onNameChange(e: TargetedEvent<HTMLInputElement>): void {
             const value = e.currentTarget.value;
             dispatch(setDescription('name', value));

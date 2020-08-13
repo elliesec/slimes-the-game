@@ -27,13 +27,15 @@ export class CombatSandbox1 extends Component<CombatSandbox1Props> {
         return (
             <div className="CombatSandbox1">
                 <div className="config-panel">
-                    <div className="config-panel-header">
+                    <div className="panel-header">
                         <h2>Configuration</h2>
                     </div>
                     <ConnectedPlayerConfigPanel />
                 </div>
                 <div className="encounter-panel">
-                    <h2>Encounter</h2>
+                    <div className="panel-header">
+                        <h2>Encounter</h2>
+                    </div>
                 </div>
             </div>
         );
