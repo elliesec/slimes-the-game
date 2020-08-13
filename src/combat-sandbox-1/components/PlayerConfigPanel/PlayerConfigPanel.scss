@@ -8,11 +8,23 @@
         margin: 1em 0;
     }
 
+    .attribute-config {
+        display: flex;
+        flex-flow: row wrap;
+        margin: -0.5rem;
+
+        & > * {
+            flex: 1;
+            margin: 0.5rem;
+        }
+    }
+
     label {
         display: flex;
         flex-flow: row wrap;
         align-items: center;
         margin-bottom: 0.5em;
+        line-height: 1.6;
 
         span {
             flex: 2;
