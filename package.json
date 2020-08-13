@@ -10,6 +10,7 @@
         "dev": "webpack-dev-server",
         "format": "prettier --write .",
         "test": "echo \"Error: no test specified\" && exit 1",
+        "preversion": "npm install",
         "version": "npm run build && git add -A docs"
     },
     "repository": {
