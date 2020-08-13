@@ -1,4 +1,4 @@
-const { DefinePlugin } = require('webpack'),
+const { DefinePlugin, ProvidePlugin } = require('webpack'),
     { CleanWebpackPlugin } = require('clean-webpack-plugin'),
     HtmlPlugin = require('html-webpack-plugin'),
     FaviconsPlugin = require('favicons-webpack-plugin'),
@@ -14,6 +14,7 @@ module.exports = (mode, analyze) => {
     const plugins = [
         new CleanWebpackPlugin(),
         new DefinePlugin({ 'process.env': JSON.stringify(processEnv) }),
+        new ProvidePlugin({ PIXI: 'pixi.js' }),
         new FaviconsPlugin(faviconsPluginConfig(processEnv)),
         new ImageminPlugin(imageminPluginConfig(mode)),
     ];

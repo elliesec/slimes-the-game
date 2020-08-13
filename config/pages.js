@@ -7,4 +7,8 @@ module.exports = [
         id: 'index',
         name: 'Slimes: The Game',
     },
+    {
+        id: 'combatSandbox1',
+        name: 'Combat Sandbox 1',
+    },
 ];

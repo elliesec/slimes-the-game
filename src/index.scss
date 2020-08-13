@@ -1,11 +1,12 @@
 @import '~reset-css';
 @import 'styles/typography';
+@import 'styles/forms';
 
 html,
 body {
     position: relative;
     height: 100%;
-    background-color: #e4e4e4;
+    background-color: #eaeaea;
 }
 
 * {

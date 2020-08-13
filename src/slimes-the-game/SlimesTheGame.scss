@@ -1,0 +1,15 @@
+#SlimesTheGame {
+    width: 100vw;
+    height: 100vh;
+    background-color: #333;
+
+    canvas {
+        position: absolute;
+        width: 1600px;
+        height: 900px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 24px -6px rgba(#000, 0.5);
+    }
+}

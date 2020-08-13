@@ -9,7 +9,9 @@
         "build-dev": "webpack",
         "dev": "webpack-dev-server",
         "format": "prettier --write .",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "preversion": "npm install",
+        "version": "npm run build && git add -A docs"
     },
     "repository": {
         "type": "git",
@@ -17,6 +19,7 @@
     },
     "author": "Ellie <62729616+elliesec@users.noreply.github.com>",
     "devDependencies": {
+        "@types/react-redux": "^7.1.9",
         "clean-webpack-plugin": "^3.0.0",
         "css-loader": "^4.2.1",
         "favicons-webpack-plugin": "^4.2.0",
@@ -35,6 +38,7 @@
         "postcss-preset-env": "^6.7.0",
         "prettier": "^2.0.5",
         "pretty-quick": "^2.0.1",
+        "redux-devtools-extension": "^2.13.8",
         "sass": "^1.26.10",
         "sass-loader": "^9.0.3",
         "source-map-loader": "^1.0.1",
@@ -54,7 +58,10 @@
         }
     },
     "dependencies": {
+        "pixi.js": "^5.3.3",
         "preact": "^10.4.7",
+        "react-redux": "^7.2.1",
+        "redux": "^4.0.5",
         "reset-css": "^5.0.1"
     }
 }
