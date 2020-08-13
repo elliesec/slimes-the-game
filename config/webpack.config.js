@@ -37,7 +37,11 @@ module.exports = (env, argv) => {
             filename: `[name]${isProduction ? '.[chunkhash]' : ''}.js`,
         },
         resolve: {
-            alias: { PIXI: 'pixi.js' },
+            alias: {
+                PIXI: 'pixi.js',
+                react: 'preact/compat',
+                'react-dom': 'preact/compat',
+            },
             extensions: ['.ts', '.tsx', '.js', '.jsx'],
         },
         module: {

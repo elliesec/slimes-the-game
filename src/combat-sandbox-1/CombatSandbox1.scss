@@ -1,0 +1,18 @@
+.CombatSandbox1 {
+    height: 100vh;
+    display: flex;
+    flex-flow: row nowrap;
+
+    & > * {
+        padding: 1rem;
+    }
+
+    .config-panel {
+        flex: 1 0 25%;
+        border-right: 3px solid rgba(#000, 0.5);
+    }
+
+    .encounter-panel {
+        flex: 3 0 75%;
+    }
+}
