@@ -1,10 +1,16 @@
 import { Action, Reducer } from 'redux';
 import { Player } from '../../Player';
-import { PlayerActions } from '../actions/player-actions';
+import {
+    PlayerActions,
+    PlayerDescriptionUpdate,
+    PlayerStatUpdate,
+} from '../actions/player-actions';
 import { PayloadAction } from '../redux-utils';
 
 const reducerMap: Record<string, Reducer<Player>> = {
     [PlayerActions.SET_PLAYER]: setPlayerReducer,
+    [PlayerActions.SET_PLAYER_DESCRIPTION]: setPlayerDescriptionReducer,
+    [PlayerActions.SET_PLAYER_STAT]: setPlayerStatReducer,
 };
 
 export function playerReducer(
@@ -17,6 +23,7 @@ export function playerReducer(
 
 export function defaultPlayer(): Player {
     return {
+        name: 'Heroine',
         maxWillpower: 10,
         willpower: 10,
         strength: 2,
@@ -36,4 +43,24 @@ function setPlayerReducer(
         return player;
     }
     return { ...payload };
+}
+
+function setPlayerDescriptionReducer(
+    player: Player,
+    { payload: { key, value } }: PayloadAction<PlayerDescriptionUpdate>
+): Player {
+    if (player[key] === value) {
+        return player;
+    }
+    return { ...player, [key]: value };
+}
+
+function setPlayerStatReducer(
+    player: Player,
+    { payload: { statName, value } }: PayloadAction<PlayerStatUpdate>
+): Player {
+    if (player[statName] === value) {
+        return player;
+    }
+    return { ...player, [statName]: value };
 }

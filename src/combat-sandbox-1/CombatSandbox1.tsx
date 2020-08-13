@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { noop } from '../common/functions';
 import './CombatSandbox1.scss';
+import { ConnectedPlayerConfigPanel } from './components/PlayerConfigPanel/PlayerConfigPanel';
 import { Player } from './Player';
 import { setPlayer } from './redux/actions/player-actions';
 import { defaultPlayer } from './redux/reducers/player-reducer';
@@ -13,7 +14,7 @@ export interface CombatSandbox1Props {
     load: () => void;
 }
 
-export class CombatSandbox1 extends Component<CombatSandbox1Props, {}> {
+export class CombatSandbox1 extends Component<CombatSandbox1Props> {
     public static defaultProps?: Pick<CombatSandbox1Props, any> = {
         load: noop,
     };
@@ -26,9 +27,10 @@ export class CombatSandbox1 extends Component<CombatSandbox1Props, {}> {
         return (
             <div className="CombatSandbox1">
                 <div className="config-panel">
-                    <h2>Configuration</h2>
-                    <h3>Player</h3>
-                    <pre>{JSON.stringify(player, null, 4)}</pre>
+                    <div className="config-panel-header">
+                        <h2>Configuration</h2>
+                    </div>
+                    <ConnectedPlayerConfigPanel />
                 </div>
                 <div className="encounter-panel">
                     <h2>Encounter</h2>

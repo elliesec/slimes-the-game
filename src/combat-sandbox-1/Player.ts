@@ -1,4 +1,4 @@
-export interface Player {
+export interface PlayerStats {
     maxWillpower: number;
     willpower: number;
     strength: number;
@@ -8,3 +8,9 @@ export interface Player {
     intelligence: number;
     charisma: number;
 }
+
+export interface PlayerDescription {
+    name: string;
+}
+
+export interface Player extends PlayerDescription, PlayerStats {}
