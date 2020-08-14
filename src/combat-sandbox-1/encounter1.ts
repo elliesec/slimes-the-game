@@ -1,4 +1,4 @@
-import { Encounter } from './Encounter';
+import { Encounter, EncounterStageType, StageOptionType } from './Encounter';
 
 export const encounter1: Encounter = {
     id: 'encounter1',
@@ -7,9 +7,11 @@ export const encounter1: Encounter = {
     stages: [
         {
             id: 0,
-            text: 'You see an old chest. It appears to be locked.',
+            type: EncounterStageType.OPTIONS,
+            text: ['You see an old chest. It appears to be locked.'],
             options: [
                 {
+                    type: StageOptionType.DIFFICULTY_CHECK,
                     text: 'Break the chest open',
                     requirements: {
                         strength: 2,
@@ -18,6 +20,7 @@ export const encounter1: Encounter = {
                     outcomes: {},
                 },
                 {
+                    type: StageOptionType.DIFFICULTY_CHECK,
                     text: 'Pick the lock',
                     requirements: {
                         dexterity: 3,
@@ -26,6 +29,7 @@ export const encounter1: Encounter = {
                     outcomes: {},
                 },
                 {
+                    type: StageOptionType.DIFFICULTY_CHECK,
                     text: 'Check the chest for traps',
                     requirements: {
                         wisdom: 1,
@@ -34,6 +38,7 @@ export const encounter1: Encounter = {
                     outcomes: {},
                 },
                 {
+                    type: StageOptionType.DIFFICULTY_CHECK,
                     text: 'Open the chest using magic',
                     requirements: {
                         intelligence: 6,
@@ -42,6 +47,7 @@ export const encounter1: Encounter = {
                     outcomes: {},
                 },
                 {
+                    type: StageOptionType.FLAVOUR,
                     text: 'Ignore the chest',
                     nextStageId: 30,
                 },
@@ -49,18 +55,21 @@ export const encounter1: Encounter = {
         },
         {
             id: 10,
-            text: 'You attempt to fight the mimic!',
+            type: EncounterStageType.OPTIONS,
+            text: ['You attempt to fight the mimic!'],
             options: [],
         },
         {
             id: 20,
-            text: 'You attempt to escape.',
+            type: EncounterStageType.OPTIONS,
+            text: ['You attempt to escape.'],
             options: [],
         },
         {
             id: 30,
-            text: 'You ignore the chest and move on.',
-            options: [],
+            type: EncounterStageType.END_SCENE,
+            text: ['You ignore the chest and move on.'],
+            continueText: 'Move on',
         },
     ],
 };
