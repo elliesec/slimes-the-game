@@ -33,7 +33,7 @@ module.exports = (env, argv) => {
         mode,
         output: {
             path: isProduction ? paths.dist : paths.distDev,
-            publicPath: '/slimes-the-game',
+            publicPath: '/slimes-the-game/',
             filename: `[name]${isProduction ? '.[chunkhash]' : ''}.js`,
         },
         resolve: {
