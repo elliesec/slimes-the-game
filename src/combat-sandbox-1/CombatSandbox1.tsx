@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { noop } from '../common/functions';
 import './CombatSandbox1.scss';
+import { EncounterView } from './components/EncounterView/EncounterView';
 import { ConnectedPlayerConfigPanel } from './components/PlayerConfigPanel/PlayerConfigPanel';
 import { encounter1 } from './encounter1';
 import { Scene } from './enums';
@@ -12,8 +13,6 @@ import { setScene } from './redux/actions/game-actions';
 import { setPlayer } from './redux/actions/player-actions';
 import { defaultPlayer } from './redux/reducers/player-reducer';
 import { State } from './redux/store';
-
-const mimic = require('./assets/mimic.jpg');
 
 export interface CombatSandbox1Props {
     player: Player;
@@ -43,34 +42,7 @@ export class CombatSandbox1 extends Component<CombatSandbox1Props> {
                     <div className="panel-header">
                         <h2>Encounter</h2>
                     </div>
-                    <div className="encounter-view">
-                        <div className="text">
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Aenean consectetur in nunc et
-                                pharetra. Sed maximus lobortis diam sit amet
-                                pharetra. Curabitur condimentum varius
-                                porttitor. Fusce sit amet diam libero. Phasellus
-                                ut vehicula mi, in sollicitudin nunc. In vel
-                                ultricies justo. Quisque dui justo, luctus
-                                posuere vehicula in, hendrerit sit amet ligula.
-                            </p>
-                            <p>
-                                Fusce tempor velit eget urna vehicula, sit amet
-                                mattis nisl convallis. Vestibulum imperdiet
-                                ullamcorper nunc sed vulputate. Morbi ac sapien
-                                rhoncus, egestas arcu at, tincidunt lectus. Nunc
-                                sit amet urna maximus diam pharetra ultricies
-                                sed sit amet nibh. Quisque vulputate metus a
-                                nunc aliquet viverra. Proin quis auctor arcu. Ut
-                                vulputate ante non venenatis rhoncus. Aliquam
-                                sodales sapien eu sagittis luctus.
-                            </p>
-                        </div>
-                        <div className="images">
-                            <img src={mimic} alt="Lewd Pictures" />
-                        </div>
-                    </div>
+                    <EncounterView />
                 </div>
             </div>
         );

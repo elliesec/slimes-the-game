@@ -1,8 +1,8 @@
 import { Encounter } from './Encounter';
 
-export const encounter1: Encounter = {
-    id: 'encounter1',
-    name: 'An Old Chest',
+export const encounter2: Encounter = {
+    id: 'encounter2',
+    name: 'Foo',
     initialStageId: 0,
     stages: [
         {

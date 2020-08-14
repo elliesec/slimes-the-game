@@ -21,18 +21,8 @@
         padding: 1rem;
     }
 
-    .encounter-view {
-        display: flex;
-        flex-flow: row wrap;
-
-        & > * {
-            flex: 1;
-            padding: 1rem;
-        }
-
-        p {
-            font-size: 1.4rem;
-        }
+    .EncounterView {
+        padding: 1rem;
     }
 
     .header-with-buttons {
