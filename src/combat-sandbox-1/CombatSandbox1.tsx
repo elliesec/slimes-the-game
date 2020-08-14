@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { noop } from '../common/functions';
 import './CombatSandbox1.scss';
+import { EncounterView } from './components/EncounterView/EncounterView';
 import { ConnectedPlayerConfigPanel } from './components/PlayerConfigPanel/PlayerConfigPanel';
+import { encounter1 } from './encounter1';
+import { Scene } from './enums';
 import { Player } from './Player';
+import { registerEncounter } from './redux/actions/encounter-actions';
+import { setScene } from './redux/actions/game-actions';
 import { setPlayer } from './redux/actions/player-actions';
 import { defaultPlayer } from './redux/reducers/player-reducer';
 import { State } from './redux/store';
@@ -21,6 +26,7 @@ export class CombatSandbox1 extends Component<CombatSandbox1Props> {
 
     public constructor(props: CombatSandbox1Props) {
         super(props);
+        props.load();
     }
 
     public render({ player }: CombatSandbox1Props): VNode {
@@ -36,6 +42,7 @@ export class CombatSandbox1 extends Component<CombatSandbox1Props> {
                     <div className="panel-header">
                         <h2>Encounter</h2>
                     </div>
+                    <EncounterView />
                 </div>
             </div>
         );
@@ -51,7 +58,9 @@ function mapStateToProps(state: State): Partial<CombatSandbox1Props> {
 function mapDispatchToProps(dispatch: Dispatch): Partial<CombatSandbox1Props> {
     return {
         load(): void {
+            dispatch(registerEncounter(encounter1));
             dispatch(setPlayer(defaultPlayer()));
+            dispatch(setScene(Scene.ENCOUNTER_SELECT));
         },
     };
 }

@@ -1,0 +1,27 @@
+.EncounterSelection {
+    .encounter-stats-list {
+        li {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            font-size: 1.2em;
+
+            .key {
+                flex: 0 0 12em;
+                font-weight: 600;
+                margin-right: 1em;
+            }
+        }
+    }
+
+    .encounter-selection-form {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: flex-start;
+        padding: 1em 0;
+
+        & > * {
+            margin-bottom: 1em;
+        }
+    }
+}
