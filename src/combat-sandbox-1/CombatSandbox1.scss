@@ -11,11 +11,28 @@
 
     .encounter-panel {
         flex: 3 0 75%;
-        overflow: auto;
+
+        img {
+            max-height: 80vh;
+        }
     }
 
     .panel-header {
         padding: 1rem;
+    }
+
+    .encounter-view {
+        display: flex;
+        flex-flow: row wrap;
+
+        & > * {
+            flex: 1;
+            padding: 1rem;
+        }
+
+        p {
+            font-size: 1.4rem;
+        }
     }
 
     .header-with-buttons {
