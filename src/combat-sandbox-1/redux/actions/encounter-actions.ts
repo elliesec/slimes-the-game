@@ -1,4 +1,4 @@
-import { Encounter } from '../../Encounter';
+import { Encounter } from '../../model/Encounter';
 import { PayloadAction } from '../redux-utils';
 
 export enum EncounterActions {

@@ -1,3 +1,12 @@
+export enum Stat {
+    STR = 'strength',
+    DEX = 'dexterity',
+    CON = 'constitution',
+    WIS = 'wisdom',
+    INT = 'intelligence',
+    CHA = 'charisma',
+}
+
 export interface PlayerStats {
     maxWillpower: number;
     willpower: number;

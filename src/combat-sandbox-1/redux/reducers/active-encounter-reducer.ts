@@ -1,5 +1,5 @@
 import { Action, Reducer } from 'redux';
-import { Encounter } from '../../Encounter';
+import { Encounter } from '../../model/Encounter';
 import { EncounterActions } from '../actions/encounter-actions';
 import { PayloadAction } from '../redux-utils';
 import { ActiveEncounter } from '../store';

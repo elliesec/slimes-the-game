@@ -1,13 +1,10 @@
 import { Component, h, VNode } from 'preact';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import {
-    EncounterOption,
-    instanceOfOptionsEncounterStage,
-    OptionsEncounterStage,
-} from '../../Encounter';
+import { EncounterStage } from '../../model/EncounterStage';
 import { ActiveEncounter, State } from '../../redux/store';
 import './EncounterScene.scss';
+import { StageView } from './StageView';
 
 export interface EncounterSceneProps {
     activeEncounter: ActiveEncounter;
@@ -18,19 +15,15 @@ const mimic = require('../../assets/mimic.jpg');
 export class EncounterSceneComponent extends Component<EncounterSceneProps> {
     public render({ activeEncounter }: EncounterSceneProps): VNode {
         const { encounter, stage } = activeEncounter;
-        const encounterStage = encounter.stages.find((s) => s.id === stage);
+        const encounterStage = encounter.stages.find(
+            (s: EncounterStage) => s.id === stage
+        );
         return (
             <div className="EncounterScene">
                 <div className="encounter-text">
                     <div className="card">
                         <h3>Encounter!</h3>
-                        <div className="stage-text">
-                            {encounterStage.text.map((t) => (
-                                <p>{t}</p>
-                            ))}
-                        </div>
-                        {instanceOfOptionsEncounterStage(encounterStage) &&
-                            this.renderOptionsStage(encounterStage)}
+                        <StageView stage={encounterStage} />
                     </div>
                 </div>
                 <div className="encounter-image">
@@ -40,25 +33,6 @@ export class EncounterSceneComponent extends Component<EncounterSceneProps> {
                 </div>
             </div>
         );
-    }
-
-    private renderOptionsStage(stage: OptionsEncounterStage): VNode {
-        return (
-            <div className="options-stage">
-                <p>
-                    <strong>What do you do?</strong>
-                </p>
-                <ul className="options">
-                    {stage.options.map((option) =>
-                        this.renderStageOption(option)
-                    )}
-                </ul>
-            </div>
-        );
-    }
-
-    private renderStageOption(option: EncounterOption): VNode {
-        return <li className="option">{option.text}</li>;
     }
 }
 

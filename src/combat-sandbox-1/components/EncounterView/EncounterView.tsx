@@ -2,7 +2,7 @@ import { h, VNode } from 'preact';
 import { connect } from 'react-redux';
 import { Scene } from '../../enums';
 import { State } from '../../redux/store';
-import { EncounterScene } from './EncounterScene';
+import { EncounterScene } from '../EncounterScene/EncounterScene';
 import { EncounterSelection } from './EncounterSelection';
 import './EncounterView.scss';
 

@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/index';
-import { Encounter } from '../Encounter';
+import { Encounter } from '../model/Encounter';
 import { Scene } from '../enums';
 import { Player } from '../Player';
 import { rootReducer } from './root-reducer';

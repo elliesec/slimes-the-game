@@ -3,7 +3,7 @@ import { JSXInternal } from 'preact/src/jsx';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Callback, noop } from '../../../common/functions';
-import { Encounter } from '../../Encounter';
+import { Encounter } from '../../model/Encounter';
 import { Scene } from '../../enums';
 import { startEncounter } from '../../redux/actions/encounter-actions';
 import { setScene } from '../../redux/actions/game-actions';
