@@ -4,11 +4,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Callback } from '../../../common/functions';
 import { Player } from '../../Player';
-import {
-    setDescription,
-    setPlayer,
-    setStat,
-} from '../../redux/actions/player-actions';
+import { setDescription, setPlayer, setStat } from '../../redux/actions/player-actions';
 import { defaultPlayer } from '../../redux/reducers/player-reducer';
 import { State } from '../../redux/store';
 import './PlayerConfigPanel.scss';
@@ -132,9 +128,7 @@ function mapStateToProps(state: State): Partial<PlayerConfigPanelProps> {
     };
 }
 
-function mapDispatchToProps(
-    dispatch: Dispatch
-): Partial<PlayerConfigPanelProps> {
+function mapDispatchToProps(dispatch: Dispatch): Partial<PlayerConfigPanelProps> {
     return {
         onPlayerReset(): void {
             dispatch(setPlayer(defaultPlayer()));

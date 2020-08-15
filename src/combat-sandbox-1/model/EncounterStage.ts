@@ -28,10 +28,7 @@ export interface EndSceneEncounterStage extends EncounterStageBase {
     continueText: string;
 }
 
-export type EncounterStage =
-    | OptionsEncounterStage
-    | FlavourEncounterStage
-    | EndSceneEncounterStage;
+export type EncounterStage = OptionsEncounterStage | FlavourEncounterStage | EndSceneEncounterStage;
 
 export function instanceOfOptionsEncounterStage(
     stage: EncounterStage

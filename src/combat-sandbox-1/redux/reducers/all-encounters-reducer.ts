@@ -20,9 +20,7 @@ function registerEncounterReducer(
     { payload }: PayloadAction<Encounter>
 ): Record<string, Encounter> {
     if (encounters[payload.id]) {
-        console.warn(
-            `Warning: duplicate encounter registration for ID "${payload.id}"`
-        );
+        console.warn(`Warning: duplicate encounter registration for ID "${payload.id}"`);
     }
     return { ...encounters, [payload.id]: payload };
 }

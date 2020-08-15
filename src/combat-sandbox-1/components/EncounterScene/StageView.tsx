@@ -1,9 +1,6 @@
 import { h, VNode } from 'preact';
 import { connect } from 'react-redux';
-import {
-    EncounterStage,
-    instanceOfOptionsEncounterStage,
-} from '../../model/EncounterStage';
+import { EncounterStage, instanceOfOptionsEncounterStage } from '../../model/EncounterStage';
 import { Player } from '../../Player';
 import { State } from '../../redux/store';
 import { OptionsStageView } from './OptionsStageView';
@@ -24,17 +21,15 @@ const StageTypeView = ({ player, stage }: StageViewProps): VNode => {
     return null;
 };
 
-export const StageView = connect(mapStateToProps)(
-    ({ player, stage }: StageViewProps) => (
-        <div className="StageView">
-            {stage.text.map((t: string) => (
-                <p>{t}</p>
-            ))}
-            <hr />
-            <StageTypeView player={player} stage={stage} />
-        </div>
-    )
-);
+export const StageView = connect(mapStateToProps)(({ player, stage }: StageViewProps) => (
+    <div className="StageView">
+        {stage.text.map((t: string) => (
+            <p>{t}</p>
+        ))}
+        <hr />
+        <StageTypeView player={player} stage={stage} />
+    </div>
+));
 
 function mapStateToProps(
     { player }: State,

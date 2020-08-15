@@ -94,9 +94,7 @@ export const encounter1: Encounter = {
                             ],
                         },
                         failure: {
-                            text: [
-                                'You don’t notice anything out of the ordinary.',
-                            ],
+                            text: ['You don’t notice anything out of the ordinary.'],
                         },
                         criticalFailure: {
                             text: [

@@ -15,9 +15,7 @@ const mimic = require('../../assets/mimic.jpg');
 export class EncounterSceneComponent extends Component<EncounterSceneProps> {
     public render({ activeEncounter }: EncounterSceneProps): VNode {
         const { encounter, stage } = activeEncounter;
-        const encounterStage = encounter.stages.find(
-            (s: EncounterStage) => s.id === stage
-        );
+        const encounterStage = encounter.stages.find((s: EncounterStage) => s.id === stage);
         return (
             <div className="EncounterScene">
                 <div className="encounter-text">

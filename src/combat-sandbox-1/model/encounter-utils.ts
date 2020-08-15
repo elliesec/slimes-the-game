@@ -27,11 +27,7 @@ export function getStatAbbreviation(stat: Stat): string {
     return statAbbreviations[stat];
 }
 
-export function checkStatRequirement(
-    player: Player,
-    stat: Stat,
-    req: number
-): boolean {
+export function checkStatRequirement(player: Player, stat: Stat, req: number): boolean {
     const key = statKeys[stat];
     return player[key] >= req;
 }

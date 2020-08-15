@@ -13,10 +13,7 @@ const reducerMap: Record<string, Reducer<Player>> = {
     [PlayerActions.SET_PLAYER_STAT]: setPlayerStatReducer,
 };
 
-export function playerReducer(
-    player = defaultPlayer(),
-    action: Action
-): Player {
+export function playerReducer(player = defaultPlayer(), action: Action): Player {
     const reducer = reducerMap[action.type];
     return reducer ? reducer(player, action) : player;
 }
@@ -35,10 +32,7 @@ export function defaultPlayer(): Player {
     };
 }
 
-function setPlayerReducer(
-    player: Player,
-    { payload }: PayloadAction<Player>
-): Player {
+function setPlayerReducer(player: Player, { payload }: PayloadAction<Player>): Player {
     if (payload === player) {
         return player;
     }

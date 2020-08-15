@@ -17,10 +17,7 @@ export interface OptionItemProps<O extends EncounterOption> {
     option: O;
 }
 
-const DifficultyCheckItem = ({
-    player,
-    option,
-}: OptionItemProps<DifficultyCheckOption>): VNode => {
+const DifficultyCheckItem = ({ player, option }: OptionItemProps<DifficultyCheckOption>): VNode => {
     const { requirements, text } = option;
     const requiredStats = getRequiredStats(requirements);
     const statList = requiredStats.map(

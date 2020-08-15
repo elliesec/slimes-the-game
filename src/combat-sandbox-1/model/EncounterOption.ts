@@ -43,8 +43,6 @@ export function instanceOfDifficultyCheckOption(
     return option.type === EncounterOptionType.DIFFICULTY_CHECK;
 }
 
-export function instanceOfFlavourOption(
-    option: EncounterOption
-): option is FlavourOption {
+export function instanceOfFlavourOption(option: EncounterOption): option is FlavourOption {
     return option.type === EncounterOptionType.FLAVOUR;
 }
