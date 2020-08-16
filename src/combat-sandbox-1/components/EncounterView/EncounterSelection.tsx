@@ -3,7 +3,7 @@ import { JSXInternal } from 'preact/src/jsx';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Callback, noop } from '../../../common/functions';
-import { Encounter } from '../../Encounter';
+import { Encounter } from '../../model/Encounter';
 import { Scene } from '../../enums';
 import { startEncounter } from '../../redux/actions/encounter-actions';
 import { setScene } from '../../redux/actions/game-actions';
@@ -58,9 +58,7 @@ export class EncounterSelectionComponent extends Component<
                             >
                                 <option value="" />
                                 {encounters.map((encounter) => (
-                                    <option value={encounter.id}>
-                                        {encounter.name}
-                                    </option>
+                                    <option value={encounter.id}>{encounter.name}</option>
                                 ))}
                             </select>
                         </label>
@@ -78,8 +76,7 @@ export class EncounterSelectionComponent extends Component<
 
     private onSelectChange(e: TargetedEvent<HTMLSelectElement>): void {
         const encounterId = e.currentTarget.value;
-        const encounter =
-            this.props.encounters.find((e) => e.id === encounterId) ?? null;
+        const encounter = this.props.encounters.find((e) => e.id === encounterId) ?? null;
         this.setState({ selectedEncounter: encounter });
     }
 
@@ -102,9 +99,7 @@ function mapStateToProps(state: State): Partial<EncounterSelectionProps> {
     };
 }
 
-function mapDispatchToProps(
-    dispatch: Dispatch
-): Partial<EncounterSelectionProps> {
+function mapDispatchToProps(dispatch: Dispatch): Partial<EncounterSelectionProps> {
     return {
         onSelectEncounter(encounter: Encounter): void {
             dispatch(startEncounter(encounter));

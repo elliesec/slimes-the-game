@@ -2,8 +2,7 @@ import { h, VNode } from 'preact';
 import { JSXInternal } from 'preact/src/jsx';
 import HTMLAttributes = JSXInternal.HTMLAttributes;
 
-export interface PlayerConfigPanelInputProps<T>
-    extends HTMLAttributes<HTMLInputElement> {
+export interface PlayerConfigPanelInputProps<T> extends HTMLAttributes<HTMLInputElement> {
     id: string;
     label: string;
 }

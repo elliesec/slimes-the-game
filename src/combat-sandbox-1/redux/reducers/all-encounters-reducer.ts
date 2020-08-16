@@ -1,5 +1,5 @@
 import { Action, Reducer } from 'redux';
-import { Encounter } from '../../Encounter';
+import { Encounter } from '../../model/Encounter';
 import { EncounterActions } from '../actions/encounter-actions';
 import { PayloadAction } from '../redux-utils';
 
@@ -20,9 +20,7 @@ function registerEncounterReducer(
     { payload }: PayloadAction<Encounter>
 ): Record<string, Encounter> {
     if (encounters[payload.id]) {
-        console.warn(
-            `Warning: duplicate encounter registration for ID "${payload.id}"`
-        );
+        console.warn(`Warning: duplicate encounter registration for ID "${payload.id}"`);
     }
     return { ...encounters, [payload.id]: payload };
 }

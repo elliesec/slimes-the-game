@@ -19,9 +19,7 @@ module.exports = (mode, analyze) => {
         new ImageminPlugin(imageminPluginConfig(mode)),
     ];
 
-    pages.forEach((page) =>
-        plugins.push(new HtmlPlugin(htmlPluginConfig(mode, page)))
-    );
+    pages.forEach((page) => plugins.push(new HtmlPlugin(htmlPluginConfig(mode, page))));
 
     if (analyze) {
         plugins.push(new BundleAnalyzerPlugin());
