@@ -1,5 +1,6 @@
 import { Action, Reducer } from 'redux';
 import { Player } from '../../Player';
+import { EncounterActions, EncounterRollCall } from '../actions/encounter-actions';
 import {
     PlayerActions,
     PlayerDescriptionUpdate,
@@ -11,6 +12,7 @@ const reducerMap: Record<string, Reducer<Player>> = {
     [PlayerActions.SET_PLAYER]: setPlayerReducer,
     [PlayerActions.SET_PLAYER_DESCRIPTION]: setPlayerDescriptionReducer,
     [PlayerActions.SET_PLAYER_STAT]: setPlayerStatReducer,
+    [EncounterActions.ACTIVE_ENCOUNTER_ROLL]: activeEncounterRollReducer,
 };
 
 export function playerReducer(player = defaultPlayer(), action: Action): Player {
@@ -57,4 +59,17 @@ function setPlayerStatReducer(
         return player;
     }
     return { ...player, [statName]: value };
+}
+
+function activeEncounterRollReducer(
+    player: Player,
+    { payload: { willpowerCost } }: PayloadAction<EncounterRollCall>
+): Player {
+    if (!willpowerCost) {
+        return player;
+    }
+    return {
+        ...player,
+        willpower: player.willpower - willpowerCost,
+    };
 }

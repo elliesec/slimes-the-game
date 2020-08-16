@@ -1,6 +1,15 @@
 import { Player, PlayerStats, Stat } from '../Player';
 import { OptionRequirements } from './EncounterOption';
 
+const statNames: Record<Stat, string> = {
+    [Stat.STR]: 'Strength',
+    [Stat.DEX]: 'Dexterity',
+    [Stat.CON]: 'Constitution',
+    [Stat.WIS]: 'Wisdom',
+    [Stat.INT]: 'Intelligence',
+    [Stat.CHA]: 'Charisma',
+};
+
 const statAbbreviations: Record<Stat, string> = {
     [Stat.STR]: 'STR',
     [Stat.DEX]: 'DEX',
@@ -21,6 +30,10 @@ const statKeys: Record<Stat, keyof PlayerStats> = {
 
 export function getRequiredStats(option: OptionRequirements): Stat[] {
     return Object.keys(option) as Stat[];
+}
+
+export function getStatName(stat: Stat): string {
+    return statNames[stat];
 }
 
 export function getStatAbbreviation(stat: Stat): string {

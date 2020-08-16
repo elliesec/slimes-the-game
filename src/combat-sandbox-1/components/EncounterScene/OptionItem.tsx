@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { h, VNode } from 'preact';
+import { Callback } from '../../../common/functions';
 import {
     checkStatRequirement,
     getRequiredStats,
@@ -15,9 +16,16 @@ import { Player } from '../../Player';
 export interface OptionItemProps<O extends EncounterOption> {
     player: Player;
     option: O;
+    onClick: Callback<O>;
+    fixed?: boolean;
 }
 
-const DifficultyCheckItem = ({ player, option }: OptionItemProps<DifficultyCheckOption>): VNode => {
+const DifficultyCheckItem = ({
+    player,
+    option,
+    onClick,
+    fixed,
+}: OptionItemProps<DifficultyCheckOption>): VNode => {
     const { requirements, text } = option;
     const requiredStats = getRequiredStats(requirements);
     const statList = requiredStats.map(
@@ -31,7 +39,9 @@ const DifficultyCheckItem = ({ player, option }: OptionItemProps<DifficultyCheck
         <li
             className={classNames('OptionItem', 'DifficultyCheckItem', {
                 disabled: failRequirement,
+                fixed: !!fixed,
             })}
+            onClick={() => onClick(option)}
         >
             <strong>{statText}</strong>
             <span>{text}</span>
@@ -39,9 +49,11 @@ const DifficultyCheckItem = ({ player, option }: OptionItemProps<DifficultyCheck
     );
 };
 
-export const OptionItem = ({ player, option }: OptionItemProps<any>): VNode => {
+export const OptionItem = ({ player, option, onClick, fixed }: OptionItemProps<any>): VNode => {
     if (instanceOfDifficultyCheckOption(option)) {
-        return <DifficultyCheckItem player={player} option={option} />;
+        return (
+            <DifficultyCheckItem player={player} option={option} onClick={onClick} fixed={fixed} />
+        );
     } else {
         return <li className="OptionItem">{option.text}</li>;
     }

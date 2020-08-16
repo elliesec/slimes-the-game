@@ -12,8 +12,13 @@ export interface EncounterOptionBase {
     text: string;
 }
 
+export interface ResourceMods {
+    willpower?: number;
+}
+
 export interface DifficultyCheckOptionOutcome {
     text: string[];
+    resourceMods?: ResourceMods;
 }
 
 export interface DifficultyCheckOptionOutcomes {

@@ -29,6 +29,9 @@ export const encounter1: Encounter = {
                             text: [
                                 'You strike the chest hard, breaking open the wooden frame. Blood and flailing tendrils spring forth immediately. The chest was a mimic! Fortunately you have managed to wound it without placing yourself in danger.',
                             ],
+                            resourceMods: {
+                                willpower: 1,
+                            },
                         },
                         failure: {
                             text: [
@@ -56,6 +59,9 @@ export const encounter1: Encounter = {
                                 'With well honed skill you deftly tease the lock open. In one smooth motion you remove the padlock and open the chest - all without making a sound.',
                                 'Inside you find a heaped mass of tentacles. A dormant mimic! You were lucky not to disturb it.',
                             ],
+                            resourceMods: {
+                                willpower: 1,
+                            },
                         },
                         success: {
                             text: [

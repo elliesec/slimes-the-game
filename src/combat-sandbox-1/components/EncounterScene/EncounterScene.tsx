@@ -1,8 +1,9 @@
 import { Component, h, VNode } from 'preact';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { ActiveEncounter } from '../../model/ActiveEncounter';
 import { EncounterStage } from '../../model/EncounterStage';
-import { ActiveEncounter, State } from '../../redux/store';
+import { State } from '../../redux/store';
 import './EncounterScene.scss';
 import { StageView } from './StageView';
 
@@ -15,7 +16,7 @@ const mimic = require('../../assets/mimic.jpg');
 export class EncounterSceneComponent extends Component<EncounterSceneProps> {
     public render({ activeEncounter }: EncounterSceneProps): VNode {
         const { encounter, stage } = activeEncounter;
-        const encounterStage = encounter.stages.find((s: EncounterStage) => s.id === stage);
+        const encounterStage = encounter.stages.find((s: EncounterStage) => s.id === stage.id);
         return (
             <div className="EncounterScene">
                 <div className="encounter-text">
