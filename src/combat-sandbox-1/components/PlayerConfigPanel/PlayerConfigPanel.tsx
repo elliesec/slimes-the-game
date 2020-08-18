@@ -116,7 +116,8 @@ export const PlayerConfigPanel = ({
             label="Willpower"
             type="number"
             value={player.willpower}
-            min={1}
+            min={0}
+            max={player.maxWillpower}
             onChange={onWillpowerChange}
         />
     </div>
