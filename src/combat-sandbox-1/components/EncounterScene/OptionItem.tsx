@@ -12,6 +12,7 @@ import {
     instanceOfDifficultyCheckOption,
 } from '../../model/EncounterOption';
 import { Player } from '../../Player';
+import './OptionItem.scss';
 
 export interface OptionItemProps<O extends EncounterOption> {
     player: Player;
@@ -41,6 +42,7 @@ const DifficultyCheckItem = ({
                 disabled: failRequirement,
                 fixed: !!fixed,
             })}
+            tabIndex={fixed ? undefined : 0}
             onClick={() => onClick(option)}
         >
             <strong>{statText}</strong>

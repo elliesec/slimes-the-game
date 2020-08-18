@@ -63,6 +63,7 @@ export class EncounterSelectionComponent extends Component<
                             </select>
                         </label>
                         <button
+                            className="primary"
                             disabled={!this.state.selectedEncounter}
                             onClick={this.onSelectEncounter}
                         >

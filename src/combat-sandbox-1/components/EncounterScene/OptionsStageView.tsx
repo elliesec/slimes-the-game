@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { h, VNode } from 'preact';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -45,19 +46,24 @@ const InitStateView = ({ player, stage, onOptionSelect }: OptionsStageViewProps)
 
 const RollStateView = ({ player, activeEncounterStage, onRoll }: OptionsStageViewProps): VNode => {
     const stage = activeEncounterStage as ActiveEncounterRollStage;
+    const hasRolls = !!stage.rolls.length;
     return (
         <div className="RollStateView">
+            <div className="buttons">
+                <button className="primary" disabled={!hasRolls}>
+                    Accept
+                </button>
+                <button
+                    className={classNames({ primary: !hasRolls })}
+                    disabled={hasRolls && player.willpower < 1}
+                    onClick={() => onRoll(20, hasRolls ? 1 : 0)}
+                >{`Roll${hasRolls ? ' (1 willpower)' : ''}`}</button>
+            </div>
+            <hr />
             <ul>
                 <OptionItem player={player} option={stage.option} onClick={noop} fixed />
             </ul>
             <RollDisplay player={player} stage={stage} />
-            <div className="buttons">
-                <button
-                    disabled={!!stage.rolls.length && player.willpower < 1}
-                    onClick={() => onRoll(20, stage.rolls.length ? 1 : 0)}
-                >{`Roll${stage.rolls.length ? ' (1 willpower)' : ''}`}</button>
-                {!!stage.rolls.length && <button>Accept</button>}
-            </div>
         </div>
     );
 };
