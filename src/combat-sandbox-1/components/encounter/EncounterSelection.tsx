@@ -3,9 +3,9 @@ import { JSXInternal } from 'preact/src/jsx';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Callback, noop } from '../../../common/functions';
-import { Encounter } from '../../model/Encounter';
+import { Encounter } from '../../../common/model/encounter/Encounter';
+import { encounterStart } from '../../../common/redux/encounter/encounterActions';
 import { Scene } from '../../enums';
-import { startEncounter } from '../../redux/actions/encounter-actions';
 import { setScene } from '../../redux/actions/game-actions';
 import { State } from '../../redux/store';
 import './EncounterSelection.scss';
@@ -39,38 +39,37 @@ export class EncounterSelectionComponent extends Component<
     public render({ encounters }: EncounterSelectionProps): VNode {
         return (
             <div className="EncounterSelection">
-                <h3>Encounter Selection</h3>
-                <div className="encounter-stats">
+                <section>
                     <ul className="encounter-stats-list">
                         <li>
                             <span className="key">Encounters Available: </span>
                             <span className="value">{encounters.length}</span>
                         </li>
                     </ul>
-                    <hr />
-                    <div className="encounter-selection-form">
-                        <label htmlFor="encounter-select">
-                            <span>Select Encounter: </span>
-                            <select
-                                id="encounter-select"
-                                value={this.state.selectedEncounter?.id}
-                                onChange={this.onSelectChange}
-                            >
-                                <option value="" />
-                                {encounters.map((encounter) => (
-                                    <option value={encounter.id}>{encounter.name}</option>
-                                ))}
-                            </select>
-                        </label>
-                        <button
-                            className="primary"
-                            disabled={!this.state.selectedEncounter}
-                            onClick={this.onSelectEncounter}
+                </section>
+                <hr />
+                <section className="encounter-selection-form">
+                    <label htmlFor="encounter-select">
+                        <span>Select Encounter: </span>
+                        <select
+                            id="encounter-select"
+                            value={this.state.selectedEncounter?.id}
+                            onChange={this.onSelectChange}
                         >
-                            Start Encounter
-                        </button>
-                    </div>
-                </div>
+                            <option value="" />
+                            {encounters.map((encounter) => (
+                                <option value={encounter.id}>{encounter.name}</option>
+                            ))}
+                        </select>
+                    </label>
+                    <button
+                        className="primary"
+                        disabled={!this.state.selectedEncounter}
+                        onClick={this.onSelectEncounter}
+                    >
+                        Start Encounter
+                    </button>
+                </section>
             </div>
         );
     }
@@ -96,14 +95,14 @@ export const EncounterSelection = connect(
 
 function mapStateToProps(state: State): Partial<EncounterSelectionProps> {
     return {
-        encounters: Object.values(state.encounter.all),
+        encounters: Object.values(state.encounter.byId),
     };
 }
 
 function mapDispatchToProps(dispatch: Dispatch): Partial<EncounterSelectionProps> {
     return {
         onSelectEncounter(encounter: Encounter): void {
-            dispatch(startEncounter(encounter));
+            dispatch(encounterStart(encounter));
             dispatch(setScene(Scene.ENCOUNTER));
         },
     };

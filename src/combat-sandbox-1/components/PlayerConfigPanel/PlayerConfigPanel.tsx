@@ -25,7 +25,7 @@ export interface PlayerConfigPanelProps {
     onWillpowerChange: Callback<TargetedEvent<HTMLInputElement>>;
 }
 
-export const PlayerConfigPanel = ({
+const render = ({
     player,
     onPlayerReset,
     onNameChange,
@@ -173,7 +173,4 @@ function mapDispatchToProps(dispatch: Dispatch): Partial<PlayerConfigPanelProps>
     };
 }
 
-export const ConnectedPlayerConfigPanel = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PlayerConfigPanel);
+export const PlayerConfigPanel = connect(mapStateToProps, mapDispatchToProps)(render);

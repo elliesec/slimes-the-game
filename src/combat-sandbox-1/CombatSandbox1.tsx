@@ -2,13 +2,13 @@ import { Component, h, VNode } from 'preact';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { noop } from '../common/functions';
+import { encounterRegister } from '../common/redux/encounter/encounterActions';
 import './CombatSandbox1.scss';
-import { EncounterView } from './components/EncounterView/EncounterView';
-import { ConnectedPlayerConfigPanel } from './components/PlayerConfigPanel/PlayerConfigPanel';
+import { EncounterPanel } from './components/EncounterPanel/EncounterPanel';
+import { PlayerConfigPanel } from './components/PlayerConfigPanel/PlayerConfigPanel';
 import { encounter1 } from './encounter1';
 import { Scene } from './enums';
 import { Player } from './Player';
-import { registerEncounter } from './redux/actions/encounter-actions';
 import { setScene } from './redux/actions/game-actions';
 import { setPlayer } from './redux/actions/player-actions';
 import { defaultPlayer } from './redux/reducers/player-reducer';
@@ -36,13 +36,13 @@ export class CombatSandbox1 extends Component<CombatSandbox1Props> {
                     <div className="panel-header">
                         <h2>Configuration</h2>
                     </div>
-                    <ConnectedPlayerConfigPanel />
+                    <PlayerConfigPanel />
                 </div>
                 <div className="encounter-panel">
                     <div className="panel-header">
                         <h2>Encounter</h2>
                     </div>
-                    <EncounterView />
+                    <EncounterPanel />
                 </div>
             </div>
         );
@@ -58,7 +58,7 @@ function mapStateToProps(state: State): Partial<CombatSandbox1Props> {
 function mapDispatchToProps(dispatch: Dispatch): Partial<CombatSandbox1Props> {
     return {
         load(): void {
-            dispatch(registerEncounter(encounter1));
+            dispatch(encounterRegister(encounter1));
             dispatch(setPlayer(defaultPlayer()));
             dispatch(setScene(Scene.ENCOUNTER_SELECT));
         },
