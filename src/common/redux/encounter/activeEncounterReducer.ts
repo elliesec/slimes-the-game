@@ -5,7 +5,7 @@ import { Encounter } from '../../model/encounter/Encounter';
 import { EncounterAction } from './encounterActions';
 
 function defaultActiveEncounter(): ActiveEncounter {
-    return { encounter: null };
+    return { encounter: null, stage: null };
 }
 
 const reducers: Record<string, Reducer<ActiveEncounter>> = {
@@ -26,9 +26,15 @@ function encounterStartReducer(
     action: PayloadAction<Encounter>
 ): ActiveEncounter {
     const encounter = action.payload;
-    return encounter ? { encounter } : state;
+    if (encounter) {
+        const stage = encounter.stages.find((s) => s.id === encounter.entryStage);
+        if (stage) {
+            return { encounter, stage };
+        }
+    }
+    return state;
 }
 
 function encounterResetReducer(): ActiveEncounter {
-    return { encounter: null };
+    return defaultActiveEncounter();
 }

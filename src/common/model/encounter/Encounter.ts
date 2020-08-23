@@ -1,3 +1,5 @@
+import { EncounterStage } from './EncounterStage';
+
 export interface WithId {
     id: string;
 }
@@ -10,4 +12,7 @@ export interface WithText {
     text: string[];
 }
 
-export interface Encounter extends WithId, WithName {}
+export interface Encounter extends WithId, WithName {
+    stages: EncounterStage[];
+    entryStage: string;
+}
