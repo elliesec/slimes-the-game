@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { encounterReset } from '../../../common/redux/encounter/encounterActions';
 import { Scene } from '../../enums';
+import { setScene } from '../../redux/actions/game-actions';
 import { State } from '../../redux/store';
 import { EncounterSelection } from '../encounter/EncounterSelection';
 import { EncounterView } from '../encounter/EncounterView';
@@ -59,6 +60,7 @@ function mapDispatchToProps(dispatch: Dispatch): Partial<EncounterPanelProps> {
     return {
         onReset() {
             dispatch(encounterReset());
+            dispatch(setScene(Scene.ENCOUNTER_SELECT));
         },
     };
 }
