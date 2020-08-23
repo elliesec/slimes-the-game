@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { ActiveEncounter } from '../../../common/model/encounter/ActiveEncounter';
 import { State } from '../../redux/store';
 import { EncounterStageText } from './EncounterStageText';
+import { StageTypeView } from './StageTypeView';
 
 export interface EncounterStageViewProps {
     activeEncounter: ActiveEncounter;
@@ -11,6 +12,8 @@ export interface EncounterStageViewProps {
 const render = ({ activeEncounter }: EncounterStageViewProps): VNode => (
     <div className="EncounterStageView">
         <EncounterStageText text={activeEncounter.stage.text} />
+        <hr />
+        <StageTypeView />
     </div>
 );
 

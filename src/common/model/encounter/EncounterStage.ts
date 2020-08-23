@@ -1,3 +1,9 @@
 import { WithId, WithText } from './Encounter';
 
-export interface EncounterStage extends WithId, WithText {}
+export enum EncounterStageType {
+    CHOICE = 'CHOICE',
+}
+
+export interface EncounterStage extends WithId, WithText {
+    type: EncounterStageType;
+}
