@@ -25,7 +25,7 @@ export interface PlayerConfigPanelProps {
     onWillpowerChange: Callback<TargetedEvent<HTMLInputElement>>;
 }
 
-export const PlayerConfigPanel = ({
+const render = ({
     player,
     onPlayerReset,
     onNameChange,
@@ -116,7 +116,8 @@ export const PlayerConfigPanel = ({
             label="Willpower"
             type="number"
             value={player.willpower}
-            min={1}
+            min={0}
+            max={player.maxWillpower}
             onChange={onWillpowerChange}
         />
     </div>
@@ -172,7 +173,4 @@ function mapDispatchToProps(dispatch: Dispatch): Partial<PlayerConfigPanelProps>
     };
 }
 
-export const ConnectedPlayerConfigPanel = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PlayerConfigPanel);
+export const PlayerConfigPanel = connect(mapStateToProps, mapDispatchToProps)(render);

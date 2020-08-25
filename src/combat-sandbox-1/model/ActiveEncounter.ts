@@ -1,18 +1,26 @@
 import { Encounter } from './Encounter';
-import { EncounterOption } from './EncounterOption';
+import { EncounterOption, FlavourOption } from './EncounterOption';
+import { EncounterStage } from './EncounterStage';
 
 export enum EncounterStageState {
     INIT = 'INIT',
     ROLL = 'ROLL',
+    FLAVOUR = 'FLAVOUR',
 }
 
 export interface ActiveEncounterStageBase {
     id: number;
+    stage: EncounterStage;
     state: EncounterStageState;
 }
 
 export interface ActiveEncounterInitStage extends ActiveEncounterStageBase {
     state: EncounterStageState.INIT;
+}
+
+export interface ActiveEncounterFlavourStage extends ActiveEncounterStageBase {
+    state: EncounterStageState.FLAVOUR;
+    option: FlavourOption;
 }
 
 export interface ActiveEncounterRollStage extends ActiveEncounterStageBase {
@@ -21,7 +29,10 @@ export interface ActiveEncounterRollStage extends ActiveEncounterStageBase {
     rolls: number[];
 }
 
-export type ActiveEncounterStage = ActiveEncounterInitStage | ActiveEncounterRollStage;
+export type ActiveEncounterStage =
+    | ActiveEncounterInitStage
+    | ActiveEncounterRollStage
+    | ActiveEncounterFlavourStage;
 
 export interface ActiveEncounter {
     encounter: Encounter;

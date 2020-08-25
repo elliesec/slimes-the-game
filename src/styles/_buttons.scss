@@ -1,0 +1,51 @@
+@import 'constants';
+
+button {
+    background-color: rgba(#000, 0.12);
+    font-size: 1rem;
+    padding: 0.5em 1em;
+    transition: all 100ms linear;
+    outline: 0;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    text-transform: uppercase;
+
+    &:not(:disabled) {
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            background-color: rgba(#000, 0.2);
+        }
+
+        &:active {
+            background-color: rgba(#000, 0.3);
+            transition-duration: 10ms;
+        }
+
+        &:focus,
+        &:active {
+            border-color: rgba(#000, 0.87);
+        }
+    }
+
+    &:disabled {
+        opacity: 0.5;
+    }
+
+    &.primary {
+        background-color: $color-primary;
+        color: #fff;
+
+        &:not(:disabled) {
+            &:hover,
+            &:focus {
+                background-color: darken($color-primary, 5%);
+            }
+
+            &:active {
+                background-color: darken($color-primary, 8%);
+            }
+        }
+    }
+}

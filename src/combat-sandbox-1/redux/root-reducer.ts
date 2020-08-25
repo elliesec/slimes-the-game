@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
+import { encounterReducer } from '../../common/redux/encounter/encounterReducer';
 import { currentSceneReducer } from './reducers/current-scene-reducer';
-import { encounterReducer } from './reducers/encounter-reducer';
 import { playerReducer } from './reducers/player-reducer';
 import { State } from './store';
 

@@ -18,6 +18,7 @@ export enum EncounterActions {
     START_ENCOUNTER = 'START_ENCOUNTER',
     SELECT_ENCOUNTER_OPTION = 'SELECT_ENCOUNTER_OPTION',
     ACTIVE_ENCOUNTER_ROLL = 'ACTIVE_ENCOUNTER_ROLL',
+    SET_ENCOUNTER_STAGE = 'SET_ENCOUNTER_STAGE',
 }
 
 export function registerEncounter(encounter: Encounter): PayloadAction<Encounter> {

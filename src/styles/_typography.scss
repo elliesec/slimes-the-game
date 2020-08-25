@@ -1,5 +1,6 @@
 $font-family-headings: 'Lato', 'Helvetica Neue', 'Arial', sans-serif;
-$font-family-body: 'Raleway', 'Helvetica Neue', 'Arial', sans-serif;
+$font-family-body: 'Open Sans', 'Helvetica Neue', 'Arial', sans-serif;
+$font-family-code: 'Roboto Mono', 'Courier', monospace;
 
 html,
 body {
@@ -40,4 +41,9 @@ hr {
 
 strong {
     font-weight: 600;
+}
+
+pre,
+code {
+    font-family: $font-family-code;
 }

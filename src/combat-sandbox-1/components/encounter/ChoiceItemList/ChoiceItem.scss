@@ -1,0 +1,16 @@
+.ChoiceItem {
+    padding: 0.5em 1em;
+    background-color: rgba(#000, 0.1);
+    transition: all 100ms linear;
+
+    &:not(.fixed) {
+        &:hover {
+            background-color: rgba(#000, 0.2);
+            cursor: pointer;
+        }
+    }
+
+    &.fixed {
+        background-color: rgba(#689f38, 0.25);
+    }
+}
