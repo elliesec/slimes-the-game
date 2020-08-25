@@ -20,14 +20,21 @@ export interface EncounterPanelProps {
     onReset(): void;
 }
 
-const renderView = (currentScene: Scene): VNode => {
+const renderView = (currentScene: Scene, onReset: () => void): VNode => {
     switch (currentScene) {
         case Scene.ENCOUNTER_SELECT:
             return <EncounterSelection />;
         case Scene.ENCOUNTER:
             return <EncounterView />;
         case Scene.ENCOUNTER_END:
-            return <div>Encounter End</div>;
+            return (
+                <div>
+                    <p>Congratulations! You finished the encounter!</p>
+                    <button className="primary" onClick={onReset}>
+                        Start again?
+                    </button>
+                </div>
+            );
         default:
             return null;
     }
@@ -46,7 +53,7 @@ export const EncounterPanel = connect(
                         Reset
                     </button>
                 </h3>
-                {renderView(currentScene)}
+                {renderView(currentScene, onReset)}
             </div>
         );
     }

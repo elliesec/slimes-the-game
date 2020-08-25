@@ -11,6 +11,7 @@ export interface EncounterChoiceBase extends WithText {
 
 export interface EndEncounterChoice extends EncounterChoiceBase {
     type: ChoiceType.END_ENCOUNTER;
+    continueText: string;
 }
 
 export type EncounterChoice = EndEncounterChoice;

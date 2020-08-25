@@ -16,6 +16,7 @@ export const encounter1: Encounter = {
                     type: ChoiceType.END_ENCOUNTER,
                     description: 'Ignore the chest',
                     text: ['You ignore the chest and move on'],
+                    continueText: 'Continue',
                 },
             ],
         },

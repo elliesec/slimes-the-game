@@ -9,13 +9,13 @@ export interface EncounterStageBase extends WithId, WithText {
     type: EncounterStageType;
 }
 
-export interface ChoiceStage extends EncounterStageBase {
+export interface ChoicesStage extends EncounterStageBase {
     type: EncounterStageType.CHOICE;
     choices: EncounterChoice[];
 }
 
-export type EncounterStage = ChoiceStage;
+export type EncounterStage = ChoicesStage;
 
-export function instanceOfChoicesStage(stage: EncounterStage): stage is ChoiceStage {
+export function instanceOfChoicesStage(stage: EncounterStage): stage is ChoicesStage {
     return stage.type === EncounterStageType.CHOICE;
 }
