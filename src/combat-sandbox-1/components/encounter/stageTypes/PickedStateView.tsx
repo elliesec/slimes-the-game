@@ -12,7 +12,7 @@ export interface PickedStateViewProps {
 export const PickedStateView = ({ activeEncounter, stage }: PickedStateViewProps): VNode => {
     const { choice } = activeEncounter;
     if (instanceOfEndEncounterChoice(choice)) {
-        return <EndEncounterChoiceView stage={stage} />;
+        return <EndEncounterChoiceView stage={stage} choice={choice} />;
     }
     return <div>PickedStateView</div>;
 };

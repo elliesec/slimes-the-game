@@ -6,18 +6,20 @@ import { ActiveEncounter, StageState } from '../../../../common/model/encounter/
 import { EncounterChoice } from '../../../../common/model/encounter/EncounterChoice';
 import { ChoicesStage } from '../../../../common/model/encounter/EncounterStage';
 import { encounterSelectChoice } from '../../../../common/redux/encounter/encounterActions';
+import { Player } from '../../../Player';
 import { State } from '../../../redux/store';
 import { ChoiceItemList } from '../ChoiceItemList/ChoiceItemList';
 import { PickedStateView } from './PickedStateView';
 
 export interface ChoicesStageViewProps {
+    player: Player;
     activeEncounter: ActiveEncounter;
     stage: ChoicesStage;
     onChoiceSelect?: Callback<EncounterChoice>;
 }
 
-const InitStateView = ({ stage, onChoiceSelect }: ChoicesStageViewProps): VNode => (
-    <ChoiceItemList choices={stage.choices} onSelect={onChoiceSelect} />
+const InitStateView = ({ player, stage, onChoiceSelect }: ChoicesStageViewProps): VNode => (
+    <ChoiceItemList player={player} choices={stage.choices} onSelect={onChoiceSelect} />
 );
 
 function getStateView(state: StageState): ComponentType<ChoicesStageViewProps> {
@@ -42,7 +44,10 @@ const render = (props: ChoicesStageViewProps) => {
 };
 
 function mapStateToProps(state: State): Partial<ChoicesStageViewProps> {
-    return { activeEncounter: state.encounter.active };
+    return {
+        player: state.player,
+        activeEncounter: state.encounter.active,
+    };
 }
 
 function mapDispatchToProps(dispatch: Dispatch): Partial<ChoicesStageViewProps> {

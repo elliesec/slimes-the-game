@@ -1,3 +1,31 @@
 .ChoiceItemList {
-    margin-bottom: 1em;
+    .ChoiceItem {
+        padding: 0.5em 1em;
+        margin-bottom: 1em;
+        background-color: rgba(#000, 0.15);
+        transition: all 100ms linear;
+
+        &:hover {
+            background-color: rgba(#000, 0.25);
+            cursor: pointer;
+        }
+
+        &.fixed,
+        &.disabled {
+            background-color: rgba(#000, 0.15);
+            cursor: default;
+        }
+
+        &.disabled {
+            opacity: 0.3;
+        }
+
+        &.fixed {
+            background-color: rgba(#689f38, 0.25);
+        }
+
+        .requirements {
+            font-weight: 600;
+        }
+    }
 }
