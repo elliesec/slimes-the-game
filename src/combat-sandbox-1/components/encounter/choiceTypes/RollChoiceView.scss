@@ -1,0 +1,40 @@
+.RollChoiceView {
+    .buttons {
+        button {
+            margin-right: 1em;
+        }
+    }
+
+    .roll-table {
+        margin: 1em 0;
+        border-collapse: collapse;
+        border: 1px solid rgba(#000, 0.12);
+
+        tr:not(:last-child) {
+            border-bottom: 1px solid rgba(#000, 0.12);
+        }
+
+        tr.sum-row {
+            th,
+            td {
+                font-weight: 600;
+            }
+        }
+
+        th,
+        td {
+            padding: 0.5em 1em;
+        }
+
+        th {
+            text-align: left;
+            border-right: 1px solid rgba(#000, 0.12);
+            min-width: 8em;
+        }
+
+        td {
+            text-align: right;
+            min-width: 4em;
+        }
+    }
+}

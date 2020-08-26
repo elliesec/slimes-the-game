@@ -22,14 +22,9 @@ export interface EndEncounterChoiceViewProps extends EndEncounterChoiceViewWrapp
     onContinue: () => void;
 }
 
-const render = ({
-    player,
-    activeEncounter,
-    choice,
-    onContinue,
-}: EndEncounterChoiceViewProps): VNode => (
+const render = ({ player, choice, onContinue }: EndEncounterChoiceViewProps): VNode => (
     <div className="EndEncounterChoiceView">
-        <ChoiceItemList player={player} choices={[activeEncounter.choice]} fixed />
+        <ChoiceItemList player={player} choices={[choice]} fixed />
         {choice.text.map((t) => (
             <p>{t}</p>
         ))}
@@ -50,10 +45,7 @@ function mapStateToProps(
     };
 }
 
-function mapDispatchToProps(
-    dispatch: Dispatch,
-    ownProps: EndEncounterChoiceViewWrapperProps
-): Partial<EndEncounterChoiceViewProps> {
+function mapDispatchToProps(dispatch: Dispatch): Partial<EndEncounterChoiceViewProps> {
     return {
         onContinue(): void {
             dispatch(encounterEnd());

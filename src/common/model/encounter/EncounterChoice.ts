@@ -1,5 +1,6 @@
 import { Stat } from '../../../combat-sandbox-1/Player';
 import { WithText } from './Encounter';
+import { EncounterOutcome } from './EncounterOutcome';
 
 export enum ChoiceType {
     END_ENCOUNTER = 'END_ENCOUNTER',
@@ -21,6 +22,13 @@ export interface EndEncounterChoice extends EncounterChoiceBase, WithText {
 
 export interface RollChoice extends EncounterChoiceBase {
     type: ChoiceType.ROLL;
+    dc: number;
+    outcomes: {
+        criticalSuccess?: EncounterOutcome;
+        success: EncounterOutcome;
+        failure: EncounterOutcome;
+        criticalFailure?: EncounterOutcome;
+    };
 }
 
 export type EncounterChoice = EndEncounterChoice | RollChoice;
@@ -29,4 +37,8 @@ export function instanceOfEndEncounterChoice(
     choice: EncounterChoice
 ): choice is EndEncounterChoice {
     return choice.type === ChoiceType.END_ENCOUNTER;
+}
+
+export function instanceofRollChoice(choice: EncounterChoice): choice is RollChoice {
+    return choice.type === ChoiceType.ROLL;
 }
