@@ -10,7 +10,7 @@ export interface EncounterStageAndOption {
 
 export interface EncounterRollCall {
     dieFaces: number;
-    willpowerCost: number;
+    cost: number;
 }
 
 export enum EncounterActions {
@@ -40,5 +40,8 @@ export function activeEncounterRoll(
     dieFaces: number,
     willpowerCost: number
 ): PayloadAction<EncounterRollCall> {
-    return { type: EncounterActions.ACTIVE_ENCOUNTER_ROLL, payload: { dieFaces, willpowerCost } };
+    return {
+        type: EncounterActions.ACTIVE_ENCOUNTER_ROLL,
+        payload: { dieFaces, cost: willpowerCost },
+    };
 }

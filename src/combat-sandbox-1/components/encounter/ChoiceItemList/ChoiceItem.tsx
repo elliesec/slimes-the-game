@@ -1,48 +1,55 @@
 import classNames from 'classnames';
-import { ComponentType, h, VNode } from 'preact';
+import { h, VNode } from 'preact';
 import { useCallback } from 'preact/hooks';
-import { Callback, noop } from '../../../../common/functions';
 import {
-    EncounterChoice,
-    EndEncounterChoice,
-    instanceOfEndEncounterChoice,
-} from '../../../../common/model/encounter/EncounterChoice';
-import './ChoiceItem.scss';
+    checkChoiceRequirements,
+    getRequiredStats,
+    getStatAbbreviation,
+} from '../../../../common/encounter/encounterUtils';
+import { Callback, noop } from '../../../../common/functions';
+import { EncounterChoice } from '../../../../common/model/encounter/EncounterChoice';
+import { Player } from '../../../Player';
 
 export interface ChoiceItemProps<C extends EncounterChoice> {
+    player: Player;
     choice: C;
     onSelect: Callback<C>;
     fixed?: boolean;
 }
 
-const EndEncounterChoiceItem = ({
-    choice,
-    onSelect,
-    fixed,
-}: ChoiceItemProps<EndEncounterChoice>): VNode => {
+export const ChoiceItem = (props: ChoiceItemProps<EncounterChoice>): VNode => {
+    const { player, choice, fixed } = props;
+    let { onSelect } = props;
+    const disabled = !checkChoiceRequirements(player, choice);
+    if (disabled || typeof onSelect !== 'function') {
+        onSelect = noop;
+    }
+
     const onClick = useCallback(() => onSelect(choice), [choice]);
+    let requirementsText = '';
+    if (choice.requirements) {
+        const stats = getRequiredStats(choice);
+        if (stats.length) {
+            requirementsText = stats
+                .map((stat) => `${choice.requirements[stat]} ${getStatAbbreviation(stat)}`)
+                .join(', ');
+            requirementsText = `[${requirementsText}]`;
+        }
+    }
     return (
         <li
-            className={classNames(['ChoiceItem', 'EndEncounterChoiceItem', { fixed: !!fixed }])}
+            className={classNames([
+                'ChoiceItem',
+                'EndEncounterChoiceItem',
+                {
+                    fixed: !!fixed,
+                    disabled,
+                },
+            ])}
             onClick={onClick}
         >
-            {choice.description}
+            <span className="requirements">{requirementsText} </span>
+            <span>{choice.description}</span>
         </li>
     );
-};
-
-export function getChoiceItem<C extends EncounterChoice>(
-    choice: EncounterChoice
-): ComponentType<ChoiceItemProps<C>> {
-    if (instanceOfEndEncounterChoice(choice)) return EndEncounterChoiceItem;
-    return null;
-}
-
-export const ChoiceItem = (props: ChoiceItemProps<EncounterChoice>): VNode => {
-    const { choice, onSelect } = props;
-    if (typeof onSelect !== 'function') {
-        props.onSelect = noop;
-    }
-    const Component = getChoiceItem(choice);
-    return Component ? <Component {...props} /> : null;
 };

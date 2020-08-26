@@ -1,5 +1,7 @@
 import { Action } from 'redux';
+import { Player } from '../../../combat-sandbox-1/Player';
 import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
+import { roll } from '../../math/mathUtils';
 import { StageState } from '../../model/encounter/ActiveEncounter';
 import { Encounter } from '../../model/encounter/Encounter';
 import { EncounterChoice } from '../../model/encounter/EncounterChoice';
@@ -11,6 +13,13 @@ export enum EncounterAction {
     SELECT_CHOICE = 'ENCOUNTER_SELECT_CHOICE',
     SET_STAGE_STATE = 'ENCOUNTER_SET_STAGE_STATE',
     END = 'ENCOUNTER_END',
+    ROLL = 'ENCOUNTER_ROLL',
+    ROLL_CONTINUE = 'ENCOUNTER_ROLL_CONTINUE',
+}
+
+export interface EncounterRollDef {
+    roll: number;
+    cost: number;
 }
 
 export function encounterRegister(encounter: Encounter): PayloadAction<Encounter> {
@@ -35,4 +44,16 @@ export function setStageState(state: StageState): PayloadAction<StageState> {
 
 export function encounterEnd(): Action {
     return { type: EncounterAction.END };
+}
+
+export function encounterRoll(
+    cost: number,
+    dieFaces = 20,
+    dieCount = 1
+): PayloadAction<EncounterRollDef> {
+    return { type: EncounterAction.ROLL, payload: { roll: roll(dieCount, dieFaces), cost } };
+}
+
+export function encounterRollContinue(player: Player): PayloadAction<Player> {
+    return { type: EncounterAction.ROLL_CONTINUE, payload: player };
 }

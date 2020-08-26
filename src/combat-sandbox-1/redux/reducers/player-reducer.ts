@@ -1,6 +1,9 @@
 import { Action, Reducer } from 'redux';
+import {
+    EncounterAction,
+    EncounterRollDef,
+} from '../../../common/redux/encounter/encounterActions';
 import { Player } from '../../Player';
-import { EncounterActions, EncounterRollCall } from '../actions/encounter-actions';
 import {
     PlayerActions,
     PlayerDescriptionUpdate,
@@ -12,7 +15,7 @@ const reducerMap: Record<string, Reducer<Player>> = {
     [PlayerActions.SET_PLAYER]: setPlayerReducer,
     [PlayerActions.SET_PLAYER_DESCRIPTION]: setPlayerDescriptionReducer,
     [PlayerActions.SET_PLAYER_STAT]: setPlayerStatReducer,
-    [EncounterActions.ACTIVE_ENCOUNTER_ROLL]: activeEncounterRollReducer,
+    [EncounterAction.ROLL]: encounterRollReducer,
 };
 
 export function playerReducer(player = defaultPlayer(), action: Action): Player {
@@ -22,7 +25,7 @@ export function playerReducer(player = defaultPlayer(), action: Action): Player 
 
 export function defaultPlayer(): Player {
     return {
-        name: 'Heroine',
+        name: 'Firecrotch',
         maxWillpower: 10,
         willpower: 10,
         strength: 2,
@@ -61,15 +64,15 @@ function setPlayerStatReducer(
     return { ...player, [statName]: value };
 }
 
-function activeEncounterRollReducer(
+function encounterRollReducer(
     player: Player,
-    { payload: { willpowerCost } }: PayloadAction<EncounterRollCall>
+    { payload }: PayloadAction<EncounterRollDef>
 ): Player {
-    if (!willpowerCost) {
+    if (!payload || !payload.cost) {
         return player;
     }
     return {
         ...player,
-        willpower: player.willpower - willpowerCost,
+        willpower: player.willpower - payload.cost,
     };
 }

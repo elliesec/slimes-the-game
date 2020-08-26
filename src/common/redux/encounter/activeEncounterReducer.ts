@@ -1,10 +1,22 @@
 import { Action, Reducer } from 'redux';
+import { Player } from '../../../combat-sandbox-1/Player';
 import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
-import { ActiveEncounter, StageState } from '../../model/encounter/ActiveEncounter';
+import { getRequiredStats } from '../../encounter/encounterUtils';
+import {
+    ActiveEncounter,
+    RollOutcomeType,
+    RollState,
+    StageState,
+} from '../../model/encounter/ActiveEncounter';
 import { Encounter } from '../../model/encounter/Encounter';
-import { EncounterChoice } from '../../model/encounter/EncounterChoice';
+import {
+    ChoiceType,
+    EncounterChoice,
+    instanceofRollChoice,
+} from '../../model/encounter/EncounterChoice';
+import { EncounterOutcome } from '../../model/encounter/EncounterOutcome';
 import { instanceOfChoicesStage } from '../../model/encounter/EncounterStage';
-import { EncounterAction } from './encounterActions';
+import { EncounterAction, EncounterRollDef } from './encounterActions';
 
 function defaultActiveEncounter(): ActiveEncounter {
     return { encounter: null, stage: null, stageState: null };
@@ -15,6 +27,8 @@ const reducers: Record<string, Reducer<ActiveEncounter>> = {
     [EncounterAction.RESET]: encounterResetReducer,
     [EncounterAction.SELECT_CHOICE]: encounterSelectChoiceReducer,
     [EncounterAction.SET_STAGE_STATE]: encounterSetStageStateReducer,
+    [EncounterAction.ROLL]: encounterRollReducer,
+    [EncounterAction.ROLL_CONTINUE]: encounterRollContinueReducer,
 };
 
 export function activeEncounterReducer(
@@ -55,7 +69,11 @@ function encounterSelectChoiceReducer(
     ) {
         return state;
     }
-    return { ...state, stageState: StageState.PICKED, choice: payload };
+    const newState = { ...state, stageState: StageState.PICKED, choice: payload };
+    if (payload.type === ChoiceType.ROLL) {
+        newState.rollState = RollState.INIT;
+    }
+    return newState;
 }
 
 function encounterSetStageStateReducer(
@@ -66,4 +84,57 @@ function encounterSetStageStateReducer(
         return { ...state, stageState: payload };
     }
     return state;
+}
+
+function encounterRollReducer(
+    state: ActiveEncounter,
+    { payload }: PayloadAction<EncounterRollDef>
+): ActiveEncounter {
+    if (payload) {
+        const rolls = state.rolls ?? [];
+        rolls.push(payload.roll);
+        return { ...state, rolls };
+    }
+    return state;
+}
+
+function encounterRollContinueReducer(
+    state: ActiveEncounter,
+    action: PayloadAction<Player>
+): ActiveEncounter {
+    const { rolls, choice } = state;
+    if (!instanceofRollChoice(choice)) return state;
+
+    const player = action.payload;
+    const { dc, outcomes } = choice;
+    const stats = getRequiredStats(choice);
+    const statSum = stats.reduce((sum, stat) => sum + player[stat], 0);
+    const rollSum = rolls.reduce((sum, roll) => sum + roll, 0);
+    const total = statSum + rollSum;
+    let rollOutcome: EncounterOutcome;
+    let rollOutcomeType: RollOutcomeType;
+    if (rolls.includes(20) || total >= dc + 10) {
+        rollOutcome = outcomes.criticalSuccess ?? outcomes.success;
+        rollOutcomeType = outcomes.criticalSuccess
+            ? RollOutcomeType.CRITICAL_SUCCESS
+            : RollOutcomeType.SUCCESS;
+    } else if (total < 7) {
+        rollOutcome = outcomes.criticalFailure ?? outcomes.failure;
+        rollOutcomeType = outcomes.criticalFailure
+            ? RollOutcomeType.CRITICAL_FAILURE
+            : RollOutcomeType.FAILURE;
+    } else if (total >= dc) {
+        rollOutcome = outcomes.success;
+        rollOutcomeType = RollOutcomeType.SUCCESS;
+    } else {
+        rollOutcome = outcomes.failure;
+        rollOutcomeType = RollOutcomeType.FAILURE;
+    }
+    return {
+        ...state,
+        rollState: RollState.ROLLED,
+        rollTotal: total,
+        rollOutcome,
+        rollOutcomeType,
+    };
 }
