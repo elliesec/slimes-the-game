@@ -7,12 +7,20 @@ import { getRequiredStats, getStatName } from '../../../../common/encounter/enco
 import { Callback } from '../../../../common/functions';
 import { ActiveEncounter, RollState } from '../../../../common/model/encounter/ActiveEncounter';
 import { RollChoice } from '../../../../common/model/encounter/EncounterChoice';
+import {
+    instanceOfEndEncounterOutcome,
+    instanceOfNextStageOutcome,
+} from '../../../../common/model/encounter/EncounterOutcome';
 import { ChoicesStage } from '../../../../common/model/encounter/EncounterStage';
 import {
+    encounterEnd,
     encounterRoll,
     encounterRollContinue,
+    encounterSetStage,
 } from '../../../../common/redux/encounter/encounterActions';
+import { Scene } from '../../../enums';
 import { Player } from '../../../Player';
+import { setScene } from '../../../redux/actions/game-actions';
 import { State } from '../../../redux/store';
 import { ChoiceItemList } from '../ChoiceItemList/ChoiceItemList';
 import './RollChoiceView.scss';
@@ -27,6 +35,7 @@ export interface RollChoiceViewProps extends RollChoiceViewWrapperProps {
     activeEncounter: ActiveEncounter;
     onRoll: Callback<number>;
     onContinue: Callback<Player>;
+    onRolledContinue: Callback<ActiveEncounter>;
 }
 
 const renderInitView = ({
@@ -86,7 +95,13 @@ const renderInitView = ({
     );
 };
 
-const renderRolledView = ({ player, activeEncounter, choice }: RollChoiceViewProps): VNode => {
+const renderRolledView = ({
+    player,
+    activeEncounter,
+    choice,
+    onRolledContinue,
+}: RollChoiceViewProps): VNode => {
+    const onContinueClick = useCallback(() => onRolledContinue(activeEncounter), [activeEncounter]);
     return (
         <div className="RollChoiceView">
             <ChoiceItemList player={player} choices={[choice]} fixed />
@@ -105,6 +120,9 @@ const renderRolledView = ({ player, activeEncounter, choice }: RollChoiceViewPro
             {activeEncounter.rollOutcome.text.map((t) => (
                 <p>{t}</p>
             ))}
+            <button className="primary" onClick={onContinueClick}>
+                {activeEncounter.rollOutcome.continueText}
+            </button>
         </div>
     );
 };
@@ -138,6 +156,14 @@ function mapDispatchToProps(dispatch: Dispatch): Partial<RollChoiceViewProps> {
         },
         onContinue(player: Player): void {
             dispatch(encounterRollContinue(player));
+        },
+        onRolledContinue({ rollOutcome }: ActiveEncounter): void {
+            if (instanceOfEndEncounterOutcome(rollOutcome)) {
+                dispatch(encounterEnd());
+                dispatch(setScene(Scene.ENCOUNTER_END));
+            } else if (instanceOfNextStageOutcome(rollOutcome)) {
+                dispatch(encounterSetStage(rollOutcome.nextStageId));
+            }
         },
     };
 }

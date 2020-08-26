@@ -25,7 +25,7 @@ export const ChoiceItem = (props: ChoiceItemProps<EncounterChoice>): VNode => {
         onSelect = noop;
     }
 
-    const onClick = useCallback(() => onSelect(choice), [choice]);
+    const onClick = useCallback(() => onSelect(choice), [choice, onSelect]);
     let requirementsText = '';
     if (choice.requirements) {
         const stats = getRequiredStats(choice);
