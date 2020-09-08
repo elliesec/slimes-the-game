@@ -26,7 +26,7 @@
         "favicons-webpack-plugin": "^4.2.0",
         "file-loader": "^6.1.0",
         "html-webpack-plugin": "^4.4.1",
-        "husky": "^4.2.5",
+        "husky": "^4.3.0",
         "imagemin-gifsicle": "^7.0.0",
         "imagemin-mozjpeg": "^9.0.0",
         "imagemin-optipng": "^8.0.0",
