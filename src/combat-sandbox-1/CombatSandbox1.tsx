@@ -1,4 +1,4 @@
-import { Component, h, VNode } from 'preact';
+import React, { Component, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { noop } from '../common/functions';
@@ -29,7 +29,7 @@ export class CombatSandbox1 extends Component<CombatSandbox1Props> {
         props.load();
     }
 
-    public render({ player }: CombatSandbox1Props): VNode {
+    public render(): ReactElement {
         return (
             <div className="CombatSandbox1">
                 <div className="config-panel">

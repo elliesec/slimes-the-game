@@ -1,5 +1,4 @@
-import { Component, h, VNode } from 'preact';
-import { JSXInternal } from 'preact/src/jsx';
+import React, { ChangeEvent, Component, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Callback, noop } from '../../../common/functions';
@@ -9,7 +8,6 @@ import { Scene } from '../../enums';
 import { setScene } from '../../redux/actions/game-actions';
 import { State } from '../../redux/store';
 import './EncounterSelection.scss';
-import TargetedEvent = JSXInternal.TargetedEvent;
 
 export interface EncounterSelectionProps {
     encounters: Encounter[];
@@ -36,7 +34,8 @@ export class EncounterSelectionComponent extends Component<
         this.onSelectEncounter = this.onSelectEncounter.bind(this);
     }
 
-    public render({ encounters }: EncounterSelectionProps): VNode {
+    public render(): ReactElement {
+        const { encounters } = this.props;
         return (
             <div className="EncounterSelection">
                 <section>
@@ -58,7 +57,9 @@ export class EncounterSelectionComponent extends Component<
                         >
                             <option value="" />
                             {encounters.map((encounter) => (
-                                <option value={encounter.id}>{encounter.name}</option>
+                                <option key={encounter.id} value={encounter.id}>
+                                    {encounter.name}
+                                </option>
                             ))}
                         </select>
                     </label>
@@ -74,7 +75,7 @@ export class EncounterSelectionComponent extends Component<
         );
     }
 
-    private onSelectChange(e: TargetedEvent<HTMLSelectElement>): void {
+    private onSelectChange(e: ChangeEvent<HTMLSelectElement>): void {
         const encounterId = e.currentTarget.value;
         const encounter = this.props.encounters.find((e) => e.id === encounterId) ?? null;
         this.setState({ selectedEncounter: encounter });

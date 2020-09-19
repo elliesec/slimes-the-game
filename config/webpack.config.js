@@ -39,8 +39,6 @@ module.exports = (env, argv) => {
         resolve: {
             alias: {
                 PIXI: 'pixi.js',
-                react: 'preact/compat',
-                'react-dom': 'preact/compat',
             },
             extensions: ['.ts', '.tsx', '.js', '.jsx'],
         },

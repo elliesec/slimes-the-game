@@ -1,4 +1,4 @@
-import { h, VNode } from 'preact';
+import React, { ReactElement } from 'react';
 import { ActiveEncounter } from '../../../../common/model/encounter/ActiveEncounter';
 import {
     instanceOfEndEncounterChoice,
@@ -13,7 +13,10 @@ export interface PickedStateViewProps {
     stage: ChoicesStage;
 }
 
-export const PickedStateView = ({ activeEncounter, stage }: PickedStateViewProps): VNode => {
+export const PickedStateView = function PickedStateView({
+    activeEncounter,
+    stage,
+}: PickedStateViewProps): ReactElement {
     const { choice } = activeEncounter;
     if (instanceOfEndEncounterChoice(choice)) {
         return <EndEncounterChoiceView stage={stage} choice={choice} />;

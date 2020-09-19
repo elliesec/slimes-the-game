@@ -1,4 +1,4 @@
-import { ComponentType, h, VNode } from 'preact';
+import React, { ComponentType, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Callback } from '../../../../common/functions';
@@ -18,7 +18,7 @@ export interface ChoicesStageViewProps {
     onChoiceSelect?: Callback<EncounterChoice>;
 }
 
-const InitStateView = ({ player, stage, onChoiceSelect }: ChoicesStageViewProps): VNode => (
+const InitStateView = ({ player, stage, onChoiceSelect }: ChoicesStageViewProps): ReactElement => (
     <ChoiceItemList player={player} choices={stage.choices} onSelect={onChoiceSelect} />
 );
 

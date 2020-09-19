@@ -1,12 +1,12 @@
 import Application = PIXI.Application;
-import { Component, createRef, h, VNode } from 'preact';
+import React, { Component, createRef, ReactNode } from 'react';
 import './SlimesTheGame.scss';
 
 export class SlimesTheGame extends Component {
     private elementRef = createRef<HTMLDivElement>();
     private app: Application;
 
-    public render(): VNode {
+    public render(): ReactNode {
         return <div id="SlimesTheGame" ref={this.elementRef} />;
     }
 

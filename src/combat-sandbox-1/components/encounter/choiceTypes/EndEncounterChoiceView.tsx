@@ -1,4 +1,4 @@
-import { h, VNode } from 'preact';
+import React, { ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { ActiveEncounter } from '../../../../common/model/encounter/ActiveEncounter';
@@ -22,7 +22,7 @@ export interface EndEncounterChoiceViewProps extends EndEncounterChoiceViewWrapp
     onContinue: () => void;
 }
 
-const render = ({ player, choice, onContinue }: EndEncounterChoiceViewProps): VNode => (
+const render = ({ player, choice, onContinue }: EndEncounterChoiceViewProps): ReactElement => (
     <div className="EndEncounterChoiceView">
         <ChoiceItemList player={player} choices={[choice]} fixed />
         {choice.text.map((t) => (

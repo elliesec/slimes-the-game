@@ -1,4 +1,5 @@
-import { h, render } from 'preact';
+import React from 'react';
+import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedCombatSandbox1 } from './combat-sandbox-1/CombatSandbox1';
 import { store } from './combat-sandbox-1/redux/store';
