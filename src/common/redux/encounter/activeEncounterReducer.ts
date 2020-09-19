@@ -29,6 +29,7 @@ const reducers: Record<string, Reducer<ActiveEncounter>> = {
     [EncounterAction.SET_STAGE_STATE]: encounterSetStageStateReducer,
     [EncounterAction.ROLL]: encounterRollReducer,
     [EncounterAction.ROLL_CONTINUE]: encounterRollContinueReducer,
+    [EncounterAction.SET_STAGE]: setStageReducer,
 };
 
 export function activeEncounterReducer(
@@ -136,5 +137,28 @@ function encounterRollContinueReducer(
         rollTotal: total,
         rollOutcome,
         rollOutcomeType,
+    };
+}
+
+function setStageReducer(
+    state: ActiveEncounter,
+    { payload }: PayloadAction<string>
+): ActiveEncounter {
+    if (typeof payload !== 'string' || payload === state.stage.id) {
+        return state;
+    }
+    const newStage = state.encounter.stages.find((stage) => stage.id === payload);
+    if (!newStage) {
+        return state;
+    }
+    return {
+        ...state,
+        stage: newStage,
+        stageState: StageState.INIT,
+        rolls: [],
+        rollState: null,
+        rollOutcome: null,
+        rollOutcomeType: null,
+        rollTotal: 0,
     };
 }

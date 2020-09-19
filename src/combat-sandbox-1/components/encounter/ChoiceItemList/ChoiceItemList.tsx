@@ -1,4 +1,4 @@
-import { h, VNode } from 'preact';
+import React, { ReactElement } from 'react';
 import { Callback } from '../../../../common/functions';
 import { EncounterChoice } from '../../../../common/model/encounter/EncounterChoice';
 import { Player } from '../../../Player';
@@ -17,7 +17,7 @@ export const ChoiceItemList = ({
     choices,
     onSelect,
     fixed,
-}: ChoiceItemListProps): VNode => (
+}: ChoiceItemListProps): ReactElement => (
     <ul className="ChoiceItemList">
         {choices.map((choice) => (
             <ChoiceItem player={player} choice={choice} onSelect={onSelect} fixed={fixed} />

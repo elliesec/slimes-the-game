@@ -1,4 +1,4 @@
-import { h, VNode } from 'preact';
+import React, { ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { ActiveEncounter } from '../../../common/model/encounter/ActiveEncounter';
 import { State } from '../../redux/store';
@@ -9,7 +9,7 @@ export interface EncounterStageViewProps {
     activeEncounter: ActiveEncounter;
 }
 
-const render = ({ activeEncounter }: EncounterStageViewProps): VNode => (
+const render = ({ activeEncounter }: EncounterStageViewProps): ReactElement => (
     <div className="EncounterStageView">
         <EncounterStageText text={activeEncounter.stage.text} />
         <hr />

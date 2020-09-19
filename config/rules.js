@@ -35,15 +35,16 @@ function getStyleLoaders(mode) {
         {
             loader: 'postcss-loader',
             options: {
-                ident: 'postcss',
-                plugins: () => [
-                    PostCssFlexbugsFixesPlugin,
-                    PostCssPresetEnvPlugin({
-                        autoprefixer: {
-                            flexbox: 'no-2009',
-                        },
-                    }),
-                ],
+                postcssOptions: {
+                    plugins: [
+                        PostCssFlexbugsFixesPlugin(),
+                        PostCssPresetEnvPlugin({
+                            autoprefixer: {
+                                flexbox: 'no-2009',
+                            },
+                        }),
+                    ],
+                },
             },
         },
         'sass-loader',

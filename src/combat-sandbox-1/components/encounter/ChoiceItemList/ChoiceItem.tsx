@@ -1,6 +1,5 @@
 import classNames from 'classnames';
-import { h, VNode } from 'preact';
-import { useCallback } from 'preact/hooks';
+import React, { ReactElement, useCallback } from 'react';
 import {
     checkChoiceRequirements,
     getRequiredStats,
@@ -17,7 +16,7 @@ export interface ChoiceItemProps<C extends EncounterChoice> {
     fixed?: boolean;
 }
 
-export const ChoiceItem = (props: ChoiceItemProps<EncounterChoice>): VNode => {
+export const ChoiceItem = (props: ChoiceItemProps<EncounterChoice>): ReactElement => {
     const { player, choice, fixed } = props;
     let { onSelect } = props;
     const disabled = !checkChoiceRequirements(player, choice);
@@ -25,7 +24,7 @@ export const ChoiceItem = (props: ChoiceItemProps<EncounterChoice>): VNode => {
         onSelect = noop;
     }
 
-    const onClick = useCallback(() => onSelect(choice), [choice]);
+    const onClick = useCallback(() => onSelect(choice), [choice, onSelect]);
     let requirementsText = '';
     if (choice.requirements) {
         const stats = getRequiredStats(choice);

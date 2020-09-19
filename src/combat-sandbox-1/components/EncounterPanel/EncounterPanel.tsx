@@ -1,4 +1,4 @@
-import { h, VNode } from 'preact';
+import React, { ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { encounterReset } from '../../../common/redux/encounter/encounterActions';
@@ -20,7 +20,7 @@ export interface EncounterPanelProps {
     onReset(): void;
 }
 
-const renderView = (currentScene: Scene, onReset: () => void): VNode => {
+const renderView = (currentScene: Scene, onReset: () => void): ReactElement => {
     switch (currentScene) {
         case Scene.ENCOUNTER_SELECT:
             return <EncounterSelection />;
@@ -44,7 +44,7 @@ export const EncounterPanel = connect(
     mapStateToProps,
     mapDispatchToProps
 )(
-    ({ currentScene, onReset }: EncounterPanelProps): VNode => {
+    ({ currentScene, onReset }: EncounterPanelProps): ReactElement => {
         return (
             <div className="EncounterPanel">
                 <h3 className="header-with-buttons">

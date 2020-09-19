@@ -7,6 +7,7 @@ export enum OutcomeType {
 
 export interface EncounterOutcomeBase extends WithText {
     type: OutcomeType;
+    continueText: string;
 }
 
 export interface NextStageOutcome extends EncounterOutcomeBase {

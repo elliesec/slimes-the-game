@@ -1,5 +1,6 @@
 import 'pixi.js';
-import { h, render } from 'preact';
+import React from 'react';
+import { render } from 'react-dom';
 import './index.scss';
 import './slimes-the-game/SlimesTheGame';
 import { SlimesTheGame } from './slimes-the-game/SlimesTheGame';

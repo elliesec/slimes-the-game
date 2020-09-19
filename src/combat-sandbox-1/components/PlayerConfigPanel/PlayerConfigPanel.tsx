@@ -1,5 +1,4 @@
-import { h, VNode } from 'preact';
-import { JSXInternal } from 'preact/src/jsx';
+import React, { ChangeEvent, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { Callback } from '../../../common/functions';
@@ -9,20 +8,19 @@ import { defaultPlayer } from '../../redux/reducers/player-reducer';
 import { State } from '../../redux/store';
 import './PlayerConfigPanel.scss';
 import { PlayerConfigPanelInput } from './PlayerConfigPanelInput';
-import TargetedEvent = JSXInternal.TargetedEvent;
 
 export interface PlayerConfigPanelProps {
     player: Player;
     onPlayerReset: () => void;
-    onNameChange: Callback<TargetedEvent<HTMLInputElement>>;
-    onStrengthChange: Callback<TargetedEvent<HTMLInputElement>>;
-    onDexterityChange: Callback<TargetedEvent<HTMLInputElement>>;
-    onConstitutionChange: Callback<TargetedEvent<HTMLInputElement>>;
-    onWisdomChange: Callback<TargetedEvent<HTMLInputElement>>;
-    onIntelligenceChange: Callback<TargetedEvent<HTMLInputElement>>;
-    onCharismaChange: Callback<TargetedEvent<HTMLInputElement>>;
-    onMaxWillpowerChange: Callback<TargetedEvent<HTMLInputElement>>;
-    onWillpowerChange: Callback<TargetedEvent<HTMLInputElement>>;
+    onNameChange: Callback<ChangeEvent<HTMLInputElement>>;
+    onStrengthChange: Callback<ChangeEvent<HTMLInputElement>>;
+    onDexterityChange: Callback<ChangeEvent<HTMLInputElement>>;
+    onConstitutionChange: Callback<ChangeEvent<HTMLInputElement>>;
+    onWisdomChange: Callback<ChangeEvent<HTMLInputElement>>;
+    onIntelligenceChange: Callback<ChangeEvent<HTMLInputElement>>;
+    onCharismaChange: Callback<ChangeEvent<HTMLInputElement>>;
+    onMaxWillpowerChange: Callback<ChangeEvent<HTMLInputElement>>;
+    onWillpowerChange: Callback<ChangeEvent<HTMLInputElement>>;
 }
 
 const render = ({
@@ -37,7 +35,7 @@ const render = ({
     onCharismaChange,
     onMaxWillpowerChange,
     onWillpowerChange,
-}: PlayerConfigPanelProps): VNode => (
+}: PlayerConfigPanelProps): ReactElement => (
     <div className="PlayerConfigPanel">
         <h3 className="header-with-buttons">
             <span>Player</span>
@@ -134,39 +132,39 @@ function mapDispatchToProps(dispatch: Dispatch): Partial<PlayerConfigPanelProps>
         onPlayerReset(): void {
             dispatch(setPlayer(defaultPlayer()));
         },
-        onNameChange(e: TargetedEvent<HTMLInputElement>): void {
+        onNameChange(e: ChangeEvent<HTMLInputElement>): void {
             const value = e.currentTarget.value;
             dispatch(setDescription('name', value));
         },
-        onStrengthChange(e: TargetedEvent<HTMLInputElement>): void {
+        onStrengthChange(e: ChangeEvent<HTMLInputElement>): void {
             const value = Number(e.currentTarget.value);
             dispatch(setStat('strength', value));
         },
-        onDexterityChange(e: TargetedEvent<HTMLInputElement>): void {
+        onDexterityChange(e: ChangeEvent<HTMLInputElement>): void {
             const value = Number(e.currentTarget.value);
             dispatch(setStat('dexterity', value));
         },
-        onConstitutionChange(e: TargetedEvent<HTMLInputElement>): void {
+        onConstitutionChange(e: ChangeEvent<HTMLInputElement>): void {
             const value = Number(e.currentTarget.value);
             dispatch(setStat('constitution', value));
         },
-        onWisdomChange(e: TargetedEvent<HTMLInputElement>): void {
+        onWisdomChange(e: ChangeEvent<HTMLInputElement>): void {
             const value = Number(e.currentTarget.value);
             dispatch(setStat('wisdom', value));
         },
-        onIntelligenceChange(e: TargetedEvent<HTMLInputElement>): void {
+        onIntelligenceChange(e: ChangeEvent<HTMLInputElement>): void {
             const value = Number(e.currentTarget.value);
             dispatch(setStat('intelligence', value));
         },
-        onCharismaChange(e: TargetedEvent<HTMLInputElement>): void {
+        onCharismaChange(e: ChangeEvent<HTMLInputElement>): void {
             const value = Number(e.currentTarget.value);
             dispatch(setStat('charisma', value));
         },
-        onMaxWillpowerChange(e: TargetedEvent<HTMLInputElement>): void {
+        onMaxWillpowerChange(e: ChangeEvent<HTMLInputElement>): void {
             const value = Number(e.currentTarget.value);
             dispatch(setStat('maxWillpower', value));
         },
-        onWillpowerChange(e: TargetedEvent<HTMLInputElement>): void {
+        onWillpowerChange(e: ChangeEvent<HTMLInputElement>): void {
             const value = Number(e.currentTarget.value);
             dispatch(setStat('willpower', value));
         },

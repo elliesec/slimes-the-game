@@ -1,8 +1,8 @@
-import { h } from 'preact';
-import { SitePage } from '../../config/pages';
+import React from 'react';
 import * as pages from '../../config/pages';
-import './SiteMap.scss';
+import { SitePage } from '../../config/pages';
 import { PageContent } from '../components/PageContent/PageContent';
+import './SiteMap.scss';
 
 export const SiteMap = () => {
     return (

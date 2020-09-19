@@ -1,4 +1,4 @@
-import { ComponentType, h, VNode } from 'preact';
+import React, { ComponentType, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { ActiveEncounter } from '../../../common/model/encounter/ActiveEncounter';
 import {
@@ -23,7 +23,7 @@ function getStageView<S extends EncounterStage>(
     return null;
 }
 
-const render = ({ activeEncounter }: StageTypeViewProps): VNode => {
+const render = ({ activeEncounter }: StageTypeViewProps): ReactElement => {
     const StageView = getStageView(activeEncounter.stage);
     return StageView ? <StageView stage={activeEncounter.stage} /> : null;
 };

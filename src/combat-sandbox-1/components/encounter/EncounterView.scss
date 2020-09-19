@@ -1,0 +1,14 @@
+.EncounterView {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+
+    .EncounterStageView {
+        flex: 1;
+    }
+
+    img {
+        max-width: 40%;
+        margin-left: 2rem;
+    }
+}

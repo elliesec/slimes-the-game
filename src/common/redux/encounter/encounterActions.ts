@@ -15,6 +15,7 @@ export enum EncounterAction {
     END = 'ENCOUNTER_END',
     ROLL = 'ENCOUNTER_ROLL',
     ROLL_CONTINUE = 'ENCOUNTER_ROLL_CONTINUE',
+    SET_STAGE = 'SET_STAGE',
 }
 
 export interface EncounterRollDef {
@@ -56,4 +57,8 @@ export function encounterRoll(
 
 export function encounterRollContinue(player: Player): PayloadAction<Player> {
     return { type: EncounterAction.ROLL_CONTINUE, payload: player };
+}
+
+export function encounterSetStage(stageId: string): PayloadAction<string> {
+    return { type: EncounterAction.SET_STAGE, payload: stageId };
 }

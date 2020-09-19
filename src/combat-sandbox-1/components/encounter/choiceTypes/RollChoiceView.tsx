@@ -1,18 +1,25 @@
 import classNames from 'classnames';
-import { h, VNode } from 'preact';
-import { useCallback } from 'preact/hooks';
+import React, { ReactElement, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { getRequiredStats, getStatName } from '../../../../common/encounter/encounterUtils';
 import { Callback } from '../../../../common/functions';
 import { ActiveEncounter, RollState } from '../../../../common/model/encounter/ActiveEncounter';
 import { RollChoice } from '../../../../common/model/encounter/EncounterChoice';
+import {
+    instanceOfEndEncounterOutcome,
+    instanceOfNextStageOutcome,
+} from '../../../../common/model/encounter/EncounterOutcome';
 import { ChoicesStage } from '../../../../common/model/encounter/EncounterStage';
 import {
+    encounterEnd,
     encounterRoll,
     encounterRollContinue,
+    encounterSetStage,
 } from '../../../../common/redux/encounter/encounterActions';
+import { Scene } from '../../../enums';
 import { Player } from '../../../Player';
+import { setScene } from '../../../redux/actions/game-actions';
 import { State } from '../../../redux/store';
 import { ChoiceItemList } from '../ChoiceItemList/ChoiceItemList';
 import './RollChoiceView.scss';
@@ -27,15 +34,16 @@ export interface RollChoiceViewProps extends RollChoiceViewWrapperProps {
     activeEncounter: ActiveEncounter;
     onRoll: Callback<number>;
     onContinue: Callback<Player>;
+    onRolledContinue: Callback<ActiveEncounter>;
 }
 
-const renderInitView = ({
+const RollChoiceInitView = ({
     player,
     activeEncounter,
     choice,
     onRoll,
     onContinue,
-}: RollChoiceViewProps): VNode => {
+}: RollChoiceViewProps): ReactElement => {
     const rolls = activeEncounter.rolls ?? [];
     const canContinue = !!rolls.length;
     const rollCost = rolls.length ? 1 : 0;
@@ -86,7 +94,13 @@ const renderInitView = ({
     );
 };
 
-const renderRolledView = ({ player, activeEncounter, choice }: RollChoiceViewProps): VNode => {
+const RollChoiceRolledView = ({
+    player,
+    activeEncounter,
+    choice,
+    onRolledContinue,
+}: RollChoiceViewProps): ReactElement => {
+    const onContinueClick = useCallback(() => onRolledContinue(activeEncounter), [activeEncounter]);
     return (
         <div className="RollChoiceView">
             <ChoiceItemList player={player} choices={[choice]} fixed />
@@ -105,16 +119,19 @@ const renderRolledView = ({ player, activeEncounter, choice }: RollChoiceViewPro
             {activeEncounter.rollOutcome.text.map((t) => (
                 <p>{t}</p>
             ))}
+            <button className="primary" onClick={onContinueClick}>
+                {activeEncounter.rollOutcome.continueText}
+            </button>
         </div>
     );
 };
 
-const render = (props: RollChoiceViewProps): VNode => {
+const render = (props: RollChoiceViewProps): ReactElement => {
     switch (props.activeEncounter.rollState) {
         case RollState.INIT:
-            return renderInitView(props);
+            return <RollChoiceInitView {...props} />;
         case RollState.ROLLED:
-            return renderRolledView(props);
+            return <RollChoiceRolledView {...props} />;
         default:
             return null;
     }
@@ -138,6 +155,14 @@ function mapDispatchToProps(dispatch: Dispatch): Partial<RollChoiceViewProps> {
         },
         onContinue(player: Player): void {
             dispatch(encounterRollContinue(player));
+        },
+        onRolledContinue({ rollOutcome }: ActiveEncounter): void {
+            if (instanceOfEndEncounterOutcome(rollOutcome)) {
+                dispatch(encounterEnd());
+                dispatch(setScene(Scene.ENCOUNTER_END));
+            } else if (instanceOfNextStageOutcome(rollOutcome)) {
+                dispatch(encounterSetStage(rollOutcome.nextStageId));
+            }
         },
     };
 }
