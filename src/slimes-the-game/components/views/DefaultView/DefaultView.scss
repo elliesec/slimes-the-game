@@ -1,0 +1,49 @@
+.DefaultView {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    width: 100%;
+    height: 100%;
+
+    .Sidebar {
+        flex: 1;
+    }
+
+    .windows {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: stretch;
+        flex: 5;
+        margin: 0.25rem;
+
+        .TextWindow {
+            flex: 4;
+        }
+
+        .context-windows {
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: stretch;
+            flex: 5;
+
+            .CharacterWindow {
+                flex: 5;
+            }
+
+            .context-windows-lower {
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: stretch;
+                flex: 4;
+            }
+
+            .MapWindow {
+                flex: 3;
+            }
+
+            .NPCWindow {
+                flex: 2;
+            }
+        }
+    }
+}

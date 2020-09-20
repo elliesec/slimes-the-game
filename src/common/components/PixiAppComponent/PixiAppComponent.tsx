@@ -1,22 +1,24 @@
-import { Application } from 'pixi.js';
-import React, { Component, createRef, ReactElement } from 'react';
+import React, { createRef, PureComponent, ReactElement } from 'react';
 import { withResizeDetector } from 'react-resize-detector';
+import { PixiApp } from '../../pixi/PixiApp';
+import { PixiAppView } from '../PixiAppView/PixiAppView';
 import './PixiAppComponent.scss';
 
 export interface PixiAppComponentProps {
     width: number;
     height: number;
+    view: typeof PixiAppView;
 }
 
-export class PixiAppComponentClass extends Component<PixiAppComponentProps, {}> {
+export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps, {}> {
     private readonly elementRef = createRef<HTMLDivElement>();
-    private app: Application;
+    private app: PixiApp;
 
     public componentDidMount(): void {
         const element = this.elementRef.current;
         const width = element.clientWidth;
         const height = element.clientHeight;
-        this.app = new Application({ width, height, transparent: true });
+        this.app = new PixiApp({ width, height, transparent: true });
         this.app.resizeTo = element;
         element.appendChild(this.app.view);
     }
@@ -29,7 +31,12 @@ export class PixiAppComponentClass extends Component<PixiAppComponentProps, {}> 
     }
 
     public render(): ReactElement {
-        return <div className="PixiAppComponent" ref={this.elementRef} />;
+        const View = this.props.view;
+        return (
+            <div className="PixiAppComponent" ref={this.elementRef}>
+                <View app={this.app} />
+            </div>
+        );
     }
 
     private onResize(): void {

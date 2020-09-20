@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension/index';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { EncounterState } from '../../common/redux/encounter/encounterState';
 import { Scene } from '../enums';
 import { ActiveEncounter } from '../model/ActiveEncounter';
