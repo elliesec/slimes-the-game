@@ -1,0 +1,11 @@
+.PixiAppComponent {
+    position: relative;
+    width: 100%;
+    background-color: black;
+
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
