@@ -10,6 +10,7 @@
         "dev": "webpack-dev-server",
         "format": "prettier --write .",
         "test": "echo \"Error: no test specified\" && exit 1",
+        "preinstall": "npx npm-force-resolutions",
         "preversion": "npm install",
         "version": "npm run build && git add -A docs"
     },
@@ -36,6 +37,7 @@
         "imagemin-svgo": "^8.0.0",
         "imagemin-webpack": "^5.1.1",
         "mini-css-extract-plugin": "^0.11.2",
+        "npm-force-resolutions": "0.0.3",
         "optimize-css-assets-webpack-plugin": "^5.0.4",
         "postcss": "^8.0.5",
         "postcss-flexbugs-fixes": "^4.2.1",
@@ -73,5 +75,9 @@
         "react-resize-detector": "^5.2.0",
         "redux": "^4.0.5",
         "reset-css": "^5.0.1"
+    },
+    "resolutions": {
+        "minimist": "^1.2.5",
+        "serialize-javascript": "^3.1.0"
     }
 }
