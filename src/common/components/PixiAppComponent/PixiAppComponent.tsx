@@ -1,16 +1,24 @@
+import { IPointData, ISize } from 'pixi.js';
 import React, { createRef, PureComponent, ReactElement } from 'react';
+import { connect } from 'react-redux';
 import { withResizeDetector } from 'react-resize-detector';
+import { Dispatch } from 'redux';
+import { DefaultView } from '../../../slimes-the-game/components/views/DefaultView/DefaultView';
+import { State } from '../../../slimes-the-game/redux/store';
+import { Callback } from '../../functions';
 import { PixiApp } from '../../pixi/PixiApp';
+import { PixiAppUpdateManager } from '../../pixi/PixiAppUpdateManager';
+import { appSetPixiApp, appSetPosition } from '../../redux/app/appActions';
 import { PixiAppView } from '../PixiAppView/PixiAppView';
 import './PixiAppComponent.scss';
 
-export interface PixiAppComponentProps {
-    width: number;
-    height: number;
+export interface PixiAppComponentProps extends ISize {
     view: typeof PixiAppView;
+    onPixiAppSet: Callback<PixiApp>;
+    onAppResize: Callback<IPointData>;
 }
 
-export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps, {}> {
+export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps> {
     private readonly elementRef = createRef<HTMLDivElement>();
     private app: PixiApp;
 
@@ -19,8 +27,10 @@ export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps, 
         const width = element.clientWidth;
         const height = element.clientHeight;
         this.app = new PixiApp({ width, height, transparent: true });
-        this.app.resizeTo = element;
+        this.onResize();
         element.appendChild(this.app.view);
+        this.props.onPixiAppSet(this.app);
+        this.app.ticker.add((delta) => PixiAppUpdateManager.updateApp(delta));
     }
 
     public componentDidUpdate(prevProps: Readonly<PixiAppComponentProps>): void {
@@ -44,7 +54,29 @@ export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps, 
         if (this.app.resizeTo !== element) {
             this.app.resizeTo = element;
         }
+        const { x, y } = element.getBoundingClientRect();
+        this.props.onAppResize({ x, y });
     }
 }
 
-export const PixiAppComponent = withResizeDetector(PixiAppComponentClass);
+function mapStateToProps(state: State): Partial<PixiAppComponentProps> {
+    return {
+        view: DefaultView,
+    };
+}
+
+function mapDispatchToProps(dispatch: Dispatch): Partial<PixiAppComponentProps> {
+    return {
+        onPixiAppSet(app: PixiApp): void {
+            dispatch(appSetPixiApp(app));
+        },
+        onAppResize(position: IPointData): void {
+            dispatch(appSetPosition(position));
+        },
+    };
+}
+
+export const PixiAppComponent = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withResizeDetector(PixiAppComponentClass));
