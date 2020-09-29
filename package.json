@@ -39,7 +39,7 @@
         "mini-css-extract-plugin": "^0.11.2",
         "npm-force-resolutions": "0.0.3",
         "optimize-css-assets-webpack-plugin": "^5.0.4",
-        "postcss": "^8.0.9",
+        "postcss": "^8.1.1",
         "postcss-flexbugs-fixes": "^4.2.1",
         "postcss-loader": "^4.0.2",
         "postcss-preset-env": "^6.7.0",
