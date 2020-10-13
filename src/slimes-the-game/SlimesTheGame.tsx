@@ -1,5 +1,8 @@
 import React, { Component, ReactNode } from 'react';
 import { PixiAppComponent } from '../common/components/PixiAppComponent/PixiAppComponent';
+import { log } from '../common/util/Log';
+import { GAME_NAME } from './config/config';
+import './items/ItemRegistry';
 import './SlimesTheGame.scss';
 
 export class SlimesTheGame extends Component {
@@ -11,3 +14,5 @@ export class SlimesTheGame extends Component {
         );
     }
 }
+
+log.info(`Welcome to ${GAME_NAME}`);

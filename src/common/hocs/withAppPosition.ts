@@ -9,7 +9,6 @@ export interface WithAppPositionProps {
 function mapStateToProps<P extends WithAppPositionProps>(
     state: State
 ): Pick<P, keyof WithAppPositionProps> {
-    console.log(state);
     return { appPosition: state.app.position };
 }
 

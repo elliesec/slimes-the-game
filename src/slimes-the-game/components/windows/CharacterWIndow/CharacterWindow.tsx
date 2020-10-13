@@ -10,7 +10,7 @@ import { withPixiApp } from '../../../../common/hocs/withPixiApp';
 import {
     DomTrackingContainer,
     DomTrackingContainerProps,
-} from '../../../../common/pixi/DomTrackingContainer';
+} from '../../../../common/pixi/containers/DomTrackingContainer';
 
 export interface CharacterWindowProps extends ContainerLinkedComponentProps {}
 

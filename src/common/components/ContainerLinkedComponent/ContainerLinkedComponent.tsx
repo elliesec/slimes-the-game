@@ -1,7 +1,10 @@
 import { IPointData, ISize } from 'pixi.js';
 import { createRef, PureComponent } from 'react';
 import { WithAppPositionProps } from '../../hocs/withAppPosition';
-import { DomTrackingContainer, DomTrackingContainerProps } from '../../pixi/DomTrackingContainer';
+import {
+    DomTrackingContainer,
+    DomTrackingContainerProps,
+} from '../../pixi/containers/DomTrackingContainer';
 import { PixiApp } from '../../pixi/PixiApp';
 
 export interface ContainerLinkedComponentProps extends WithAppPositionProps, ISize {

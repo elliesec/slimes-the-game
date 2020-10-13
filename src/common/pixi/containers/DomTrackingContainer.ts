@@ -1,6 +1,6 @@
 import memoizeOne from 'memoize-one';
 import { Container, Graphics } from 'pixi.js';
-import { PixiAppUpdateManager } from './PixiAppUpdateManager';
+import { PixiAppUpdateManager } from '../PixiAppUpdateManager';
 
 export interface DomTrackingContainerProps {
     highlight: boolean;
