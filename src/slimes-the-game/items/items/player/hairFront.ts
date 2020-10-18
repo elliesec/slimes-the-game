@@ -4,13 +4,13 @@ import { ItemFamilyType } from '../../ItemFamily';
 
 const items: AppearanceItem[] = [
     {
-        name: 'defaultShadow',
-        slot: AppearanceSlotType.SHADOW,
+        name: 'defaultHairFront',
+        slot: AppearanceSlotType.HAIR_FRONT,
         family: ItemFamilyType.PLAYER,
         assets: [
             {
                 name: 'Default',
-                url: require('./shadow/defaultShadow.png'),
+                url: require('./hairFront/defaultHairFront.png'),
             },
         ],
     },

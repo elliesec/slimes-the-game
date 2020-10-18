@@ -3,7 +3,7 @@ import { Container, Graphics } from 'pixi.js';
 import { PixiAppUpdateManager } from '../PixiAppUpdateManager';
 
 export interface DomTrackingContainerProps {
-    highlight: boolean;
+    highlight?: boolean;
     x: number;
     y: number;
     width: number;
@@ -13,7 +13,7 @@ export interface DomTrackingContainerProps {
 export class DomTrackingContainer<P extends DomTrackingContainerProps> extends Container {
     private dirty = false;
 
-    public constructor(private props: P) {
+    public constructor(protected props: P) {
         super();
         this.assignProps = memoizeOne(this.assignProps);
         this.layout();
@@ -33,6 +33,7 @@ export class DomTrackingContainer<P extends DomTrackingContainerProps> extends C
         if (this.dirty) {
             this.clear();
             this.layout();
+            this.dirty = false;
         }
     }
 
@@ -41,7 +42,8 @@ export class DomTrackingContainer<P extends DomTrackingContainerProps> extends C
     }
 
     public layout(): void {
-        const { highlight, x, y, width, height } = this.props;
+        const { highlight = false, x, y, width, height } = this.props;
+        this.position.set(x, y);
         if (highlight) {
             const border = new Graphics();
             border.lineStyle(3, 0xff0000);

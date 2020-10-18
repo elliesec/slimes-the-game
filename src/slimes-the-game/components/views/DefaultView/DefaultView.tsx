@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { PixiAppView } from '../../../../common/components/PixiAppView/PixiAppView';
 import { Sidebar } from '../../Sidebar/Sidebar';
-import { CharacterWindow } from '../../windows/CharacterWIndow/CharacterWindow';
+import { CharacterWindow } from '../../windows/CharacterWindow/CharacterWindow';
 import { MapWindow } from '../../windows/MapWindow/MapWindow';
 import { NPCWindow } from '../../windows/NPCWindow/NPCWindow';
 import { TextWindow } from '../../windows/TextWindow/TextWindow';

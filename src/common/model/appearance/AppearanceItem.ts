@@ -1,13 +1,14 @@
-import { ItemFamily } from '../../../slimes-the-game/items/ItemFamily';
+import { ItemFamilyType } from '../../../slimes-the-game/items/ItemFamily';
 import { AppearanceSlotType } from './AppearanceSlot';
 
 export interface AppearanceItem {
     name: string;
     slot: AppearanceSlotType;
-    family: ItemFamily;
+    family: ItemFamilyType;
     assets: AppearanceAsset[];
 }
 
 export interface AppearanceAsset {
+    name: string;
     url?: string;
 }
