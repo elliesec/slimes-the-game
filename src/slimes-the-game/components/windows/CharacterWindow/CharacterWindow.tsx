@@ -11,7 +11,7 @@ import {
     DomTrackingContainer,
     DomTrackingContainerProps,
 } from '../../../../common/pixi/containers/DomTrackingContainer';
-import { CharacterContainer } from '../../../containers/CharacterContainer';
+import { CharacterWindowContainer } from './CharacterWindowContainer';
 
 export interface CharacterWindowProps extends ContainerLinkedComponentProps {}
 
@@ -34,7 +34,7 @@ export class CharacterWindowClass extends ContainerLinkedComponent {
         props: ContainerLinkedComponentProps
     ): DomTrackingContainer<DomTrackingContainerProps> {
         const { x, y, width, height } = this.ref.current.getBoundingClientRect();
-        return new CharacterContainer({
+        return new CharacterWindowContainer({
             x,
             y,
             width,
