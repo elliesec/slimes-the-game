@@ -10,6 +10,10 @@ export interface CharacterWindowContainerProps extends DomTrackingContainerProps
 export class CharacterWindowContainer extends DomTrackingContainer<CharacterWindowContainerProps> {
     public layout(): void {
         super.layout();
+        this.addCharacterContainer();
+    }
+
+    private addCharacterContainer(): void {
         const { width, height } = this.props;
         const scaleX = width / CHARACTER_ASSET_WIDTH;
         const scaleY = height / CHARACTER_ASSET_HEIGHT;
