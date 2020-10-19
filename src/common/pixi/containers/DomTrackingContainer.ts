@@ -11,7 +11,7 @@ export interface DomTrackingContainerProps {
 
 export class DomTrackingContainer<P extends DomTrackingContainerProps> extends LayoutContainer<P> {
     public layout(): void {
-        const { highlight = true, x, y, width, height } = this.props;
+        const { highlight = false, x, y, width, height } = this.props;
         this.position.set(x, y);
         if (highlight) {
             const border = new Graphics();

@@ -35,6 +35,7 @@ export class CharacterWindowClass extends ContainerLinkedComponent {
     ): DomTrackingContainer<DomTrackingContainerProps> {
         const { x, y, width, height } = this.ref.current.getBoundingClientRect();
         return new CharacterWindowContainer({
+            highlight: true,
             x,
             y,
             width,
