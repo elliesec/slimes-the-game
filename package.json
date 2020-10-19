@@ -7,7 +7,7 @@
         "analyze": "webpack --mode=production --analyze",
         "build": "webpack --mode=production",
         "build-dev": "webpack",
-        "dev": "webpack-dev-server",
+        "dev": "webpack serve",
         "format": "prettier --write .",
         "test": "echo \"Error: no test specified\" && exit 1",
         "preinstall": "npx npm-force-resolutions",
