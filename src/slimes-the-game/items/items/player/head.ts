@@ -1,8 +1,8 @@
-import { AppearanceItem } from '../../../../common/model/appearance/AppearanceItem';
+import { AppearanceItemDefinition } from '../../../../common/model/appearance/AppearanceItem';
 import { AppearanceSlotType } from '../../../../common/model/appearance/AppearanceSlot';
 import { ItemFamilyType } from '../../ItemFamily';
 
-const items: AppearanceItem[] = [
+const items: AppearanceItemDefinition[] = [
     {
         name: 'defaultHead',
         slot: AppearanceSlotType.HEAD,
