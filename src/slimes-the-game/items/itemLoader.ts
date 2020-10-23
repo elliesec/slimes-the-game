@@ -1,23 +1,39 @@
+import { Callback } from '../../common/functions';
 import { AppearanceItemDefinition } from '../../common/model/appearance/AppearanceItem';
+import { ItemFamily } from '../../common/model/appearance/ItemFamily';
 import { registerItems } from '../../common/redux/item/itemActions';
+import { log } from '../../common/util/Log';
 import { store } from '../redux/store';
 import RequireContext = __WebpackModuleApi.RequireContext;
 
-export interface ItemModule {
-    default: AppearanceItemDefinition[];
+export interface DefaultModule<T> {
+    default: T;
+}
+
+export function loadFamilies(): void {
+    log.debug('Loading Item Families: Starting...');
+    const context = require.context('./families', false, /\.ts$/);
+    loadContext<ItemFamily>(context, loadFamilyModule);
+    log.debug('Loading Item Families: Done.');
 }
 
 export function loadItems(): void {
-    loadItemContext(require.context('./items/player', false, /\.ts$/));
+    log.debug('Loading Items: Starting...');
+    const context = require.context('./items/player', false, /\.ts$/);
+    loadContext<AppearanceItemDefinition[]>(context, loadItemModule);
+    log.debug('Loading Items: Done.');
 }
 
-function loadItemModule(module: ItemModule): void {
+function loadItemModule(module: DefaultModule<AppearanceItemDefinition[]>): void {
     store.dispatch(registerItems(...module.default));
 }
 
-function loadItemContext(context: RequireContext): void {
+function loadContext<T>(context: RequireContext, moduleLoader: Callback<DefaultModule<T>>): void {
     context.keys().forEach((key) => {
-        const module = context(key);
-        loadItemModule(module);
+        moduleLoader(context(key));
     });
+}
+
+function loadFamilyModule(module: DefaultModule<ItemFamily>): void {
+    console.log(JSON.stringify(module.default, null, 4));
 }

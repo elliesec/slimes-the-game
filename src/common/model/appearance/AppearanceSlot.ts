@@ -1,16 +1,19 @@
 export enum AppearanceSlotType {
-    SHADOW = 'shadow',
-    LEGS = 'legs',
+    HEAD = 'head',
     TORSO = 'torso',
-    PUBIC_HAIR = 'pubicHair',
+    HIPS = 'hips',
+    LEGS = 'legs',
+    FEET = 'feet',
     ARM_LEFT = 'armLeft',
     ARM_RIGHT = 'armRight',
-    HEAD = 'head',
     HAIR_BACK = 'hairBack',
-    HAIR_FRONT = 'hairFront',
     EXPRESSION = 'expression',
+    HAIR_FRONT = 'hairFront',
+    PUBIC_HAIR = 'pubicHair',
+    SHADOW = 'shadow',
 }
 
 export interface AppearanceSlot {
     type: AppearanceSlotType;
+    canEquip: boolean;
 }

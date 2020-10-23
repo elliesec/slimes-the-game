@@ -3,7 +3,7 @@ import { AppearanceItem } from '../../common/model/appearance/AppearanceItem';
 import { AppearanceSlotType } from '../../common/model/appearance/AppearanceSlot';
 import { LayoutContainer } from '../../common/pixi/containers/LayoutContainer';
 import { getItemByFamilySlotName } from '../../common/redux/item/itemSelectors';
-import { ItemFamilyType } from '../items/ItemFamily';
+import { ItemFamilyType } from '../../common/model/appearance/ItemFamily';
 import { store } from '../redux/store';
 
 const appearanceKeys: Array<[ItemFamilyType, AppearanceSlotType, string]> = [

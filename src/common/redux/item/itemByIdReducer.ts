@@ -2,7 +2,7 @@ import produce from 'immer';
 import objectHash from 'object-hash';
 import { Action, Reducer } from 'redux';
 import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
-import { ItemFamilyType } from '../../../slimes-the-game/items/ItemFamily';
+import { ItemFamilyType } from '../../model/appearance/ItemFamily';
 import { AppearanceItemDefinition } from '../../model/appearance/AppearanceItem';
 import { AppearanceSlotType } from '../../model/appearance/AppearanceSlot';
 import { ItemAction } from './itemActions';

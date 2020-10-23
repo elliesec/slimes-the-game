@@ -1,4 +1,4 @@
-import { ItemFamilyType } from '../../../slimes-the-game/items/ItemFamily';
+import { ItemFamilyType } from '../../model/appearance/ItemFamily';
 import { memoize } from '../../functions';
 import { AppearanceItem } from '../../model/appearance/AppearanceItem';
 import { AppearanceSlotType } from '../../model/appearance/AppearanceSlot';

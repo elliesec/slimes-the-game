@@ -1,10 +1,12 @@
-import { ItemFamilyType } from '../../../slimes-the-game/items/ItemFamily';
 import { AppearanceSlotType } from './AppearanceSlot';
+import { ItemCategory } from './ItemCategory';
+import { ItemFamilyType } from './ItemFamily';
 
 export interface AppearanceItemDefinition {
+    name: string;
     family: ItemFamilyType;
     slot: AppearanceSlotType;
-    name: string;
+    category: ItemCategory;
     assets: AppearanceAsset[];
 }
 
