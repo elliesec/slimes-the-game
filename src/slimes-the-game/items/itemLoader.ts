@@ -2,6 +2,7 @@ import { Callback } from '../../common/functions';
 import { AppearanceItemDefinition } from '../../common/model/appearance/AppearanceItem';
 import { ItemFamily } from '../../common/model/appearance/ItemFamily';
 import { registerItems } from '../../common/redux/item/itemActions';
+import { registerItemFamily } from '../../common/redux/itemFamily/itemFamilyActions';
 import { log } from '../../common/util/Log';
 import { store } from '../redux/store';
 import RequireContext = __WebpackModuleApi.RequireContext;
@@ -35,5 +36,5 @@ function loadContext<T>(context: RequireContext, moduleLoader: Callback<DefaultM
 }
 
 function loadFamilyModule(module: DefaultModule<ItemFamily>): void {
-    console.log(JSON.stringify(module.default, null, 4));
+    store.dispatch(registerItemFamily(module.default));
 }

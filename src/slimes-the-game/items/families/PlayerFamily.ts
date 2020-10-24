@@ -1,4 +1,5 @@
 import { AppearanceSlotType } from '../../../common/model/appearance/AppearanceSlot';
+import { ItemCategory } from '../../../common/model/appearance/ItemCategory';
 import { ItemFamily, ItemFamilyType } from '../../../common/model/appearance/ItemFamily';
 
 const playerFamily: ItemFamily = {
@@ -35,22 +36,27 @@ const playerFamily: ItemFamily = {
         {
             type: AppearanceSlotType.HAIR_BACK,
             canEquip: false,
+            categories: [ItemCategory.BODY],
         },
         {
             type: AppearanceSlotType.EXPRESSION,
             canEquip: false,
+            categories: [ItemCategory.BODY],
         },
         {
             type: AppearanceSlotType.HAIR_FRONT,
             canEquip: false,
+            categories: [ItemCategory.BODY],
         },
         {
             type: AppearanceSlotType.PUBIC_HAIR,
             canEquip: false,
+            categories: [ItemCategory.BODY],
         },
         {
             type: AppearanceSlotType.SHADOW,
             canEquip: false,
+            categories: [ItemCategory.BODY],
         },
     ],
 };

@@ -2,20 +2,24 @@ import { AppearanceItemDefinition } from '../../../../common/model/appearance/Ap
 import { AppearanceSlotType } from '../../../../common/model/appearance/AppearanceSlot';
 import { ItemCategory } from '../../../../common/model/appearance/ItemCategory';
 import { ItemFamilyType } from '../../../../common/model/appearance/ItemFamily';
+import { itemDefinitionGenerator } from '../itemDefUtils';
 
-const items: AppearanceItemDefinition[] = [
-    {
+const createBodyItem = itemDefinitionGenerator(
+    ItemFamilyType.PLAYER,
+    AppearanceSlotType.ARM_RIGHT,
+    ItemCategory.BODY
+);
+
+const bodyItems: AppearanceItemDefinition[] = [
+    createBodyItem({
         name: 'defaultArmRight',
-        slot: AppearanceSlotType.ARM_RIGHT,
-        family: ItemFamilyType.PLAYER,
-        category: ItemCategory.BODY,
         assets: [
             {
                 name: 'Default',
                 url: require('./armRight/defaultArmRight.png'),
             },
         ],
-    },
+    }),
 ];
 
-export default items;
+export default [...bodyItems];

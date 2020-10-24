@@ -1,3 +1,5 @@
+import { ItemCategory } from './ItemCategory';
+
 export enum AppearanceSlotType {
     HEAD = 'head',
     TORSO = 'torso',
@@ -16,4 +18,5 @@ export enum AppearanceSlotType {
 export interface AppearanceSlot {
     type: AppearanceSlotType;
     canEquip: boolean;
+    categories?: ItemCategory[];
 }

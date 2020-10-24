@@ -1,6 +1,6 @@
 export enum ItemCategory {
-    BODY = 'BODY',
-    UNDERWEAR = 'UNDERWEAR',
-    CLOTHES = 'CLOTHES',
-    ARMOUR = 'ARMOUR',
+    BODY = 'body',
+    UNDERWEAR = 'underwear',
+    CLOTHES = 'clothes',
+    ARMOUR = 'armour',
 }

@@ -2,20 +2,24 @@ import { AppearanceItemDefinition } from '../../../../common/model/appearance/Ap
 import { AppearanceSlotType } from '../../../../common/model/appearance/AppearanceSlot';
 import { ItemCategory } from '../../../../common/model/appearance/ItemCategory';
 import { ItemFamilyType } from '../../../../common/model/appearance/ItemFamily';
+import { itemDefinitionGenerator } from '../itemDefUtils';
 
-const items: AppearanceItemDefinition[] = [
-    {
+const createBodyItem = itemDefinitionGenerator(
+    ItemFamilyType.PLAYER,
+    AppearanceSlotType.TORSO,
+    ItemCategory.BODY
+);
+
+const bodyItems: AppearanceItemDefinition[] = [
+    createBodyItem({
         name: 'defaultTorso',
-        slot: AppearanceSlotType.TORSO,
-        family: ItemFamilyType.PLAYER,
-        category: ItemCategory.BODY,
         assets: [
             {
                 name: 'Default',
                 url: require('./torso/defaultTorso.png'),
             },
         ],
-    },
+    }),
 ];
 
-export default items;
+export default [...bodyItems];
