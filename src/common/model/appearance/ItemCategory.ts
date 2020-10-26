@@ -4,3 +4,5 @@ export enum ItemCategory {
     CLOTHES = 'clothes',
     ARMOUR = 'armour',
 }
+
+export const ItemCategoryValues: ItemCategory[] = Object.values(ItemCategory);

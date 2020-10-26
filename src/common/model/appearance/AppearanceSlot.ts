@@ -15,6 +15,8 @@ export enum AppearanceSlotType {
     SHADOW = 'shadow',
 }
 
+export const AppearanceSlotTypeValues: AppearanceSlotType[] = Object.values(AppearanceSlotType);
+
 export interface AppearanceSlot {
     type: AppearanceSlotType;
     canEquip: boolean;

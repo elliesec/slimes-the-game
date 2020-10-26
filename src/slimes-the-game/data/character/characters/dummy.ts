@@ -4,6 +4,7 @@ import { CharacterDefinition } from '../../../../common/model/character/Characte
 const dummyCharacter: CharacterDefinition = {
     appearance: {
         family: ItemFamilyType.HUMAN,
+        categories: {},
     },
 };
 
