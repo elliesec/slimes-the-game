@@ -1,4 +1,4 @@
-import { CharacterDefinition } from '../../../common/model/character/Character';
+import { CharacterDefinition } from '../../../common/model/character/CharacterDefinition';
 import { registerCharacter } from '../../../common/redux/character/characterActions';
 import { registerPlayer } from '../../../common/redux/character/playerActions';
 import { DefaultModule } from '../../../common/types';

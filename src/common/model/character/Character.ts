@@ -1,9 +1,10 @@
-import { CharacterAppearance } from '../appearance/CharacterAppearance';
+import { ItemFamilyType } from '../appearance/ItemFamily';
 
-export interface CharacterDefinition {
+export interface Character {
+    id: string;
     appearance: CharacterAppearance;
 }
 
-export interface Character extends CharacterDefinition {
-    id: string;
+export interface CharacterAppearance {
+    family: ItemFamilyType;
 }

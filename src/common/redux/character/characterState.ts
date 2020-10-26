@@ -1,11 +1,11 @@
-import { Character } from '../../model/character/Character';
-import { Player } from '../../model/character/Player';
+import { NormalizedCharacter } from '../../model/character/NormalizedCharacter';
+import { NormalizedPlayer } from '../../model/character/Player';
 import { StringRecord } from '../../types';
 
-export type CharacterByIdState = StringRecord<Character>;
+export type CharacterByIdState = StringRecord<NormalizedCharacter>;
 
 export interface CharacterState {
-    player: Player;
+    player: NormalizedPlayer;
     byId: CharacterByIdState;
 }
 
