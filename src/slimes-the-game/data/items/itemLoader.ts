@@ -1,15 +1,11 @@
-import { Callback } from '../../common/functions';
-import { AppearanceItemDefinition } from '../../common/model/appearance/AppearanceItem';
-import { ItemFamily } from '../../common/model/appearance/ItemFamily';
-import { registerItems } from '../../common/redux/item/itemActions';
-import { registerItemFamily } from '../../common/redux/itemFamily/itemFamilyActions';
-import { log } from '../../common/util/Log';
-import { store } from '../redux/store';
-import RequireContext = __WebpackModuleApi.RequireContext;
-
-export interface DefaultModule<T> {
-    default: T;
-}
+import { AppearanceItemDefinition } from '../../../common/model/appearance/AppearanceItem';
+import { ItemFamily } from '../../../common/model/appearance/ItemFamily';
+import { registerItems } from '../../../common/redux/item/itemActions';
+import { registerItemFamily } from '../../../common/redux/itemFamily/itemFamilyActions';
+import { DefaultModule } from '../../../common/types';
+import { log } from '../../../common/util/Log';
+import { store } from '../../redux/store';
+import { loadContext } from '../dataLoaderUtils';
 
 export function loadFamilies(): void {
     log.debug('Loading Item Families: Starting...');
@@ -27,12 +23,6 @@ export function loadItems(): void {
 
 function loadItemModule(module: DefaultModule<AppearanceItemDefinition[]>): void {
     store.dispatch(registerItems(...module.default));
-}
-
-function loadContext<T>(context: RequireContext, moduleLoader: Callback<DefaultModule<T>>): void {
-    context.keys().forEach((key) => {
-        moduleLoader(context(key));
-    });
 }
 
 function loadFamilyModule(module: DefaultModule<ItemFamily>): void {

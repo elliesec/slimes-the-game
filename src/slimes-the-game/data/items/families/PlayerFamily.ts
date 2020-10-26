@@ -1,9 +1,9 @@
-import { AppearanceSlotType } from '../../../common/model/appearance/AppearanceSlot';
-import { ItemCategory } from '../../../common/model/appearance/ItemCategory';
-import { ItemFamily, ItemFamilyType } from '../../../common/model/appearance/ItemFamily';
+import { AppearanceSlotType } from '../../../../common/model/appearance/AppearanceSlot';
+import { ItemCategory } from '../../../../common/model/appearance/ItemCategory';
+import { ItemFamily, ItemFamilyType } from '../../../../common/model/appearance/ItemFamily';
 
 const playerFamily: ItemFamily = {
-    type: ItemFamilyType.PLAYER,
+    type: ItemFamilyType.HUMAN,
     slots: [
         {
             type: AppearanceSlotType.HEAD,

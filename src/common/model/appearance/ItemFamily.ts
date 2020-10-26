@@ -1,7 +1,7 @@
 import { AppearanceSlot } from './AppearanceSlot';
 
 export enum ItemFamilyType {
-    PLAYER = 'Player',
+    HUMAN = 'Human',
 }
 
 export interface ItemFamily {

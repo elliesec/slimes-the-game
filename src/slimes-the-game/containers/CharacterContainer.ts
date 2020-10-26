@@ -7,16 +7,16 @@ import { ItemFamilyType } from '../../common/model/appearance/ItemFamily';
 import { store } from '../redux/store';
 
 const appearanceKeys: Array<[ItemFamilyType, AppearanceSlotType, string]> = [
-    [ItemFamilyType.PLAYER, AppearanceSlotType.SHADOW, 'defaultShadow'],
-    [ItemFamilyType.PLAYER, AppearanceSlotType.LEGS, 'defaultLegs'],
-    [ItemFamilyType.PLAYER, AppearanceSlotType.ARM_LEFT, 'defaultArmLeft'],
-    [ItemFamilyType.PLAYER, AppearanceSlotType.TORSO, 'defaultTorso'],
-    [ItemFamilyType.PLAYER, AppearanceSlotType.PUBIC_HAIR, 'defaultPubicHair'],
-    [ItemFamilyType.PLAYER, AppearanceSlotType.ARM_RIGHT, 'defaultArmRight'],
-    [ItemFamilyType.PLAYER, AppearanceSlotType.HAIR_BACK, 'defaultHairBack'],
-    [ItemFamilyType.PLAYER, AppearanceSlotType.HEAD, 'defaultHead'],
-    [ItemFamilyType.PLAYER, AppearanceSlotType.EXPRESSION, 'defaultExpression'],
-    [ItemFamilyType.PLAYER, AppearanceSlotType.HAIR_FRONT, 'defaultHairFront'],
+    [ItemFamilyType.HUMAN, AppearanceSlotType.SHADOW, 'defaultShadow'],
+    [ItemFamilyType.HUMAN, AppearanceSlotType.LEGS, 'defaultLegs'],
+    [ItemFamilyType.HUMAN, AppearanceSlotType.ARM_LEFT, 'defaultArmLeft'],
+    [ItemFamilyType.HUMAN, AppearanceSlotType.TORSO, 'defaultTorso'],
+    [ItemFamilyType.HUMAN, AppearanceSlotType.PUBIC_HAIR, 'defaultPubicHair'],
+    [ItemFamilyType.HUMAN, AppearanceSlotType.ARM_RIGHT, 'defaultArmRight'],
+    [ItemFamilyType.HUMAN, AppearanceSlotType.HAIR_BACK, 'defaultHairBack'],
+    [ItemFamilyType.HUMAN, AppearanceSlotType.HEAD, 'defaultHead'],
+    [ItemFamilyType.HUMAN, AppearanceSlotType.EXPRESSION, 'defaultExpression'],
+    [ItemFamilyType.HUMAN, AppearanceSlotType.HAIR_FRONT, 'defaultHairFront'],
 ];
 
 export interface CharacterContainerProps {

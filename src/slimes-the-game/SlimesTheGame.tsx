@@ -2,7 +2,8 @@ import React, { Component, ReactNode } from 'react';
 import { PixiAppComponent } from '../common/components/PixiAppComponent/PixiAppComponent';
 import { log } from '../common/util/Log';
 import { GAME_NAME } from './config/config';
-import { loadFamilies, loadItems } from './items/itemLoader';
+import { loadCharacters, loadPlayer } from './data/character/characterLoader';
+import { loadFamilies, loadItems } from './data/items/itemLoader';
 import './SlimesTheGame.scss';
 
 export class SlimesTheGame extends Component {
@@ -10,6 +11,8 @@ export class SlimesTheGame extends Component {
         super(props);
         loadFamilies();
         loadItems();
+        loadPlayer();
+        loadCharacters();
     }
 
     public render(): ReactNode {

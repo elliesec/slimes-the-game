@@ -26,7 +26,7 @@ const reducers: Record<string, Reducer<ItemByIdState>> = {
     [ItemAction.REGISTER_ITEMS]: registerItemReducer,
 };
 
-export const itemByIdReducer = produce((state: ItemByIdState = {}, action: Action) => {
+export const itemByIdReducer = produce((state: ItemByIdState, action: Action) => {
     const reducer = reducers[action.type];
     return reducer ? reducer(state, action) : state;
 }, {});
