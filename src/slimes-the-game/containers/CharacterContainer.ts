@@ -1,23 +1,8 @@
 import { Sprite } from 'pixi.js';
 import { AppearanceItem } from '../../common/model/appearance/AppearanceItem';
-import { AppearanceSlotType } from '../../common/model/appearance/AppearanceSlot';
 import { LayoutContainer } from '../../common/pixi/containers/LayoutContainer';
-import { getItemByFamilySlotName } from '../../common/redux/item/itemSelectors';
-import { ItemFamilyType } from '../../common/model/appearance/ItemFamily';
+import { getPlayerAppearanceItems } from '../../common/redux/character/playerSelectors';
 import { store } from '../redux/store';
-
-const appearanceKeys: Array<[ItemFamilyType, AppearanceSlotType, string]> = [
-    [ItemFamilyType.HUMAN, AppearanceSlotType.SHADOW, 'defaultShadow'],
-    [ItemFamilyType.HUMAN, AppearanceSlotType.LEGS, 'defaultLegs'],
-    [ItemFamilyType.HUMAN, AppearanceSlotType.ARM_LEFT, 'defaultArmLeft'],
-    [ItemFamilyType.HUMAN, AppearanceSlotType.TORSO, 'defaultTorso'],
-    [ItemFamilyType.HUMAN, AppearanceSlotType.PUBIC_HAIR, 'defaultPubicHair'],
-    [ItemFamilyType.HUMAN, AppearanceSlotType.ARM_RIGHT, 'defaultArmRight'],
-    [ItemFamilyType.HUMAN, AppearanceSlotType.HAIR_BACK, 'defaultHairBack'],
-    [ItemFamilyType.HUMAN, AppearanceSlotType.HEAD, 'defaultHead'],
-    [ItemFamilyType.HUMAN, AppearanceSlotType.EXPRESSION, 'defaultExpression'],
-    [ItemFamilyType.HUMAN, AppearanceSlotType.HAIR_FRONT, 'defaultHairFront'],
-];
 
 export interface CharacterContainerProps {
     appearance: AppearanceItem[];
@@ -51,9 +36,7 @@ export class CharacterContainer extends LayoutContainer<CharacterContainerProps>
 
     private setPropsFromState(): void {
         const state = store.getState();
-        const appearance = appearanceKeys.map(([family, slot, name]) =>
-            getItemByFamilySlotName(state, family, slot, name)
-        );
+        const appearance = getPlayerAppearanceItems(state);
         const props = { appearance };
         this.setProps(props);
     }

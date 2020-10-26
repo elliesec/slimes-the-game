@@ -8,6 +8,7 @@ export interface AppearanceItemDefinition {
     slot: AppearanceSlotType;
     category: ItemCategory;
     assets: AppearanceAsset[];
+    priority: number;
 }
 
 export interface AppearanceItem extends AppearanceItemDefinition {
