@@ -39,7 +39,7 @@
         "imagemin-optipng": "^8.0.0",
         "imagemin-svgo": "^8.0.0",
         "imagemin-webpack": "^5.1.1",
-        "mini-css-extract-plugin": "^1.2.0",
+        "mini-css-extract-plugin": "^1.2.1",
         "npm-force-resolutions": "0.0.3",
         "optimize-css-assets-webpack-plugin": "^5.0.4",
         "postcss": "^8.1.4",
