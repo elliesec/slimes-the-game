@@ -1,7 +1,11 @@
 import React, { Component, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { AppearanceSlotNames } from '../../../../common/model/appearance/AppearanceSlot';
-import { ItemCategory, ItemCategoryValues } from '../../../../common/model/appearance/ItemCategory';
+import {
+    ItemCategory,
+    ItemCategoryNames,
+    ItemCategoryValues,
+} from '../../../../common/model/appearance/ItemCategory';
 import { CharacterAppearance } from '../../../../common/model/character/Character';
 import { getPlayerAppearance } from '../../../../common/redux/character/playerSelectors';
 import { State } from '../../../redux/store';
@@ -28,7 +32,7 @@ export class DressingRoomControlsWindowClass extends Component<DressingRoomContr
         const slotMapping = appearance.categories[category];
         const itemFamily = appearance.family;
         return (
-            <Tab key={category} name={category}>
+            <Tab key={category} name={ItemCategoryNames[category]}>
                 <table className="slot-list">
                     <thead>
                         <th>Slot</th>
