@@ -4,45 +4,25 @@ import { ItemCategory } from '../../../../../common/model/appearance/ItemCategor
 import { ItemFamilyType } from '../../../../../common/model/appearance/ItemFamily';
 import { itemDefinitionGenerator } from '../itemDefUtils';
 
-const createBodyItem = itemDefinitionGenerator(
-    ItemFamilyType.HUMAN,
-    AppearanceSlotType.TORSO,
-    ItemCategory.BODY
-);
-
 const createUnderwearItem = itemDefinitionGenerator(
     ItemFamilyType.HUMAN,
-    AppearanceSlotType.TORSO,
+    AppearanceSlotType.HIPS,
     ItemCategory.UNDERWEAR
 );
 
-const bodyItems: AppearanceItemDefinition[] = [
-    createBodyItem({
-        name: 'defaultTorso',
-        displayName: 'Default Torso',
-        priority: 40,
-        assets: [
-            {
-                name: 'Default',
-                url: require('./torso/defaultTorso.png'),
-            },
-        ],
-    }),
-];
-
 const underwearItems: AppearanceItemDefinition[] = [
     createUnderwearItem({
-        name: 'plainBra',
-        displayName: 'Plain Bra',
-        description: 'A simple bra',
-        priority: 210,
+        name: 'plainPanties',
+        displayName: 'Plain Panties',
+        description: 'A simple pair of panties',
+        priority: 200,
         assets: [
             {
                 name: 'Default',
-                url: require('./torso/plainBra.png'),
+                url: require('./hips/plainPanties.png'),
             },
         ],
     }),
 ];
 
-export default [...bodyItems, ...underwearItems];
+export default [...underwearItems];
