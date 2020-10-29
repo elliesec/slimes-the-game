@@ -5,35 +5,23 @@ import { NormalizedPlayer, PlayerDefinition } from '../../model/character/Player
 import { WithId } from '../../types';
 import { log } from '../../util/Log';
 import { normalizeCharacter } from './characterByIdReducer';
-import { CategorySlotItem, PlayerAction } from './playerActions';
+import { PlayerAction } from './playerActions';
 
 const registerPlayerReducer = produce(
-    (state: NormalizedPlayer, { payload }: PayloadAction<WithId<PlayerDefinition>>) => {
+    (state: string, { payload }: PayloadAction<WithId<PlayerDefinition>>) => {
         if (state) {
             log.warn('Attempted to register the player twice. This is probably an error.');
         }
-        return normalizePlayer(payload);
+        return payload.id;
     },
     null
 );
 
-const setAppearanceItemReducer = produce(
-    (
-        state: NormalizedPlayer,
-        { payload: { category, slot, item } }: PayloadAction<CategorySlotItem>
-    ) => {
-        const slotMappings = (state.appearance.categories[category] ??= {});
-        slotMappings[slot] = item?.id ?? null;
-        return state;
-    }
-);
-
-const reducers: Record<string, Reducer<NormalizedPlayer>> = {
+const reducers: Record<string, Reducer<string>> = {
     [PlayerAction.REGISTER]: registerPlayerReducer,
-    [PlayerAction.SET_APPEARANCE_ITEM]: setAppearanceItemReducer,
 };
 
-export const characterPlayerReducer = produce((state: NormalizedPlayer, action: Action) => {
+export const characterPlayerReducer = produce((state: string, action: Action) => {
     const reducer = reducers[action.type];
     return reducer ? reducer(state, action) : state;
 }, null);

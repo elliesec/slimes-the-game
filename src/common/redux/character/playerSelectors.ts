@@ -18,20 +18,29 @@ import { getItemByIdState } from '../item/itemSelectors';
 import { ItemByIdState } from '../item/itemState';
 import { getItemFamilyByTypeState } from '../itemFamily/itemFamilySelectors';
 import { ItemFamilyByTypeState } from '../itemFamily/itemFamilyState';
-import { WithCharacterState } from './characterState';
+import { getCharacterByIdState } from './characterSelectors';
+import { CharacterByIdState, WithCharacterState } from './characterState';
 
-export function getCharacterPlayerState(state: WithCharacterState): NormalizedPlayer {
+export function getPlayerId(state: WithCharacterState): string {
     return state.character.player;
 }
 
-export function getCharacterPlayerAppearanceState(
-    state: WithCharacterState
-): NormalizedCharacterAppearance {
-    return state.character.player?.appearance ?? null;
-}
+export const getNormalizedPlayer = createSelector(
+    [getPlayerId, getCharacterByIdState],
+    (playerId: string, charactersById: CharacterByIdState): NormalizedPlayer => {
+        return charactersById[playerId];
+    }
+);
+
+export const getNormalizedPlayerAppearance = createSelector(
+    [getNormalizedPlayer],
+    (normalizedPlayer): NormalizedCharacterAppearance => {
+        return normalizedPlayer?.appearance ?? null;
+    }
+);
 
 export const getPlayerAppearance = createSelector(
-    [getCharacterPlayerAppearanceState, getItemFamilyByTypeState, getItemByIdState],
+    [getNormalizedPlayerAppearance, getItemFamilyByTypeState, getItemByIdState],
     (
         normalizedAppearance: NormalizedCharacterAppearance,
         itemFamiliesByType: ItemFamilyByTypeState,
@@ -46,7 +55,7 @@ export const getPlayerAppearance = createSelector(
 );
 
 export const getPlayerAppearanceItems = createSelector(
-    [getCharacterPlayerAppearanceState, getItemByIdState],
+    [getNormalizedPlayerAppearance, getItemByIdState],
     (appearance: NormalizedCharacterAppearance, itemsById: ItemByIdState): AppearanceItem[] => {
         if (!appearance || !itemsById) {
             return [];
@@ -65,7 +74,7 @@ export const getPlayerAppearanceItems = createSelector(
 );
 
 export const getPlayer = createSelector(
-    [getCharacterPlayerState, getItemFamilyByTypeState, getItemByIdState],
+    [getNormalizedPlayer, getItemFamilyByTypeState, getItemByIdState],
     (normalizedPlayer, itemFamiliesByType: ItemFamilyByTypeState, itemsById): Player => {
         if (!normalizedPlayer) {
             return null;

@@ -33,10 +33,10 @@ export class DressingRoomSlotSelect extends Component<DressingRoomSlotSelectProp
                 name={AppearanceSlotNames[slot]}
                 id={id}
                 className="DressingRoomSlotSelect"
-                value={item?.id ?? null}
+                value={item?.id ?? ''}
                 onChange={this.onChange}
             >
-                <option key="nothing" value={null}>
+                <option key="nothing" value={''}>
                     Nothing
                 </option>
                 {options.map((item) => (
