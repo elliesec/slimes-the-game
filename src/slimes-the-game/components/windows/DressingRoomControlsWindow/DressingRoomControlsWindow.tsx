@@ -35,9 +35,11 @@ export class DressingRoomControlsWindowClass extends Component<DressingRoomContr
             <Tab key={category} name={ItemCategoryNames[category]}>
                 <table className="slot-list">
                     <thead>
-                        <th>Slot</th>
-                        <th>Item</th>
-                        <th>Description</th>
+                        <tr>
+                            <th>Slot</th>
+                            <th>Item</th>
+                            <th>Description</th>
+                        </tr>
                     </thead>
                     <tbody>
                         {itemFamily.slots.map((slot) => {
