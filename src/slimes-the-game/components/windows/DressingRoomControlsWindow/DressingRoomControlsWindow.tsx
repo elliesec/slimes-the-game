@@ -1,23 +1,43 @@
 import React, { Component, ReactElement } from 'react';
 import { connect } from 'react-redux';
-import { AppearanceSlotNames } from '../../../../common/model/appearance/AppearanceSlot';
+import { Dispatch } from 'redux';
+import { noop } from '../../../../common/functions';
+import { AppearanceItem } from '../../../../common/model/appearance/AppearanceItem';
+import {
+    AppearanceSlot,
+    AppearanceSlotNames,
+    AppearanceSlotType,
+} from '../../../../common/model/appearance/AppearanceSlot';
 import {
     ItemCategory,
     ItemCategoryNames,
     ItemCategoryValues,
 } from '../../../../common/model/appearance/ItemCategory';
+import { ItemFamilyType } from '../../../../common/model/appearance/ItemFamily';
 import { CharacterAppearance } from '../../../../common/model/character/Character';
+import { setPlayerAppearanceItem } from '../../../../common/redux/character/playerActions';
 import { getPlayerAppearance } from '../../../../common/redux/character/playerSelectors';
+import {
+    getItemCategoryMappings,
+    ItemCategoryMapping,
+} from '../../../../common/redux/item/itemSelectors';
 import { State } from '../../../redux/store';
 import { Tab, TabProps } from '../../common/Tabs/Tab';
 import { Tabs } from '../../common/Tabs/Tabs';
 import './DressingRoomControlsWindow.scss';
+import { DressingRoomSlotSelect } from './DressingRoomSlotSelect';
 
 export interface DressingRoomControlsWindowProps {
     appearance: CharacterAppearance;
+    itemCategoryMapping: ItemCategoryMapping;
+    onItemSet?: (category: ItemCategory, slot: AppearanceSlotType, item: AppearanceItem) => void;
 }
 
 export class DressingRoomControlsWindowClass extends Component<DressingRoomControlsWindowProps> {
+    public static defaultProps: Partial<DressingRoomControlsWindowProps> = {
+        onItemSet: noop,
+    };
+
     public render(): ReactElement {
         return (
             <div className="Window DressingRoomControlsWindow">
@@ -53,7 +73,7 @@ export class DressingRoomControlsWindowClass extends Component<DressingRoomContr
                             return (
                                 <tr key={slot.type}>
                                     <td>{AppearanceSlotNames[slot.type]}</td>
-                                    <td>{item?.displayName ?? <em>Nothing</em>}</td>
+                                    <td>{this.renderSlotSelect(category, slot)}</td>
                                     <td>{item?.description ?? <em>No Description</em>}</td>
                                 </tr>
                             );
@@ -63,12 +83,40 @@ export class DressingRoomControlsWindowClass extends Component<DressingRoomContr
             </Tab>
         );
     }
+
+    private renderSlotSelect(category: ItemCategory, slot: AppearanceSlot): ReactElement {
+        const { appearance, itemCategoryMapping } = this.props;
+        const characterSlotMapping = appearance.categories[category];
+        const item = characterSlotMapping[slot.type] ?? null;
+        const availableItems = itemCategoryMapping[category][slot.type] ?? [];
+        return (
+            <DressingRoomSlotSelect
+                category={category}
+                slot={slot.type}
+                item={item}
+                options={availableItems}
+                onSelect={this.props.onItemSet}
+            />
+        );
+    }
 }
 
 function mapStateToProps(state: State): Partial<DressingRoomControlsWindowProps> {
     return {
         appearance: getPlayerAppearance(state),
+        itemCategoryMapping: getItemCategoryMappings(state, ItemFamilyType.HUMAN),
     };
 }
 
-export const DressingRoomControlsWindow = connect(mapStateToProps)(DressingRoomControlsWindowClass);
+function mapDispatchToProps(dispatch: Dispatch): Partial<DressingRoomControlsWindowProps> {
+    return {
+        onItemSet(category: ItemCategory, slot: AppearanceSlotType, item: AppearanceItem): void {
+            dispatch(setPlayerAppearanceItem(category, slot, item));
+        },
+    };
+}
+
+export const DressingRoomControlsWindow = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(DressingRoomControlsWindowClass);

@@ -5,7 +5,7 @@ import { NormalizedPlayer, PlayerDefinition } from '../../model/character/Player
 import { WithId } from '../../types';
 import { log } from '../../util/Log';
 import { normalizeCharacter } from './characterByIdReducer';
-import { PlayerAction } from './playerActions';
+import { CategorySlotItem, PlayerAction } from './playerActions';
 
 const registerPlayerReducer = produce(
     (state: NormalizedPlayer, { payload }: PayloadAction<WithId<PlayerDefinition>>) => {
@@ -17,8 +17,20 @@ const registerPlayerReducer = produce(
     null
 );
 
+const setAppearanceItemReducer = produce(
+    (
+        state: NormalizedPlayer,
+        { payload: { category, slot, item } }: PayloadAction<CategorySlotItem>
+    ) => {
+        const slotMappings = (state.appearance.categories[category] ??= {});
+        slotMappings[slot] = item?.id ?? null;
+        return state;
+    }
+);
+
 const reducers: Record<string, Reducer<NormalizedPlayer>> = {
     [PlayerAction.REGISTER]: registerPlayerReducer,
+    [PlayerAction.SET_APPEARANCE_ITEM]: setAppearanceItemReducer,
 };
 
 export const characterPlayerReducer = produce((state: NormalizedPlayer, action: Action) => {
