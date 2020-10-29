@@ -4,6 +4,8 @@ import { ItemFamilyType } from './ItemFamily';
 
 export interface AppearanceItemDefinition {
     name: string;
+    displayName: string;
+    description?: string;
     family: ItemFamilyType;
     slot: AppearanceSlotType;
     category: ItemCategory;

@@ -13,6 +13,7 @@ const createBodyItem = itemDefinitionGenerator(
 const bodyItems: AppearanceItemDefinition[] = [
     createBodyItem({
         name: 'defaultLegs',
+        displayName: 'Default Legs',
         priority: 20,
         assets: [
             {

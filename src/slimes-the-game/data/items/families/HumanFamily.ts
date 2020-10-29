@@ -2,7 +2,7 @@ import { AppearanceSlotType } from '../../../../common/model/appearance/Appearan
 import { ItemCategory } from '../../../../common/model/appearance/ItemCategory';
 import { ItemFamily, ItemFamilyType } from '../../../../common/model/appearance/ItemFamily';
 
-const playerFamily: ItemFamily = {
+const humanFamily: ItemFamily = {
     type: ItemFamilyType.HUMAN,
     slots: [
         {
@@ -16,6 +16,7 @@ const playerFamily: ItemFamily = {
         {
             type: AppearanceSlotType.HIPS,
             canEquip: true,
+            categories: [ItemCategory.UNDERWEAR, ItemCategory.CLOTHES, ItemCategory.ARMOUR],
         },
         {
             type: AppearanceSlotType.LEGS,
@@ -24,6 +25,7 @@ const playerFamily: ItemFamily = {
         {
             type: AppearanceSlotType.FEET,
             canEquip: true,
+            categories: [ItemCategory.UNDERWEAR, ItemCategory.CLOTHES, ItemCategory.ARMOUR],
         },
         {
             type: AppearanceSlotType.ARM_LEFT,
@@ -61,4 +63,4 @@ const playerFamily: ItemFamily = {
     ],
 };
 
-export default playerFamily;
+export default humanFamily;

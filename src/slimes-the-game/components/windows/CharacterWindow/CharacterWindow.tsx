@@ -17,11 +17,7 @@ export interface CharacterWindowProps extends ContainerLinkedComponentProps {}
 
 export class CharacterWindowClass extends ContainerLinkedComponent {
     public render(): ReactElement {
-        return (
-            <div ref={this.ref} className="Window CharacterWindow">
-                Character Window
-            </div>
-        );
+        return <div ref={this.ref} className="Window CharacterWindow" />;
     }
 
     protected getInitialState(

@@ -1,0 +1,51 @@
+@import '../../../../styles/constants';
+
+.Tabs {
+    .tabs-header {
+        .TabHeader {
+            position: relative;
+            display: inline-block;
+
+            button {
+                border-radius: 0;
+                padding: 0.5em 1em;
+                border: 1px solid rgba(black, 0.25);
+                border-bottom: 0;
+            }
+
+            &.selected {
+                button {
+                    border-color: $color-primary;
+                    background-color: $color-primary;
+                    color: white;
+                }
+
+                & + .TabHeader {
+                    button {
+                        border-left-color: $color-primary;
+                    }
+                }
+
+                &::after {
+                    position: absolute;
+                    content: '';
+                    border-top: 1px solid $color-primary;
+                    width: 100%;
+                    left: 0;
+                    bottom: -1px;
+                }
+            }
+
+            &:not(:last-child) {
+                button {
+                    border-right: 0;
+                }
+            }
+        }
+    }
+
+    .tab-pane {
+        border: 1px solid rgba(black, 0.25);
+        padding: 1rem;
+    }
+}

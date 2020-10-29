@@ -2,7 +2,7 @@ import { PartialRecord } from '../../types';
 import { AppearanceItem } from '../appearance/AppearanceItem';
 import { AppearanceSlotType } from '../appearance/AppearanceSlot';
 import { ItemCategory } from '../appearance/ItemCategory';
-import { ItemFamilyType } from '../appearance/ItemFamily';
+import { ItemFamily } from '../appearance/ItemFamily';
 
 export interface Character {
     id: string;
@@ -10,7 +10,7 @@ export interface Character {
 }
 
 export interface CharacterAppearance {
-    family: ItemFamilyType;
+    family: ItemFamily;
     categories: CharacterCategoryMapping;
 }
 

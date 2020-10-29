@@ -13,6 +13,7 @@ const createBodyItem = itemDefinitionGenerator(
 const bodyItems: AppearanceItemDefinition[] = [
     createBodyItem({
         name: 'defaultShadow',
+        displayName: 'Default Shadow',
         priority: 10,
         assets: [
             {

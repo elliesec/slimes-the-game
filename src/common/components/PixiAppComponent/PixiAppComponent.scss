@@ -3,9 +3,14 @@
     width: 100%;
     background-color: #ddd;
 
-    canvas {
+    #pixi-app {
         position: absolute;
         top: 0;
         left: 0;
+        pointer-events: none;
+    }
+
+    .View {
+        position: relative;
     }
 }

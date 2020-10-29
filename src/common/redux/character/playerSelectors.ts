@@ -2,15 +2,22 @@ import { createSelector } from 'reselect';
 import { AppearanceItem } from '../../model/appearance/AppearanceItem';
 import { AppearanceSlotTypeValues } from '../../model/appearance/AppearanceSlot';
 import { ItemCategoryValues } from '../../model/appearance/ItemCategory';
-import { CharacterCategoryMapping, CharacterSlotMapping } from '../../model/character/Character';
+import {
+    CharacterAppearance,
+    CharacterCategoryMapping,
+    CharacterSlotMapping,
+} from '../../model/character/Character';
 import {
     NormalizedCategoryMapping,
     NormalizedCharacterAppearance,
     NormalizedSlotMapping,
 } from '../../model/character/NormalizedCharacter';
 import { NormalizedPlayer, Player } from '../../model/character/Player';
+import { log } from '../../util/Log';
 import { getItemByIdState } from '../item/itemSelectors';
 import { ItemByIdState } from '../item/itemState';
+import { getItemFamilyByTypeState } from '../itemFamily/itemFamilySelectors';
+import { ItemFamilyByTypeState } from '../itemFamily/itemFamilyState';
 import { WithCharacterState } from './characterState';
 
 export function getCharacterPlayerState(state: WithCharacterState): NormalizedPlayer {
@@ -22,6 +29,21 @@ export function getCharacterPlayerAppearanceState(
 ): NormalizedCharacterAppearance {
     return state.character.player?.appearance ?? null;
 }
+
+export const getPlayerAppearance = createSelector(
+    [getCharacterPlayerAppearanceState, getItemFamilyByTypeState, getItemByIdState],
+    (
+        normalizedAppearance: NormalizedCharacterAppearance,
+        itemFamiliesByType: ItemFamilyByTypeState,
+        itemsById: ItemByIdState
+    ): CharacterAppearance => {
+        if (!normalizedAppearance || !itemsById) {
+            log.warn(`Player appearance is not defined. This is probably an error`);
+            return null;
+        }
+        return mapAppearance(normalizedAppearance, itemFamiliesByType, itemsById);
+    }
+);
 
 export const getPlayerAppearanceItems = createSelector(
     [getCharacterPlayerAppearanceState, getItemByIdState],
@@ -43,30 +65,36 @@ export const getPlayerAppearanceItems = createSelector(
 );
 
 export const getPlayer = createSelector(
-    [getCharacterPlayerState, getItemByIdState],
-    (normalizedPlayer, itemsById): Player => {
+    [getCharacterPlayerState, getItemFamilyByTypeState, getItemByIdState],
+    (normalizedPlayer, itemFamiliesByType: ItemFamilyByTypeState, itemsById): Player => {
         if (!normalizedPlayer) {
             return null;
         }
         const { appearance } = normalizedPlayer;
         return {
             ...normalizedPlayer,
-            appearance: {
-                family: appearance.family,
-                categories: mapCategories(appearance.categories, itemsById),
-            },
+            appearance: mapAppearance(appearance, itemFamiliesByType, itemsById),
         };
     }
 );
+
+function mapAppearance(
+    normalizedAppearance: NormalizedCharacterAppearance,
+    itemFamiliesByType: ItemFamilyByTypeState,
+    itemsById: ItemByIdState
+): CharacterAppearance {
+    return {
+        family: itemFamiliesByType[normalizedAppearance.family],
+        categories: mapCategories(normalizedAppearance.categories, itemsById),
+    };
+}
 
 function mapCategories(
     ncm: NormalizedCategoryMapping,
     itemsById: ItemByIdState
 ): CharacterCategoryMapping {
     return ItemCategoryValues.reduce((ccm, category) => {
-        if (ncm[category]) {
-            ccm[category] = mapSlots(ncm[category], itemsById);
-        }
+        ccm[category] = ncm[category] ? mapSlots(ncm[category], itemsById) : {};
         return ccm;
     }, {} as CharacterCategoryMapping);
 }

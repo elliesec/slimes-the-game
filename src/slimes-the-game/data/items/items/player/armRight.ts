@@ -13,6 +13,7 @@ const createBodyItem = itemDefinitionGenerator(
 const bodyItems: AppearanceItemDefinition[] = [
     createBodyItem({
         name: 'defaultArmRight',
+        displayName: 'Default Right Arm',
         priority: 50,
         assets: [
             {

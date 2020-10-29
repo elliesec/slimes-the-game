@@ -3,7 +3,7 @@ import React, { createRef, PureComponent, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { withResizeDetector } from 'react-resize-detector';
 import { Dispatch } from 'redux';
-import { DefaultView } from '../../../slimes-the-game/components/views/DefaultView/DefaultView';
+import { DressingRoomView } from '../../../slimes-the-game/components/views/DressingRoomView/DressingRoomView';
 import { State } from '../../../slimes-the-game/redux/store';
 import { Callback } from '../../functions';
 import { PixiApp } from '../../pixi/PixiApp';
@@ -27,6 +27,7 @@ export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps> 
         const width = element.clientWidth;
         const height = element.clientHeight;
         this.app = new PixiApp({ width, height, transparent: true });
+        this.app.view.id = 'pixi-app';
         this.onResize();
         element.appendChild(this.app.view);
         this.props.onPixiAppSet(this.app);
@@ -61,7 +62,7 @@ export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps> 
 
 function mapStateToProps(state: State): Partial<PixiAppComponentProps> {
     return {
-        view: DefaultView,
+        view: DressingRoomView,
     };
 }
 

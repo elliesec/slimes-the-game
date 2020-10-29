@@ -13,6 +13,7 @@ const createBodyItem = itemDefinitionGenerator(
 const bodyItems: AppearanceItemDefinition[] = [
     createBodyItem({
         name: 'defaultHairFront',
+        displayName: 'Default Front Hair',
         priority: 100,
         assets: [
             {

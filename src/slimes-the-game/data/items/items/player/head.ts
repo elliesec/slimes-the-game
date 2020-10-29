@@ -13,6 +13,7 @@ const createBodyItem = itemDefinitionGenerator(
 const bodyItems: AppearanceItemDefinition[] = [
     createBodyItem({
         name: 'defaultHead',
+        displayName: 'Default Head',
         priority: 80,
         assets: [
             {
