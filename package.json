@@ -1,6 +1,6 @@
 {
     "name": "slimes-the-game",
-    "version": "0.8.0",
+    "version": "0.9.0",
     "description": "Slimes: The Game",
     "main": "docs/index.html",
     "scripts": {
@@ -84,7 +84,6 @@
         "reset-css": "^5.0.1"
     },
     "resolutions": {
-        "jimp": "^0.16.1",
         "minimist": "^1.2.5",
         "serialize-javascript": "^3.1.0"
     }
