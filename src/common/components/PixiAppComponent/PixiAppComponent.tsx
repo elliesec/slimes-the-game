@@ -22,11 +22,11 @@ export interface PixiAppComponentProps extends ISize {
 }
 
 export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps> {
-    private readonly elementRef = createRef<HTMLDivElement>();
+    private readonly pixiStageRef = createRef<HTMLDivElement>();
     private app: PixiApp;
 
     public componentDidMount(): void {
-        const element = this.elementRef.current;
+        const element = this.pixiStageRef.current;
         const width = element.clientWidth;
         const height = element.clientHeight;
         this.app = new PixiApp({ width, height, transparent: true });
@@ -39,7 +39,10 @@ export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps> 
 
     public componentDidUpdate(prevProps: Readonly<PixiAppComponentProps>): void {
         const { width, height } = this.props;
-        if (this.elementRef.current && (width !== prevProps.width || height !== prevProps.height)) {
+        if (
+            this.pixiStageRef.current &&
+            (width !== prevProps.width || height !== prevProps.height)
+        ) {
             this.onResize();
         }
     }
@@ -47,14 +50,16 @@ export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps> 
     public render(): ReactElement {
         const View = this.props.view;
         return (
-            <div className="PixiAppComponent" ref={this.elementRef}>
+            <div className="PixiAppComponent">
                 <View app={this.app} />
+                <div className="pixi-app-stage" ref={this.pixiStageRef} />
+                {this.props.children}
             </div>
         );
     }
 
     private onResize(): void {
-        const element = this.elementRef.current;
+        const element = this.pixiStageRef.current;
         if (this.app.resizeTo !== element) {
             this.app.resizeTo = element;
         }
