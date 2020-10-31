@@ -1,6 +1,5 @@
-import memoizeOne from 'memoize-one';
-import { Container, Graphics } from 'pixi.js';
-import { PixiAppUpdateManager } from '../PixiAppUpdateManager';
+import { Graphics } from 'pixi.js';
+import { LayoutContainer } from './LayoutContainer';
 
 export interface DomTrackingContainerProps {
     highlight?: boolean;
@@ -10,57 +9,17 @@ export interface DomTrackingContainerProps {
     height: number;
 }
 
-export class DomTrackingContainer<P extends DomTrackingContainerProps> extends Container {
-    private dirty = false;
-
-    public constructor(protected props: P) {
-        super();
-        this.assignProps = memoizeOne(this.assignProps);
-        this.layout();
-        this.tick = this.tick.bind(this);
-        PixiAppUpdateManager.addUpdateListener(this.tick);
-    }
-
-    public setProps<K extends keyof P>(props: Pick<P, K>): void {
-        const prevProps = this.props;
-        this.props = this.assignProps(prevProps, props);
-        if (this.shouldContainerUpdate(prevProps)) {
-            this.dirty = true;
-        }
-    }
-
-    public tick(delta: number): void {
-        if (this.dirty) {
-            this.clear();
-            this.layout();
-            this.dirty = false;
-        }
-    }
-
-    public clear(): void {
-        this.removeChildren();
-    }
-
+export class DomTrackingContainer<P extends DomTrackingContainerProps> extends LayoutContainer<P> {
     public layout(): void {
         const { highlight = false, x, y, width, height } = this.props;
         this.position.set(x, y);
         if (highlight) {
             const border = new Graphics();
-            border.lineStyle(3, 0xff0000);
-            border.beginFill(0xff0000, 0.25);
-            border.drawRect(x + 1.5, y + 1.5, width - 3, height - 3);
+            border.lineStyle(3, 0x8bc34a);
+            border.beginFill(0x8bc34a, 0.25);
+            border.drawRect(1.5, 1.5, width - 3, height - 3);
             border.endFill();
             this.addChild(border);
         }
-    }
-
-    public destroy(): void {}
-
-    protected shouldContainerUpdate(prevProps: Readonly<P>): boolean {
-        return this.props !== prevProps;
-    }
-
-    private assignProps<K extends keyof P>(props: P, newProps: Pick<P, K>): P {
-        return { ...props, ...newProps };
     }
 }

@@ -1,0 +1,14 @@
+table {
+    width: 100%;
+
+    th,
+    td {
+        border: 1px solid rgba(black, 0.25);
+        padding: 0.5em;
+        text-align: initial;
+    }
+
+    th {
+        font-weight: 600;
+    }
+}

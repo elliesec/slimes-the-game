@@ -11,17 +11,13 @@ import {
     DomTrackingContainer,
     DomTrackingContainerProps,
 } from '../../../../common/pixi/containers/DomTrackingContainer';
-import { CharacterContainer } from '../../../containers/CharacterContainer';
+import { CharacterWindowContainer } from './CharacterWindowContainer';
 
 export interface CharacterWindowProps extends ContainerLinkedComponentProps {}
 
 export class CharacterWindowClass extends ContainerLinkedComponent {
     public render(): ReactElement {
-        return (
-            <div ref={this.ref} className="Window CharacterWindow">
-                Character Window
-            </div>
-        );
+        return <div ref={this.ref} className="Window CharacterWindow" />;
     }
 
     protected getInitialState(
@@ -34,7 +30,8 @@ export class CharacterWindowClass extends ContainerLinkedComponent {
         props: ContainerLinkedComponentProps
     ): DomTrackingContainer<DomTrackingContainerProps> {
         const { x, y, width, height } = this.ref.current.getBoundingClientRect();
-        return new CharacterContainer({
+        return new CharacterWindowContainer({
+            highlight: true,
             x,
             y,
             width,

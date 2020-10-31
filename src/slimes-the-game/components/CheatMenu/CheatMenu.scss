@@ -1,0 +1,43 @@
+.CheatMenu {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    display: none;
+    visibility: hidden;
+
+    &.open {
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+        display: block;
+        visibility: visible;
+    }
+
+    .cheat-modal-screen {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(black, 0.75);
+
+        .cheat-modal {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 80vw;
+            max-height: 80vh;
+            background-color: white;
+            padding: 1rem;
+
+            .buttons {
+                display: flex;
+                flex-flow: row wrap;
+                margin: -0.5em;
+
+                button {
+                    margin: 0.5em;
+                }
+            }
+        }
+    }
+}
