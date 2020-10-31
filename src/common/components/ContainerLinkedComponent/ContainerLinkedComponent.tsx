@@ -46,6 +46,10 @@ export abstract class ContainerLinkedComponent<
         this.addContainerToApp();
     }
 
+    public componentWillUnmount() {
+        this.container.destroy();
+    }
+
     protected getContainerProps(): IPointData & ISize {
         const currentRef = this.ref.current;
         if (!currentRef) {

@@ -3,12 +3,15 @@ import React, { createRef, PureComponent, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { withResizeDetector } from 'react-resize-detector';
 import { Dispatch } from 'redux';
+import { DefaultView } from '../../../slimes-the-game/components/views/DefaultView/DefaultView';
 import { DressingRoomView } from '../../../slimes-the-game/components/views/DressingRoomView/DressingRoomView';
 import { State } from '../../../slimes-the-game/redux/store';
 import { Callback } from '../../functions';
 import { PixiApp } from '../../pixi/PixiApp';
 import { PixiAppUpdateManager } from '../../pixi/PixiAppUpdateManager';
 import { appSetPixiApp, appSetPosition } from '../../redux/app/appActions';
+import { getCurrentView } from '../../redux/app/appSelectors';
+import { AppView } from '../../redux/app/appState';
 import { PixiAppView } from '../PixiAppView/PixiAppView';
 import './PixiAppComponent.scss';
 
@@ -60,9 +63,14 @@ export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps> 
     }
 }
 
+const viewMapping: Record<AppView, typeof PixiAppView> = {
+    [AppView.DEFAULT]: DefaultView,
+    [AppView.DRESSING_ROOM]: DressingRoomView,
+};
+
 function mapStateToProps(state: State): Partial<PixiAppComponentProps> {
     return {
-        view: DressingRoomView,
+        view: viewMapping[getCurrentView(state)],
     };
 }
 
