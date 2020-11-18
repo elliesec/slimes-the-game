@@ -29,7 +29,7 @@
         "@types/react-resize-detector": "^5.0.0",
         "@types/webpack-env": "^1.15.3",
         "clean-webpack-plugin": "^3.0.0",
-        "css-loader": "^5.0.0",
+        "css-loader": "^5.0.1",
         "favicons-webpack-plugin": "^4.2.0",
         "file-loader": "^6.2.0",
         "html-webpack-plugin": "^4.5.0",
