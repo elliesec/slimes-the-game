@@ -1,5 +1,5 @@
 import { IPointData, ISize } from 'pixi.js';
-import { createRef, PureComponent } from 'react';
+import { createRef, CSSProperties, PureComponent } from 'react';
 import { WithAppPositionProps } from '../../hocs/withAppPosition';
 import {
     DomTrackingContainer,
@@ -9,6 +9,7 @@ import { PixiApp } from '../../pixi/PixiApp';
 
 export interface ContainerLinkedComponentProps extends WithAppPositionProps, ISize {
     app: PixiApp;
+    background?: string;
 }
 
 export interface ContainerLinkedComponentState {
@@ -65,6 +66,15 @@ export abstract class ContainerLinkedComponent<
             this.props.app.stage.addChild(this.container);
             this.setState({ containerAdded: true });
         }
+    }
+
+    protected getStyles(): CSSProperties {
+        if (!this.props.background) {
+            return null;
+        }
+        return {
+            backgroundImage: `url(${this.props.background})`,
+        };
     }
 
     protected abstract createContainer(props: P): DomTrackingContainer<C>;
