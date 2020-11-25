@@ -11,6 +11,7 @@
         "format": "prettier --write .",
         "test": "echo \"Error: no test specified\" && exit 1",
         "preinstall": "npx npm-force-resolutions",
+        "postinstall": "prettier --write package*.json",
         "preversion": "npm install",
         "version": "npm run build && git add -A docs"
     },
