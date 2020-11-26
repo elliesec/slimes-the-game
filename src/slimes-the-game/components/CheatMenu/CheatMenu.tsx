@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { Component, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { Key } from 'ts-key-enum';
 import { Callback, noop } from '../../../common/functions';
 import { appSetView } from '../../../common/redux/app/appActions';
 import { AppView } from '../../../common/redux/app/appState';
@@ -62,6 +63,9 @@ export class CheatMenuClass extends Component<CheatMenuProps, CheatMenuState> {
     private onKeyDown(e: KeyboardEvent): void {
         if (e.key === 'c') {
             this.setState({ open: !this.state.open });
+        }
+        if (e.key === Key.Escape && this.state.open) {
+            this.setState({ open: false });
         }
     }
 

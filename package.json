@@ -82,7 +82,8 @@
         "react-resize-detector": "^5.2.0",
         "redux": "^4.0.5",
         "reselect": "^4.0.0",
-        "reset-css": "^5.0.1"
+        "reset-css": "^5.0.1",
+        "ts-key-enum": "^3.0.4"
     },
     "resolutions": {
         "minimist": "^1.2.5",
