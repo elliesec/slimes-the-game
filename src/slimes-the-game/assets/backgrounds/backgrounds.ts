@@ -1,12 +1,15 @@
 import { Background, instanceOfBackground } from '../../../common/model/location/Background';
 import { PartialRecord } from '../../../common/types';
 import { log } from '../../../common/util/Log';
+import { WindowType } from '../../enums';
 import RequireContext = __WebpackModuleApi.RequireContext;
 
 const FILE_NAME_REGEX = /\.\/(.+)\.(jpe?g|png)$/;
 
-export const CharacterBackgrounds = loadCharacterBackgrounds();
-export const TextBackgrounds = loadTextBackgrounds();
+export const WindowBackgrounds: PartialRecord<WindowType, PartialRecord<Background, string>> = {
+    [WindowType.CHARACTER]: loadCharacterBackgrounds(),
+    [WindowType.TEXT]: loadTextBackgrounds(),
+};
 
 function loadBackgroundContext(context: RequireContext): PartialRecord<Background, string> {
     return context.keys().reduce((record, key) => {

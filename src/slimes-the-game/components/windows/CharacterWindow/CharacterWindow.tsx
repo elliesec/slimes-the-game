@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
-import { connect } from 'react-redux';
 import { withResizeDetector } from 'react-resize-detector';
+import { WindowBackground } from '../../../../common/components/BackgroundComponent/WindowBackground';
 import {
     ContainerLinkedComponent,
     ContainerLinkedComponentProps,
@@ -12,16 +12,18 @@ import {
     DomTrackingContainer,
     DomTrackingContainerProps,
 } from '../../../../common/pixi/containers/DomTrackingContainer';
-import { getLocationBackground } from '../../../../common/redux/location/locationSelectors';
-import { CharacterBackgrounds } from '../../../assets/backgrounds/backgrounds';
-import { State } from '../../../redux/store';
+import { WindowType } from '../../../enums';
 import { CharacterWindowContainer } from './CharacterWindowContainer';
 
 export interface CharacterWindowProps extends ContainerLinkedComponentProps {}
 
 export class CharacterWindowClass extends ContainerLinkedComponent {
     public render(): ReactElement {
-        return <div ref={this.ref} className="Window CharacterWindow" style={this.getStyles()} />;
+        return (
+            <div ref={this.ref} className="Window CharacterWindow">
+                <WindowBackground windowType={WindowType.CHARACTER} />
+            </div>
+        );
     }
 
     protected getInitialState(
@@ -44,13 +46,6 @@ export class CharacterWindowClass extends ContainerLinkedComponent {
     }
 }
 
-function mapStateToProps(state: State): Partial<CharacterWindowProps> {
-    const background = getLocationBackground(state);
-    return {
-        background: CharacterBackgrounds[background],
-    };
-}
-
-export const CharacterWindow = connect(mapStateToProps)(
-    withResizeDetector(withAppPosition(withPixiApp(CharacterWindowClass)))
+export const CharacterWindow = withResizeDetector(
+    withAppPosition(withPixiApp(CharacterWindowClass))
 );
