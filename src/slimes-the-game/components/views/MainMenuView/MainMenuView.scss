@@ -1,3 +1,23 @@
+@import '../../../../styles/constants';
+
 .MainMenuView {
     background-size: cover;
+
+    .menu-backdrop {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        padding: 2.5rem;
+        background-color: rgba(lighten($color-primary, 45%), 0.8);
+        border-radius: 1vmin;
+        width: 48em;
+        max-width: 80%;
+        text-align: center;
+        user-select: none;
+
+        h1 {
+            font-size: 5vmin;
+        }
+    }
 }
