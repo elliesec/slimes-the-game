@@ -18,7 +18,12 @@
         left: 0;
     }
 
-    .View {
+    .AppView {
         position: relative;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: stretch;
+        width: 100%;
+        height: 100%;
     }
 }

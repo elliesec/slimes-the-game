@@ -5,6 +5,7 @@ import { withResizeDetector } from 'react-resize-detector';
 import { Dispatch } from 'redux';
 import { DefaultView } from '../../../slimes-the-game/components/views/DefaultView/DefaultView';
 import { DressingRoomView } from '../../../slimes-the-game/components/views/DressingRoomView/DressingRoomView';
+import { MainMenuView } from '../../../slimes-the-game/components/views/MainMenuView/MainMenuView';
 import { State } from '../../../slimes-the-game/redux/store';
 import { Callback } from '../../functions';
 import { PixiApp } from '../../pixi/PixiApp';
@@ -69,6 +70,7 @@ export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps> 
 }
 
 const viewMapping: Record<AppView, typeof PixiAppView> = {
+    [AppView.MAIN_MENU]: MainMenuView,
     [AppView.DEFAULT]: DefaultView,
     [AppView.DRESSING_ROOM]: DressingRoomView,
 };

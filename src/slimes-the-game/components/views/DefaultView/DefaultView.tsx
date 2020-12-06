@@ -10,7 +10,7 @@ import './DefaultView.scss';
 export class DefaultView extends PixiAppView {
     public render(): ReactElement {
         return (
-            <div className="DefaultView">
+            <div className="AppView DefaultView">
                 <Sidebar />
                 <div className="windows">
                     <TextWindow />

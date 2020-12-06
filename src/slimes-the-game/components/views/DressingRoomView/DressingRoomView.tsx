@@ -7,7 +7,7 @@ import './DressingRoomView.scss';
 export class DressingRoomView extends PixiAppView {
     public render(): ReactElement {
         return (
-            <div className="View DressingRoomView">
+            <div className="AppView DressingRoomView">
                 <DressingRoomControlsWindow />
                 <CharacterWindow />
             </div>
