@@ -1,6 +1,7 @@
-import React, { Children, cloneElement, Component, ReactElement } from 'react';
+import React, { Children, cloneElement, Component, CSSProperties, ReactElement } from 'react';
 import { Key } from 'ts-key-enum';
 import { Callback } from '../../functions';
+import './ButtonGrid.scss';
 
 export interface NavigableButtonProps {
     row: number;
@@ -43,19 +44,31 @@ export class ButtonGrid extends Component<ButtonGridProps, ButtonGridState> {
 
     public render<P extends NavigableButtonProps = NavigableButtonProps>(): ReactElement {
         const { children } = this.props;
-        const { row, column } = this.state;
         return (
-            <div className="ButtonGrid">
+            <ul className="ButtonGrid" style={this.getStyle()}>
                 {Children.map(children, (child: ReactElement<P>) => {
-                    const selected = child.props.row === row && child.props.column === column;
-                    return cloneElement<P>(child, {
-                        ...child.props,
-                        selected,
-                        onFocus: this.onFocus,
-                    });
+                    const { row, column } = child.props;
+                    const selected = row === this.state.row && column === this.state.column;
+                    return (
+                        <li style={{ gridRowStart: row + 1, gridColumnStart: column + 1 }}>
+                            {cloneElement<P>(child, {
+                                ...child.props,
+                                selected,
+                                onFocus: this.onFocus,
+                            })}
+                        </li>
+                    );
                 })}
-            </div>
+            </ul>
         );
+    }
+
+    protected getStyle(): CSSProperties {
+        const { rows, columns } = this.props;
+        return {
+            gridTemplateRows: new Array(rows).fill('1fr').join(' '),
+            gridTemplateColumns: new Array(columns).fill('1fr').join(' '),
+        };
     }
 
     protected onKeyDown(e: KeyboardEvent): void {
