@@ -1,6 +1,11 @@
+import classNames from 'classnames';
 import React, { Children, cloneElement, Component, CSSProperties, ReactElement } from 'react';
-import { Key } from 'ts-key-enum';
+import { connect } from 'react-redux';
 import { Callback } from '../../functions';
+import { getConfigHotkeysState } from '../../redux/config/configSelectors';
+import { ConfigHotkeysState, Hotkey, WithConfigState } from '../../redux/config/configState';
+import { ArrowKey, isArrowKey } from '../../util/keyboardUtils';
+import { log } from '../../util/Log';
 import './ButtonGrid.scss';
 
 export interface NavigableButtonProps {
@@ -8,12 +13,16 @@ export interface NavigableButtonProps {
     column: number;
     selected?: boolean;
     onFocus?: Callback<NavigableButtonProps>;
+    onSelect?: Callback<NavigableButtonProps>;
 }
 
 export interface ButtonGridProps<P extends NavigableButtonProps = NavigableButtonProps> {
     children: ReactElement<P> | Array<ReactElement<P>>;
     rows: number;
     columns: number;
+    hotkeys: ConfigHotkeysState;
+    onSelect?: Callback<NavigableButtonProps>;
+    className?: string;
 }
 
 export interface ButtonGridState {
@@ -21,7 +30,7 @@ export interface ButtonGridState {
     column: number;
 }
 
-export class ButtonGrid extends Component<ButtonGridProps, ButtonGridState> {
+export class ButtonGridClass extends Component<ButtonGridProps, ButtonGridState> {
     public constructor(props: ButtonGridProps) {
         super(props);
 
@@ -43,9 +52,9 @@ export class ButtonGrid extends Component<ButtonGridProps, ButtonGridState> {
     }
 
     public render<P extends NavigableButtonProps = NavigableButtonProps>(): ReactElement {
-        const { children } = this.props;
+        const { children, className } = this.props;
         return (
-            <ul className="ButtonGrid" style={this.getStyle()}>
+            <ul className={classNames('ButtonGrid', className)} style={this.getStyle()}>
                 {Children.map(children, (child: ReactElement<P>) => {
                     const { row, column } = child.props;
                     const selected = row === this.state.row && column === this.state.column;
@@ -72,23 +81,47 @@ export class ButtonGrid extends Component<ButtonGridProps, ButtonGridState> {
     }
 
     protected onKeyDown(e: KeyboardEvent): void {
+        const { children, hotkeys } = this.props;
+        if (!hotkeys) {
+            return;
+        }
+        const arrowKey = isArrowKey(e, hotkeys);
+        if (arrowKey) {
+            this.onArrowKey(arrowKey);
+        } else if (hotkeys[Hotkey.SELECT].includes(e.key)) {
+            const { row, column } = this.state;
+            const selected = Children.toArray(children).find(
+                (child: ReactElement<NavigableButtonProps>) =>
+                    child.props.row === row && child.props.column === column
+            ) as ReactElement<NavigableButtonProps>;
+            if (selected) {
+                const { onSelect } = selected.props;
+                typeof onSelect === 'function' && onSelect(selected.props);
+            }
+            e.preventDefault();
+            return;
+        }
+    }
+
+    protected onArrowKey(arrowKey: ArrowKey): void {
         let { row, column } = this.state;
         const { rows, columns } = this.props;
-        switch (e.key) {
-            case Key.ArrowLeft:
+        switch (arrowKey) {
+            case ArrowKey.LEFT:
                 column--;
                 break;
-            case Key.ArrowRight:
+            case ArrowKey.RIGHT:
                 column++;
                 break;
-            case Key.ArrowUp:
+            case ArrowKey.UP:
                 row--;
                 break;
-            case Key.ArrowDown:
+            case ArrowKey.DOWN:
                 row++;
                 break;
             default:
-                return;
+                log.warn(`Invalid arrow key: ${arrowKey}`);
+                break;
         }
         if (column < 0) {
             column = columns - 1;
@@ -107,3 +140,11 @@ export class ButtonGrid extends Component<ButtonGridProps, ButtonGridState> {
         this.setState({ row, column });
     }
 }
+
+function mapStateToProps(state: WithConfigState): Pick<ButtonGridProps, 'hotkeys'> {
+    return {
+        hotkeys: getConfigHotkeysState(state),
+    };
+}
+
+export const ButtonGrid = connect(mapStateToProps)(ButtonGridClass);

@@ -83,6 +83,7 @@
         "redux": "^4.0.5",
         "reselect": "^4.0.0",
         "reset-css": "^5.0.1",
+        "rxjs": "^6.6.3",
         "ts-key-enum": "^3.0.4"
     },
     "resolutions": {
