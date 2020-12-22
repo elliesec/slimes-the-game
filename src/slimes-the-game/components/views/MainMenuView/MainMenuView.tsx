@@ -9,7 +9,7 @@ import { LoadingScreen } from '../../LoadingScreen/LoadingScreen';
 import { MainMenuButtons } from './MainMenuButtons';
 import './MainMenuView.scss';
 
-const mainMenuBackground = require('./main-menu-bg.jpg');
+const mainMenuBackground = require('./main-menu-bg.png');
 
 export interface MainMenuViewProps extends PixiAppViewProps {
     onNewGame(): void;
