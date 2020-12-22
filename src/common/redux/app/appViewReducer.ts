@@ -7,7 +7,7 @@ const reducers: Record<string, Reducer<AppView>> = {
     [AppAction.SET_VIEW]: setViewReducer,
 };
 
-export function appViewReducer(view = AppView.DEFAULT, action: Action): AppView {
+export function appViewReducer(view = AppView.MAIN_MENU, action: Action): AppView {
     const reducer = reducers[action.type];
     return reducer ? reducer(view, action) : view;
 }

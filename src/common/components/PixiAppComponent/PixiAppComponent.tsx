@@ -3,8 +3,10 @@ import React, { createRef, PureComponent, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { withResizeDetector } from 'react-resize-detector';
 import { Dispatch } from 'redux';
+import { FadeOut } from '../../../slimes-the-game/components/FadeOut/FadeOut';
 import { DefaultView } from '../../../slimes-the-game/components/views/DefaultView/DefaultView';
 import { DressingRoomView } from '../../../slimes-the-game/components/views/DressingRoomView/DressingRoomView';
+import { MainMenuView } from '../../../slimes-the-game/components/views/MainMenuView/MainMenuView';
 import { State } from '../../../slimes-the-game/redux/store';
 import { Callback } from '../../functions';
 import { PixiApp } from '../../pixi/PixiApp';
@@ -22,6 +24,8 @@ export interface PixiAppComponentProps extends ISize {
 }
 
 export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps> {
+    public static ROOT_ID = 'pixi-app-root';
+
     private readonly pixiStageRef = createRef<HTMLDivElement>();
     private app: PixiApp;
 
@@ -50,10 +54,11 @@ export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps> 
     public render(): ReactElement {
         const View = this.props.view;
         return (
-            <div className="PixiAppComponent">
+            <div id={PixiAppComponentClass.ROOT_ID} className="PixiAppComponent">
                 <View app={this.app} />
                 <div className="pixi-app-stage" ref={this.pixiStageRef} />
                 {this.props.children}
+                <FadeOut />
             </div>
         );
     }
@@ -69,6 +74,7 @@ export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps> 
 }
 
 const viewMapping: Record<AppView, typeof PixiAppView> = {
+    [AppView.MAIN_MENU]: MainMenuView,
     [AppView.DEFAULT]: DefaultView,
     [AppView.DRESSING_ROOM]: DressingRoomView,
 };

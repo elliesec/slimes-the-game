@@ -1,0 +1,14 @@
+/* Windows */
+$window-padding: 0.5rem;
+
+/* Loading Screen */
+$loading-screen-fade-in-ms: 1000;
+$loading-screen-fade-out-ms: 1000;
+$loading-screen-background-color: #000;
+
+:export {
+    windowPadding: $window-padding;
+    loadingScreenFadeInMs: $loading-screen-fade-in-ms;
+    loadingScreenFadeOutMs: $loading-screen-fade-out-ms;
+    loadingScreenBackgroundColor: $loading-screen-background-color;
+}

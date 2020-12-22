@@ -1,7 +1,7 @@
 .PixiAppComponent {
     position: relative;
     width: 100%;
-    background-color: #ddd;
+    background-color: #000;
 
     .pixi-app-stage {
         position: absolute;
@@ -18,7 +18,13 @@
         left: 0;
     }
 
-    .View {
+    .AppView {
+        background-color: #e4e4e4;
         position: relative;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: stretch;
+        width: 100%;
+        height: 100%;
     }
 }

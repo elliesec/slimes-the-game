@@ -1,0 +1,34 @@
+@import '../../styles/constants.module';
+
+.LoadingScreen {
+}
+
+.screen {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: $loading-screen-background-color;
+
+    .screenContent {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 3rem;
+        color: white;
+        transition: opacity #{$loading-screen-fade-out-ms}ms ease-out;
+        opacity: 1;
+        text-align: center;
+
+        .loadingText {
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        &.screenContentOut {
+            opacity: 0;
+        }
+    }
+}

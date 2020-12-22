@@ -1,0 +1,19 @@
+@import '../../../styles/constants.module';
+
+.Window.TextWindow {
+    padding: 0;
+
+    .screen {
+        padding: $window-padding;
+        min-height: 100%;
+        background-color: rgba(#eaeaea, 0.75);
+    }
+
+    .content {
+        position: relative;
+
+        p {
+            font-size: 1.2em;
+        }
+    }
+}

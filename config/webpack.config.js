@@ -4,16 +4,18 @@ const fs = require('fs'),
     paths = require('./paths'),
     rules = require('./rules'),
     plugins = require('./plugins'),
-    pages = require('./pages');
+    pages = require('./pages'),
+    env = require('./env');
 
 module.exports = (env, argv) => {
     const mode = argv.mode || 'development';
     const isProduction = mode === 'production';
     const analyze = argv.analyze;
+    const processEnv = env(mode);
 
     const srcDir = fs.readdirSync(paths.source);
 
-    const entry = pages.reduce((acc, { id }) => {
+    const entry = pages(processEnv).reduce((acc, { id }) => {
         const fileName = srcDir.find((file) => file.startsWith(`${id}.ts`));
         acc[id] = paths.sourceFile(fileName);
         return acc;

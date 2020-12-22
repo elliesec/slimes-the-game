@@ -19,7 +19,7 @@ module.exports = (mode, analyze) => {
         new ImageminPlugin(imageminPluginConfig(mode)),
     ];
 
-    pages.forEach((page) => plugins.push(new HtmlPlugin(htmlPluginConfig(mode, page))));
+    pages(processEnv).forEach((page) => plugins.push(new HtmlPlugin(htmlPluginConfig(mode, page))));
 
     if (analyze) {
         plugins.push(new BundleAnalyzerPlugin());
@@ -71,8 +71,8 @@ function faviconsPluginConfig(processEnv) {
     return {
         logo: paths.sourceFile('favicon.png'),
         favicons: {
-            appName: 'Slimes: The Game',
-            appDescription: 'Slimes: The Game',
+            appName: processEnv.GAME_NAME,
+            appDescription: processEnv.GAME_NAME,
             developerName: 'Ellie & Cecilia',
             developerUrl: 'https://github.com/elliesec',
             background: '#e4e4e5',

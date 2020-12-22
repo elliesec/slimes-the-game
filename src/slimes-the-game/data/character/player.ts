@@ -19,6 +19,10 @@ const player: CharacterDefinition = {
                 [AppearanceSlotType.PUBIC_HAIR]: 'defaultPubicHair',
                 [AppearanceSlotType.SHADOW]: 'defaultShadow',
             },
+            [ItemCategory.UNDERWEAR]: {
+                [AppearanceSlotType.HIPS]: 'plainPanties',
+                [AppearanceSlotType.TORSO]: 'plainBra',
+            },
         },
     },
 };

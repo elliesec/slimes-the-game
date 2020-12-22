@@ -31,7 +31,12 @@ module.exports = (mode) => [
 
 function getStyleLoaders(mode) {
     const loaders = [
-        'css-loader',
+        {
+            loader: 'css-loader',
+            options: {
+                modules: { auto: true },
+            },
+        },
         {
             loader: 'postcss-loader',
             options: {
@@ -47,7 +52,7 @@ function getStyleLoaders(mode) {
                 },
             },
         },
-        'sass-loader',
+        { loader: 'sass-loader' },
     ];
     if (mode === 'production') {
         loaders.unshift(MiniCssExtractPlugin.loader);

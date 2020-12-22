@@ -1,6 +1,9 @@
+@import 'constants.module';
+
 .Window {
+    position: relative;
     margin: 0.25rem;
-    border: 3px solid rgba(black, 0.5);
-    padding: 0.5rem;
+    border: 3px solid #777;
+    padding: $window-padding;
     overflow: auto;
 }

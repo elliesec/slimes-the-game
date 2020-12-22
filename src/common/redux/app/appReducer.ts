@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { appFadeOutReducer } from './appFadeOutReducer';
 import { appPixiAppReducer } from './appPixiAppReducer';
 import { appPositionReducer } from './appPositionReducer';
 import { AppState } from './appState';
@@ -8,4 +9,5 @@ export const appReducer = combineReducers<AppState>({
     view: appViewReducer,
     pixiApp: appPixiAppReducer,
     position: appPositionReducer,
+    fadeOut: appFadeOutReducer,
 });
