@@ -17,7 +17,7 @@ export const SiteMap = () => {
                 <h2>Available Pages</h2>
                 <ul>
                     {pages({ GAME_NAME: process.env.GAME_NAME }).map((page) => (
-                        <li>
+                        <li key={page.id}>
                             <a href={`${page.id}.html`}>{getPageText(page)}</a>
                         </li>
                     ))}
