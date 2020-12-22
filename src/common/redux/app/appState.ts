@@ -11,6 +11,7 @@ export interface AppState {
     view: AppView;
     pixiApp: PixiApp;
     position: IPointData;
+    fadeOut: boolean;
 }
 
 export interface WithAppState {

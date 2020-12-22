@@ -3,6 +3,7 @@ import React, { createRef, PureComponent, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { withResizeDetector } from 'react-resize-detector';
 import { Dispatch } from 'redux';
+import { FadeOut } from '../../../slimes-the-game/components/FadeOut/FadeOut';
 import { DefaultView } from '../../../slimes-the-game/components/views/DefaultView/DefaultView';
 import { DressingRoomView } from '../../../slimes-the-game/components/views/DressingRoomView/DressingRoomView';
 import { MainMenuView } from '../../../slimes-the-game/components/views/MainMenuView/MainMenuView';
@@ -57,6 +58,7 @@ export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps> 
                 <View app={this.app} />
                 <div className="pixi-app-stage" ref={this.pixiStageRef} />
                 {this.props.children}
+                <FadeOut />
             </div>
         );
     }

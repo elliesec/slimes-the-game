@@ -20,6 +20,12 @@
         color: white;
         transition: opacity #{$loading-screen-fade-out-ms}ms ease-out;
         opacity: 1;
+        text-align: center;
+
+        .loadingText {
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
 
         &.screenContentOut {
             opacity: 0;

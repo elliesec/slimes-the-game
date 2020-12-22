@@ -1,25 +1,20 @@
 import classNames from 'classnames';
 import React, { Component, ReactNode } from 'react';
-import { Observable } from 'rxjs';
-import { log } from '../../../common/util/Log';
-import styles from './LoadingScreen.module.scss';
-import fadeStyles from '../../styles/transitions/LoadingScreenFade.module.scss';
-import { loadingScreenStyles } from '../../styles/styles';
-import { CSSTransition } from 'react-transition-group';
 import { createPortal } from 'react-dom';
+import { CSSTransition } from 'react-transition-group';
+import { Observable } from 'rxjs';
 import { PixiAppComponentClass } from '../../../common/components/PixiAppComponent/PixiAppComponent';
-
-export interface LoadingProgress {
-    min: number;
-    max: number;
-    progress: number;
-}
+import { ProgressBar, ProgressStats } from '../../../common/components/ProgressBar/ProgressBar';
+import { log } from '../../../common/util/Log';
+import { loadingScreenStyles } from '../../styles/styles';
+import fadeStyles from '../../styles/transitions/LoadingScreenFade.module.scss';
+import styles from './LoadingScreen.module.scss';
 
 export interface LoadingScreenProps {
-    observable: Observable<LoadingProgress>;
+    observable: Observable<ProgressStats>;
 }
 
-export interface LoadingScreenState extends LoadingProgress {
+export interface LoadingScreenState extends ProgressStats {
     loadingComplete: boolean;
 }
 
@@ -32,7 +27,10 @@ export class LoadingScreen extends Component<LoadingScreenProps, LoadingScreenSt
             progress: 0,
             loadingComplete: false,
         };
-        this.subscribe(props?.observable);
+    }
+
+    public componentDidMount() {
+        this.subscribe(this.props?.observable);
     }
 
     public componentDidUpdate(prevProps: Readonly<LoadingScreenProps>) {
@@ -48,6 +46,8 @@ export class LoadingScreen extends Component<LoadingScreenProps, LoadingScreenSt
         if (!appRoot) {
             return null;
         }
+
+        const { min, max, progress } = this.state;
         return (
             <div className={classNames('AppView', styles.LoadingScreen)}>
                 {loadingComplete && this.props.children}
@@ -64,7 +64,8 @@ export class LoadingScreen extends Component<LoadingScreenProps, LoadingScreenSt
                                     [styles.screenContentOut]: loadingComplete,
                                 })}
                             >
-                                Loading...
+                                <span className={styles.loadingText}>Loading...</span>
+                                <ProgressBar min={min} max={max} progress={progress} />
                             </div>
                         </div>
                     </CSSTransition>,
@@ -74,7 +75,7 @@ export class LoadingScreen extends Component<LoadingScreenProps, LoadingScreenSt
         );
     }
 
-    private subscribe(observable: Observable<LoadingProgress>): void {
+    private subscribe(observable: Observable<ProgressStats>): void {
         if (observable) {
             log.debug('Subscribing to observable');
             observable.subscribe(

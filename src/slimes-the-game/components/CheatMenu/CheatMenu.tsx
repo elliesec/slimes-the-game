@@ -1,11 +1,13 @@
 import classNames from 'classnames';
 import React, { Component, ReactElement } from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
+import { Action } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 import { Key } from 'ts-key-enum';
 import { Callback, noop } from '../../../common/functions';
 import { appSetView } from '../../../common/redux/app/appActions';
 import { AppView } from '../../../common/redux/app/appState';
+import { State } from '../../redux/store';
 import './CheatMenu.scss';
 
 export interface CheatMenuProps {
@@ -48,6 +50,9 @@ export class CheatMenuClass extends Component<CheatMenuProps, CheatMenuState> {
                     <hr />
                     <h4>View Switching</h4>
                     <div className="buttons">
+                        <button onClick={() => this.onViewSwitch(AppView.MAIN_MENU)}>
+                            Main Menu
+                        </button>
                         <button onClick={() => this.onViewSwitch(AppView.DEFAULT)}>
                             Default View
                         </button>
@@ -75,7 +80,7 @@ export class CheatMenuClass extends Component<CheatMenuProps, CheatMenuState> {
     }
 }
 
-function mapDispatchToProps(dispatch: Dispatch): Partial<CheatMenuProps> {
+function mapDispatchToProps(dispatch: ThunkDispatch<State, void, Action>): Partial<CheatMenuProps> {
     return {
         onViewSwitch(view: AppView): void {
             dispatch(appSetView(view));

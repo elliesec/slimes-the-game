@@ -1,5 +1,6 @@
-import { createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 import { WithAppState } from '../../common/redux/app/appState';
 import { WithCharacterState } from '../../common/redux/character/characterState';
 import { WithConfigState } from '../../common/redux/config/configState';
@@ -16,4 +17,4 @@ export interface State
         WithLocationState,
         WithConfigState {}
 
-export const store = createStore(rootReducer, composeWithDevTools());
+export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
