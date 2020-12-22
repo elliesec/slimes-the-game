@@ -23,6 +23,8 @@ export interface PixiAppComponentProps extends ISize {
 }
 
 export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps> {
+    public static ROOT_ID = 'pixi-app-root';
+
     private readonly pixiStageRef = createRef<HTMLDivElement>();
     private app: PixiApp;
 
@@ -51,7 +53,7 @@ export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps> 
     public render(): ReactElement {
         const View = this.props.view;
         return (
-            <div className="PixiAppComponent">
+            <div id={PixiAppComponentClass.ROOT_ID} className="PixiAppComponent">
                 <View app={this.app} />
                 <div className="pixi-app-stage" ref={this.pixiStageRef} />
                 {this.props.children}

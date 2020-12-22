@@ -14,7 +14,9 @@ const mainMenuBackground = require('./main-menu-bg.png');
 
 export interface MainMenuViewProps extends PixiAppViewProps {
     onNewGame(): void;
+
     onLoadGame(): void;
+
     onSettings(): void;
 }
 
@@ -23,16 +25,17 @@ export class MainMenuView extends PixiAppView<MainMenuViewProps> {
         setTimeout(() => {
             log.debug('Completing observable');
             subscriber.complete();
-        }, 3000);
+        }, 1000);
     });
 
-    public componentDidMount() {}
+    public componentDidMount() {
+    }
 
     public render(): ReactElement {
         return (
             <LoadingScreen observable={this.observable}>
-                <div className="AppView MainMenuView" style={this.getBackgroundStyle()}>
-                    <div className="menu-backdrop">
+                <div className='AppView MainMenuView' style={this.getBackgroundStyle()}>
+                    <div className='menu-backdrop'>
                         <h1>{GAME_NAME}</h1>
                         <MainMenuButtons />
                     </div>

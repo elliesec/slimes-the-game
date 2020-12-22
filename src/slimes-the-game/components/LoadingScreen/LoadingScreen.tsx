@@ -3,6 +3,11 @@ import React, { Component, ReactNode } from 'react';
 import { Observable } from 'rxjs';
 import { log } from '../../../common/util/Log';
 import styles from './LoadingScreen.module.scss';
+import fadeStyles from '../../styles/transitions/LoadingScreenFade.module.scss';
+import { loadingScreenStyles } from '../../styles/styles';
+import { CSSTransition } from 'react-transition-group';
+import { createPortal } from 'react-dom';
+import { PixiAppComponentClass } from '../../../common/components/PixiAppComponent/PixiAppComponent';
 
 export interface LoadingProgress {
     min: number;
@@ -16,8 +21,6 @@ export interface LoadingScreenProps {
 
 export interface LoadingScreenState extends LoadingProgress {
     loadingComplete: boolean;
-    transitionComplete: boolean;
-    visible: boolean;
 }
 
 export class LoadingScreen extends Component<LoadingScreenProps, LoadingScreenState> {
@@ -28,14 +31,8 @@ export class LoadingScreen extends Component<LoadingScreenProps, LoadingScreenSt
             max: 0,
             progress: 0,
             loadingComplete: false,
-            transitionComplete: false,
-            visible: false,
         };
         this.subscribe(props?.observable);
-    }
-
-    public componentDidMount(): void {
-        this.setState({ visible: true });
     }
 
     public componentDidUpdate(prevProps: Readonly<LoadingScreenProps>) {
@@ -46,14 +43,32 @@ export class LoadingScreen extends Component<LoadingScreenProps, LoadingScreenSt
     }
 
     public render(): ReactNode {
-        const { loadingComplete, transitionComplete, visible } = this.state;
+        const { loadingComplete } = this.state;
+        const appRoot = document.getElementById(PixiAppComponentClass.ROOT_ID);
+        if (!appRoot) {
+            return null;
+        }
         return (
             <div className={classNames('AppView', styles.LoadingScreen)}>
                 {loadingComplete && this.props.children}
-                {!transitionComplete && (
-                    <div className={classNames(styles.screen, { [styles.visible]: visible })}>
-                        <div className={styles.screenContent}>Loading...</div>
-                    </div>
+                {createPortal(
+                    <CSSTransition
+                        classNames={fadeStyles}
+                        in={!loadingComplete}
+                        timeout={{ enter: 0, exit: loadingScreenStyles.fadeOutMs }}
+                        unmountOnExit
+                    >
+                        <div className={styles.screen}>
+                            <div
+                                className={classNames(styles.screenContent, {
+                                    [styles.screenContentOut]: loadingComplete,
+                                })}
+                            >
+                                Loading...
+                            </div>
+                        </div>
+                    </CSSTransition>,
+                    appRoot
                 )}
             </div>
         );
@@ -71,11 +86,6 @@ export class LoadingScreen extends Component<LoadingScreenProps, LoadingScreenSt
     }
 
     private complete(): void {
-        this.setState({ loadingComplete: true, visible: false }, () => {
-            setTimeout(() => {
-                this.setState({ transitionComplete: true });
-                console.log('Loading done!');
-            }, styles.loadingScreenFadeOutMs);
-        });
+        this.setState({ loadingComplete: true });
     }
 }

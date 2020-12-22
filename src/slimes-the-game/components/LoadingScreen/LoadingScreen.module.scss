@@ -1,33 +1,28 @@
-$loading-screen-fade-in-ms: 1000;
-$loading-screen-fade-out-ms: 1500;
-
-:export {
-    loadingScreenFadeInMs: $loading-screen-fade-in-ms;
-    loadingScreenFadeOutMs: $loading-screen-fade-out-ms;
-}
+@import '../../styles/constants.module';
 
 .LoadingScreen {
-    .screen {
+}
+
+.screen {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: $loading-screen-background-color;
+
+    .screenContent {
         position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        opacity: 0;
-        background-color: #ccc;
-        transition: all #{$loading-screen-fade-out-ms}ms linear;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 3rem;
+        color: white;
+        transition: opacity #{$loading-screen-fade-out-ms}ms ease-out;
+        opacity: 1;
 
-        &.visible {
-            opacity: 1;
-            transition: all #{$loading-screen-fade-in-ms}ms linear;
-        }
-
-        .screenContent {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3rem;
+        &.screenContentOut {
+            opacity: 0;
         }
     }
 }

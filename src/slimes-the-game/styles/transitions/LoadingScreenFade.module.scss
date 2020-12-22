@@ -1,0 +1,19 @@
+@import '../constants.module';
+
+.enter {
+    opacity: 0;
+}
+
+.enterActive {
+    opacity: 1;
+    transition: opacity #{$loading-screen-fade-in-ms}ms ease-out;
+}
+
+.exit {
+    opacity: 1;
+}
+
+.exitActive {
+    opacity: 0;
+    transition: opacity #{$loading-screen-fade-out-ms}ms ease-in;
+}
