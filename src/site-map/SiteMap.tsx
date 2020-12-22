@@ -10,13 +10,13 @@ export const SiteMap = () => {
             <PageContent>
                 <h1>Site Map</h1>
                 <p>
-                    Welcome to the site map for Slimes: The Game. This page serves to link the
-                    related pages, tools and of course the game itself. Click one of the links below
-                    to get started.
+                    Welcome to the site map for {process.env.GAME_NAME}. This page serves to link
+                    the related pages, tools and of course the game itself. Click one of the links
+                    below to get started.
                 </p>
                 <h2>Available Pages</h2>
                 <ul>
-                    {pages.map((page) => (
+                    {pages({ GAME_NAME: process.env.GAME_NAME }).map((page) => (
                         <li>
                             <a href={`${page.id}.html`}>{getPageText(page)}</a>
                         </li>
