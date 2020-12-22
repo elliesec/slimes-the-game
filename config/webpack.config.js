@@ -7,7 +7,7 @@ const fs = require('fs'),
     pages = require('./pages'),
     env = require('./env');
 
-module.exports = (env, argv) => {
+module.exports = (_, argv) => {
     const mode = argv.mode || 'development';
     const isProduction = mode === 'production';
     const analyze = argv.analyze;
