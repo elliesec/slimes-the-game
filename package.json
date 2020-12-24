@@ -88,7 +88,7 @@
         "reselect": "^4.0.0",
         "reset-css": "^5.0.1",
         "rxjs": "^6.6.3",
-        "ts-key-enum": "^3.0.4"
+        "ts-key-enum": "^3.0.6"
     },
     "resolutions": {
         "minimist": "^1.2.5",
