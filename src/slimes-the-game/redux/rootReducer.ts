@@ -6,6 +6,7 @@ import { itemReducer } from '../../common/redux/item/itemReducer';
 import { itemFamilyReducer } from '../../common/redux/itemFamily/itemFamilyReducer';
 import { locationReducer } from '../../common/redux/location/locationReducer';
 import { State } from './store';
+import { jobReducer } from '../../common/redux/job/jobReducer';
 
 export const rootReducer = combineReducers<State>({
     app: appReducer,
@@ -14,4 +15,5 @@ export const rootReducer = combineReducers<State>({
     character: characterReducer,
     location: locationReducer,
     config: configReducer,
+    job: jobReducer,
 });
