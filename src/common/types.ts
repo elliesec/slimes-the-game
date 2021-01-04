@@ -5,3 +5,7 @@ export type WithId<T> = T & { id: string };
 export interface DefaultModule<T> {
     default: T;
 }
+
+export interface Serializable<T> {
+    serialize(): T;
+}

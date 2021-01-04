@@ -8,6 +8,7 @@ import { WithItemState } from '../../common/redux/item/itemState';
 import { WithItemFamilyState } from '../../common/redux/itemFamily/itemFamilyState';
 import { WithLocationState } from '../../common/redux/location/locationState';
 import { rootReducer } from './rootReducer';
+import { WithJobState } from '../../common/redux/job/jobState';
 
 export interface State
     extends WithAppState,
@@ -15,6 +16,7 @@ export interface State
         WithItemState,
         WithCharacterState,
         WithLocationState,
-        WithConfigState {}
+        WithConfigState,
+        WithJobState {}
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));

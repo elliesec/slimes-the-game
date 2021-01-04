@@ -1,11 +1,6 @@
 import React, { Component, ReactElement } from 'react';
+import { ProgressStats } from '../../model/job/jobUtils';
 import styles from './ProgressBar.module.scss';
-
-export interface ProgressStats {
-    min: number;
-    max: number;
-    progress: number;
-}
 
 export interface ProgressBarProps extends ProgressStats {}
 

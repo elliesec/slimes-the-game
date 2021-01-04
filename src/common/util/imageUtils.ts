@@ -1,6 +1,6 @@
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ProgressStats } from '../components/ProgressBar/ProgressBar';
+import { ProgressStats } from '../model/job/jobUtils';
 import { log } from './Log';
 
 export function preloadImages(...urls: string[]): Observable<ProgressStats> {

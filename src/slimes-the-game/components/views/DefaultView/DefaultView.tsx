@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { Observable } from 'rxjs';
 import { PixiAppView } from '../../../../common/components/PixiAppView/PixiAppView';
-import { ProgressStats } from '../../../../common/components/ProgressBar/ProgressBar';
+import { ProgressStats } from '../../../../common/model/job/jobUtils';
 import { LoadingScreen } from '../../LoadingScreen/LoadingScreen';
 import { Sidebar } from '../../Sidebar/Sidebar';
 import { CharacterWindow } from '../../windows/CharacterWindow/CharacterWindow';
@@ -14,12 +14,12 @@ export class DefaultView extends PixiAppView {
     private observable = new Observable<ProgressStats>((subscriber) => {
         let progress = 0;
         const interval = window.setInterval(() => {
-            if (progress >= 100) {
+            if (progress >= 4) {
                 subscriber.complete();
                 clearInterval(interval);
             } else {
-                progress += 25;
-                subscriber.next({ min: 0, max: 100, progress });
+                progress++;
+                subscriber.next({ min: 0, max: 4, progress });
             }
         }, 1200);
     });

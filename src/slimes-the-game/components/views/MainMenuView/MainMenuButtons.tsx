@@ -1,7 +1,11 @@
 import React, { Component, ReactElement } from 'react';
 import { connect } from 'react-redux';
+import { Action } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 import { ButtonGrid } from '../../../../common/components/ButtonGrid/ButtonGrid';
 import { noop } from '../../../../common/functions';
+import { State } from '../../../redux/store';
+import { newGameThunk } from '../../../redux/thunks/newGame';
 import { MainMenuButton } from './MainMenuButton';
 
 export interface MainMenuButtonsProps {
@@ -53,13 +57,12 @@ export class MainMenuButtonsClass extends Component<MainMenuButtonsProps> {
     }
 }
 
-function mapDispatchToProps(): Pick<
-    MainMenuButtonsProps,
-    'onNewGame' | 'onLoadGame' | 'onSettings'
-> {
+function mapDispatchToProps(
+    dispatch: ThunkDispatch<State, any, Action>
+): Pick<MainMenuButtonsProps, 'onNewGame' | 'onLoadGame' | 'onSettings'> {
     return {
         onNewGame(): void {
-            console.log('dispatch new game');
+            dispatch(newGameThunk());
         },
         onLoadGame(): void {
             console.log('dispatch load game');
