@@ -92,7 +92,7 @@
         "reset-css": "^5.0.1",
         "rxjs": "^6.6.3",
         "seedrandom": "^3.0.5",
-        "ts-key-enum": "^3.0.6"
+        "ts-key-enum": "^3.0.7"
     },
     "resolutions": {
         "minimist": "^1.2.5",
