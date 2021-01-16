@@ -5,6 +5,7 @@ import { MapCell } from './MapCell';
 export interface MapConfig {
     readonly width: number;
     readonly height: number;
+    readonly seed: string;
 }
 
 export abstract class Map<Config extends MapConfig, C extends MapCell<any>> {
@@ -17,6 +18,10 @@ export abstract class Map<Config extends MapConfig, C extends MapCell<any>> {
 
     public get height(): number {
         return this.config.height;
+    }
+
+    public get seed(): string {
+        return this.config.seed;
     }
 
     public constructor(config: Config) {

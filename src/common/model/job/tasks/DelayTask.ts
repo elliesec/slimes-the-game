@@ -1,8 +1,11 @@
 import { BaseTask } from '../BaseTask';
 
 export class DelayTask extends BaseTask {
-    public constructor(delayMillis: number) {
+    public constructor(private readonly delayMillis: number) {
         super(`Wait ${delayMillis}ms`);
-        setTimeout(() => this.complete(), delayMillis);
+    }
+
+    protected run(): void {
+        setTimeout(() => this.complete(), this.delayMillis);
     }
 }

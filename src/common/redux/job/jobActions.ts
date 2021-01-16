@@ -1,8 +1,8 @@
 import { Action } from 'redux';
-import { Job, TaskStatus, WithJobState } from './jobState';
+import { ThunkAction } from 'redux-thunk';
 import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { BaseJob } from '../../model/job/BaseJob';
-import { ThunkAction } from 'redux-thunk';
+import { Job, TaskStatus, WithJobState } from './jobState';
 
 export interface TaskUpdate {
     jobId: string;
@@ -21,7 +21,7 @@ export function jobClearLoadingJobs(): Action {
 }
 
 export function jobAddLoadingJob<S extends WithJobState>(
-    job: BaseJob
+    job: BaseJob<any, any>
 ): ThunkAction<void, S, void, Action<JobAction>> {
     return (dispatch) => {
         dispatch(addLoadingJob(job.serialize()));

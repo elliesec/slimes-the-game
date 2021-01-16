@@ -1,4 +1,4 @@
-import { BaseJob } from '../../model/job/BaseJob';
+import { Random } from '../../util/Random';
 import { MapGenerator } from '../MapGenerator';
 import { WorldMapGenerationJob } from './job/WorldMapGenerationJob';
 import { WorldMap } from './WorldMap';
@@ -7,6 +7,7 @@ import { WorldMapCell } from './WorldMapCell';
 export class WorldMapGeneratorConfig {
     width: number;
     height: number;
+    seed: string;
 }
 
 export class WorldMapGenerator extends MapGenerator<
@@ -14,14 +15,19 @@ export class WorldMapGenerator extends MapGenerator<
     WorldMapCell,
     WorldMapGeneratorConfig
 > {
-    public generate(config: WorldMapGeneratorConfig): BaseJob {
-        return new WorldMapGenerationJob({ map: this.map });
+    private readonly random: Random;
+
+    public constructor(config: WorldMapGeneratorConfig) {
+        super(config);
+        this.random = new Random();
     }
 
-    protected createMap(config: WorldMapGeneratorConfig): WorldMap {
-        return new WorldMap({
-            width: config.width,
-            height: config.height,
-        });
+    public generate(): WorldMapGenerationJob {
+        this.random.seed(this.map.seed);
+        return new WorldMapGenerationJob({ map: this.map, seed: this.random.spawnSeed() });
+    }
+
+    protected createMap({ width, height, seed }: WorldMapGeneratorConfig): WorldMap {
+        return new WorldMap({ width, height, seed });
     }
 }

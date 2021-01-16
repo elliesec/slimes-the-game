@@ -9,7 +9,7 @@ export abstract class MapGenerator<
 > {
     protected readonly map: MapType;
 
-    public constructor(protected readonly config?: Config) {
+    public constructor(protected readonly config: Config) {
         this.map = this.createMap(config);
     }
 
@@ -17,7 +17,7 @@ export abstract class MapGenerator<
         return this.map;
     }
 
-    public abstract generate(config?: Config): BaseJob;
+    public abstract generate(): BaseJob<any, any>;
 
     protected abstract createMap(config?: Config): MapType;
 }

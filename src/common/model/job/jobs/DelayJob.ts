@@ -1,3 +1,4 @@
+import { Task } from '../../../redux/job/jobState';
 import { BaseJob } from '../BaseJob';
 import { BaseTask } from '../BaseTask';
 import { DelayTask } from '../tasks/DelayTask';
@@ -13,5 +14,9 @@ export class DelayJob extends BaseJob<DelayJobConfig> {
 
     protected createTasks({ delayMillis }: DelayJobConfig): BaseTask[] {
         return [new DelayTask(delayMillis)];
+    }
+
+    protected getResult(completedTasks: Task[]): void {
+        return null;
     }
 }
