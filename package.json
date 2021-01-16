@@ -77,7 +77,7 @@
         "cuid": "^2.1.8",
         "date-fns": "^2.16.1",
         "immer": "^8.0.0",
-        "memoizee": "^0.4.14",
+        "memoizee": "^0.4.15",
         "murmurhash-js": "^1.0.0",
         "object-hash": "^2.1.1",
         "pixi.js": "^5.3.7",
