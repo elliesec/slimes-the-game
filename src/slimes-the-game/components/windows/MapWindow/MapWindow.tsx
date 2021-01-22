@@ -11,6 +11,7 @@ import {
     DomTrackingContainer,
     DomTrackingContainerProps,
 } from '../../../../common/pixi/containers/DomTrackingContainer';
+import { MapWindowContainer } from './MapWindowContainer';
 
 export class MapWindowClass extends ContainerLinkedComponent {
     public render(): ReactElement {
@@ -31,13 +32,7 @@ export class MapWindowClass extends ContainerLinkedComponent {
         props: ContainerLinkedComponentProps
     ): DomTrackingContainer<DomTrackingContainerProps> {
         const { x, y, width, height } = this.ref.current.getBoundingClientRect();
-        return new DomTrackingContainer<DomTrackingContainerProps>({
-            highlight: true,
-            x,
-            y,
-            width,
-            height,
-        });
+        return new MapWindowContainer({ x, y, width, height });
     }
 }
 

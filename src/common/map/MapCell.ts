@@ -1,9 +1,13 @@
+import { Biome } from './world/Biome';
+
 export interface MapCellConfig {
     readonly x: number;
     readonly y: number;
 }
 
 export abstract class MapCell<Config extends MapCellConfig> {
+    public biome: Biome;
+
     public get x(): number {
         return this.config.x;
     }

@@ -1,3 +1,4 @@
+import { MapRegistry } from '../../../slimes-the-game/maps/MapRegistry';
 import { Random } from '../../util/Random';
 import { MapGenerator } from '../MapGenerator';
 import { WorldMapGenerationJob } from './job/WorldMapGenerationJob';
@@ -28,6 +29,8 @@ export class WorldMapGenerator extends MapGenerator<
     }
 
     protected createMap({ width, height, seed }: WorldMapGeneratorConfig): WorldMap {
-        return new WorldMap({ width, height, seed });
+        const worldMap = new WorldMap({ width, height, seed });
+        MapRegistry.setWorldMap(worldMap);
+        return worldMap;
     }
 }

@@ -4,6 +4,6 @@ export enum Background {
 
 export const BackgroundValues: Background[] = Object.values(Background);
 
-export function instanceOfBackground(val: string): val is Background {
-    return !!BackgroundValues.find((bg) => val === bg);
+export function instanceOfBackground(val: any): val is Background {
+    return BackgroundValues.includes(val as any);
 }

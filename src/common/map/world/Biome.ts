@@ -1,6 +1,6 @@
 export enum BiomeType {
-    GRASSLAND = 'GRASSLAND',
-    WOODLAND = 'WOODLAND',
+    GRASSLAND = 'grassland',
+    WOODLAND = 'woodland',
 }
 
 export interface Biome {
@@ -17,3 +17,9 @@ export const Biomes: Record<BiomeType, Biome> = {
 };
 
 export const BiomeValues = Object.values(Biomes);
+
+export const BiomeTypeValues = Object.values(BiomeType);
+
+export function instanceOfBiomeType(val: any): val is BiomeType {
+    return BiomeTypeValues.includes(val as any);
+}
