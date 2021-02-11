@@ -1,5 +1,11 @@
 import { IPointData, ISize } from 'pixi.js';
-import React, { createRef, PureComponent, ReactElement } from 'react';
+import React, {
+    createRef,
+    NamedExoticComponent,
+    PureComponent,
+    ReactElement,
+    ReactNode,
+} from 'react';
 import { connect } from 'react-redux';
 import { withResizeDetector } from 'react-resize-detector';
 import { Dispatch } from 'redux';
@@ -18,6 +24,7 @@ import { PixiAppView } from '../PixiAppView/PixiAppView';
 import './PixiAppComponent.scss';
 
 export interface PixiAppComponentProps extends ISize {
+    children: ReactNode;
     view: typeof PixiAppView;
     onPixiAppSet: Callback<PixiApp>;
     onAppResize: Callback<IPointData>;
@@ -86,7 +93,7 @@ function mapStateToProps(state: State): Pick<PixiAppComponentProps, 'view'> {
 }
 
 function mapDispatchToProps(
-    dispatch: Dispatch,
+    dispatch: Dispatch
 ): Pick<PixiAppComponentProps, 'onPixiAppSet' | 'onAppResize'> {
     return {
         onPixiAppSet(app: PixiApp): void {
@@ -98,7 +105,12 @@ function mapDispatchToProps(
     };
 }
 
+const PixiAppComponentWithResizeDetector: NamedExoticComponent = withResizeDetector(
+    PixiAppComponentClass,
+    {}
+);
+
 export const PixiAppComponent = connect(
     mapStateToProps,
-    mapDispatchToProps,
-)(withResizeDetector(PixiAppComponentClass, {}));
+    mapDispatchToProps
+)(PixiAppComponentWithResizeDetector);
