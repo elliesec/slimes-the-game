@@ -47,5 +47,6 @@ export class CharacterWindowClass extends ContainerLinkedComponent {
 }
 
 export const CharacterWindow = withResizeDetector(
-    withAppPosition(withPixiApp(CharacterWindowClass))
+    withAppPosition(withPixiApp(CharacterWindowClass)),
+    {}
 );

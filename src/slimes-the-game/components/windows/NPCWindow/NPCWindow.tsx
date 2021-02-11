@@ -41,4 +41,4 @@ export class NPCWindowClass extends ContainerLinkedComponent {
     }
 }
 
-export const NPCWindow = withResizeDetector(withAppPosition(withPixiApp(NPCWindowClass)));
+export const NPCWindow = withResizeDetector(withAppPosition(withPixiApp(NPCWindowClass)), {});

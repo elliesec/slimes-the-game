@@ -36,4 +36,4 @@ export class MapWindowClass extends ContainerLinkedComponent {
     }
 }
 
-export const MapWindow = withResizeDetector(withAppPosition(withPixiApp(MapWindowClass)));
+export const MapWindow = withResizeDetector(withAppPosition(withPixiApp(MapWindowClass)), {});

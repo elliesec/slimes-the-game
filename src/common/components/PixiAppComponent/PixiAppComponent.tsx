@@ -79,13 +79,15 @@ const viewMapping: Record<AppView, typeof PixiAppView> = {
     [AppView.DRESSING_ROOM]: DressingRoomView,
 };
 
-function mapStateToProps(state: State): Partial<PixiAppComponentProps> {
+function mapStateToProps(state: State): Pick<PixiAppComponentProps, 'view'> {
     return {
         view: viewMapping[getCurrentView(state)],
     };
 }
 
-function mapDispatchToProps(dispatch: Dispatch): Partial<PixiAppComponentProps> {
+function mapDispatchToProps(
+    dispatch: Dispatch,
+): Pick<PixiAppComponentProps, 'onPixiAppSet' | 'onAppResize'> {
     return {
         onPixiAppSet(app: PixiApp): void {
             dispatch(appSetPixiApp(app));
@@ -98,5 +100,5 @@ function mapDispatchToProps(dispatch: Dispatch): Partial<PixiAppComponentProps> 
 
 export const PixiAppComponent = connect(
     mapStateToProps,
-    mapDispatchToProps
-)(withResizeDetector(PixiAppComponentClass));
+    mapDispatchToProps,
+)(withResizeDetector(PixiAppComponentClass, {}));

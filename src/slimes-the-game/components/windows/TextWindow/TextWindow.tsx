@@ -74,4 +74,4 @@ export class TextWindowClass extends ContainerLinkedComponent {
     }
 }
 
-export const TextWindow = withResizeDetector(withAppPosition(withPixiApp(TextWindowClass)));
+export const TextWindow = withResizeDetector(withAppPosition(withPixiApp(TextWindowClass)), {});
