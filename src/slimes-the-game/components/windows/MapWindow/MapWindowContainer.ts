@@ -15,7 +15,7 @@ export class MapWindowContainer extends DomTrackingContainer<MapWindowContainerP
 
     private addMapContainer(): void {
         const map = MapRegistry.getWorldMap();
-        const mapContainer = new MapContainer({ map });
+        const mapContainer = new MapContainer({ ...this.props, map });
         this.addChild(mapContainer);
     }
 }
