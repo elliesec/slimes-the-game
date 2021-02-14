@@ -26,7 +26,6 @@ export class MapContainer extends LayoutContainer<MapContainerProps> {
         const background = new Graphics()
             .beginFill(0x000000)
             .drawRect(0, 0, this.props.width, this.props.height);
-        console.log(this.width, this.height);
         this.addChild(background);
 
         map.forEach(({ x, y, biome }) => {
