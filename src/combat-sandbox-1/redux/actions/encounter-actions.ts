@@ -1,7 +1,7 @@
+import { PayloadAction } from '../../../common/redux/reduxUtils';
 import { Encounter } from '../../model/Encounter';
 import { EncounterOption } from '../../model/EncounterOption';
 import { OptionsEncounterStage } from '../../model/EncounterStage';
-import { PayloadAction } from '../redux-utils';
 
 export interface EncounterStageAndOption {
     stage: OptionsEncounterStage;

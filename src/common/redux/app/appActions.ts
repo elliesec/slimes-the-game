@@ -1,10 +1,10 @@
 import { IPointData } from 'pixi.js';
 import { AnyAction } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { State } from '../../../slimes-the-game/redux/store';
 import { loadingScreenStyles } from '../../../slimes-the-game/styles/styles';
 import { PixiApp } from '../../pixi/PixiApp';
+import { PayloadAction } from '../reduxUtils';
 import { AppView } from './appState';
 
 export enum AppAction {

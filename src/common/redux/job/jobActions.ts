@@ -1,7 +1,7 @@
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { BaseJob } from '../../model/job/BaseJob';
+import { PayloadAction } from '../reduxUtils';
 import { Job, TaskStatus, WithJobState } from './jobState';
 
 export interface TaskUpdate {

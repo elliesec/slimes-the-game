@@ -1,10 +1,10 @@
 import { Action } from 'redux';
 import { Player } from '../../../combat-sandbox-1/Player';
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { roll } from '../../math/mathUtils';
 import { StageState } from '../../model/encounter/ActiveEncounter';
 import { Encounter } from '../../model/encounter/Encounter';
 import { EncounterChoice } from '../../model/encounter/EncounterChoice';
+import { PayloadAction } from '../reduxUtils';
 
 export enum EncounterAction {
     REGISTER = 'ENCOUNTER_REGISTER',

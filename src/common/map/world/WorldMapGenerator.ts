@@ -1,7 +1,8 @@
 import { MapRegistry } from '../../../slimes-the-game/maps/MapRegistry';
+import { Task } from '../../tasks/Task';
 import { Random } from '../../util/Random';
 import { MapGenerator } from '../MapGenerator';
-import { WorldMapGenerationJob } from './job/WorldMapGenerationJob';
+import { WorldMapGenerationTask } from './tasks/WorldMapGenerationTask';
 import { WorldMap } from './WorldMap';
 import { WorldMapCell } from './WorldMapCell';
 
@@ -23,9 +24,9 @@ export class WorldMapGenerator extends MapGenerator<
         this.random = new Random();
     }
 
-    public generate(): WorldMapGenerationJob {
+    public generate(): Task {
         this.random.seed(this.map.seed);
-        return new WorldMapGenerationJob({ map: this.map, seed: this.random.spawnSeed() });
+        return new WorldMapGenerationTask({ map: this.map, seed: this.random.spawnSeed() });
     }
 
     protected createMap({ width, height, seed }: WorldMapGeneratorConfig): WorldMap {

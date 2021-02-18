@@ -1,5 +1,5 @@
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { AppearanceItemDefinition } from '../../model/appearance/AppearanceItem';
+import { PayloadAction } from '../reduxUtils';
 
 export enum ItemAction {
     REGISTER_ITEMS = 'item/register-items',

@@ -1,8 +1,7 @@
-import { reducerFromMap } from '../reduxUtils';
+import { PayloadAction, reducerFromMap } from '../reduxUtils';
 import { Job } from './jobState';
 import { JobAction, TaskUpdate } from './jobActions';
 import produce from 'immer';
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 
 const clearLoadingJobsReducer = (): Job[] => [];
 

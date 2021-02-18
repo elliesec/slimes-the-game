@@ -1,8 +1,8 @@
 import produce from 'immer';
 import { Action, Reducer } from 'redux';
 import { Key } from 'ts-key-enum';
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { StringRecord } from '../../types';
+import { PayloadAction } from '../reduxUtils';
 import { ConfigAction, HotkeyPayload } from './configActions';
 import { ConfigHotkeysState, Hotkey } from './configState';
 

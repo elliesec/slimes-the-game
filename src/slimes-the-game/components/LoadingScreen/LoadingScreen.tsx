@@ -1,168 +1,72 @@
 import classNames from 'classnames';
-import React, { Component, ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
-import { Dispatch } from 'redux';
-import { Observable } from 'rxjs';
 import { PixiAppComponentClass } from '../../../common/components/PixiAppComponent/PixiAppComponent';
 import { ProgressBar } from '../../../common/components/ProgressBar/ProgressBar';
-import { noop } from '../../../common/functions';
-import { combineProgressStats, ProgressStats } from '../../../common/model/job/jobUtils';
-import { jobClearLoadingJobs } from '../../../common/redux/job/jobActions';
-import { getLoadingJobProgress } from '../../../common/redux/job/jobSelectors';
-import { log } from '../../../common/util/Log';
+import { CompositeTask } from '../../../common/tasks/CompositeTask';
+import { TaskProgress } from '../../../common/tasks/TaskProgress';
 import { State } from '../../redux/store';
+import { runLoadingTasks } from '../../redux/thunks/runLoadingTasks';
 import { loadingScreenStyles } from '../../styles/styles';
 import fadeStyles from '../../styles/transitions/LoadingScreenFade.module.scss';
 import styles from './LoadingScreen.module.scss';
 
 export interface LoadingScreenProps {
     children?: ReactNode;
-    loadingJobProgress: ProgressStats;
-    observable: Observable<ProgressStats>;
-    onLoadingComplete: () => void;
+    task: CompositeTask;
+    progress: TaskProgress;
+    ready: boolean;
 }
 
-export interface LoadingScreenState {
-    loadingComplete: boolean;
-    observableComplete: boolean;
-    observableProgress: ProgressStats;
-    totalProgress: ProgressStats;
-}
+export const LoadingScreenComponent = ({ children, ready, task, progress }: LoadingScreenProps) => {
+    const [completed, setCompleted] = useState(false);
+    const showContent = ready && progress.complete;
 
-export class LoadingScreenClass extends Component<LoadingScreenProps, LoadingScreenState> {
-    public static defaultProps: Partial<LoadingScreenProps> = {
-        onLoadingComplete: noop,
-    };
+    runLoadingTasks(task, [ready]);
 
-    public constructor(props: LoadingScreenProps) {
-        super(props);
-        this.state = {
-            loadingComplete: false,
-            observableComplete: false,
-            observableProgress: {
-                min: 0,
-                max: 0,
-                progress: 0,
-            },
-            totalProgress: {
-                min: 0,
-                max: 0,
-                progress: 0,
-            },
-        };
+    if (!completed && showContent) {
+        setCompleted(true);
     }
 
-    public componentDidMount() {
-        this.subscribe(this.props?.observable);
+    const appRoot = document.getElementById(PixiAppComponentClass.ROOT_ID);
+    if (!appRoot) {
+        return null;
     }
 
-    public componentDidUpdate(prevProps: Readonly<LoadingScreenProps>) {
-        const { observable } = this.props;
-        const { loadingJobProgress } = this.props;
-        if (observable && observable !== prevProps.observable) {
-            this.subscribe(observable);
-        } else if (loadingJobProgress !== prevProps.loadingJobProgress) {
-            const totalProgress = combineProgressStats(
-                loadingJobProgress,
-                this.state.observableProgress
-            );
-            if (
-                loadingJobProgress.progress >= loadingJobProgress.max &&
-                this.state.observableComplete &&
-                !this.state.loadingComplete
-            ) {
-                this.complete({ totalProgress });
-            } else {
-                this.setState({ totalProgress });
-            }
-        }
-    }
-
-    public render(): ReactNode {
-        const { loadingComplete } = this.state;
-        const appRoot = document.getElementById(PixiAppComponentClass.ROOT_ID);
-        if (!appRoot) {
-            return null;
-        }
-
-        const { min, max, progress } = this.state.totalProgress;
-        return (
-            <div className={classNames('AppView', styles.LoadingScreen)}>
-                {loadingComplete && this.props.children}
-                {createPortal(
-                    <CSSTransition
-                        classNames={fadeStyles}
-                        in={!loadingComplete}
-                        timeout={{ enter: 0, exit: loadingScreenStyles.fadeOutMs }}
-                        unmountOnExit
-                    >
-                        <div className={styles.screen}>
-                            <div
-                                className={classNames(styles.screenContent, {
-                                    [styles.screenContentOut]: loadingComplete,
-                                })}
-                            >
-                                <span className={styles.loadingText}>Loading...</span>
-                                <ProgressBar min={min} max={max} progress={progress} />
-                            </div>
+    return (
+        <div className={classNames('AppView', styles.LoadingScreen)}>
+            {showContent && children}
+            {createPortal(
+                <CSSTransition
+                    classNames={fadeStyles}
+                    in={!showContent && !completed}
+                    timeout={{ enter: 0, exit: loadingScreenStyles.fadeOutMs }}
+                    unmountOnExit
+                >
+                    <div className={styles.screen}>
+                        <div
+                            className={classNames(styles.screenContent, {
+                                [styles.screenContentOut]: showContent,
+                            })}
+                        >
+                            <span className={styles.loadingText}>Loading...</span>
+                            <ProgressBar min={0} max={progress.max} progress={progress.value} />
                         </div>
-                    </CSSTransition>,
-                    appRoot
-                )}
-            </div>
-        );
-    }
+                    </div>
+                </CSSTransition>,
+                appRoot,
+            )}
+        </div>
+    );
+};
 
-    private subscribe(observable: Observable<ProgressStats>): void {
-        if (observable) {
-            log.debug('Subscribing to observable');
-            observable.subscribe(
-                (progress) => {
-                    const { loadingJobProgress } = this.props;
-                    this.setState({
-                        totalProgress: combineProgressStats(loadingJobProgress, progress),
-                        observableProgress: progress,
-                    });
-                },
-                (err) => log.error(err),
-                () => this.completeObservable()
-            );
-        }
-    }
-
-    private completeObservable(): void {
-        if (this.isLoadingJobsComplete()) {
-            this.complete({ observableComplete: true });
-        } else {
-            this.setState({ observableComplete: true });
-        }
-    }
-
-    private isLoadingJobsComplete(): boolean {
-        const { loadingJobProgress } = this.props;
-        return loadingJobProgress.progress >= loadingJobProgress.max;
-    }
-
-    private complete<K extends keyof LoadingScreenState>(state: Pick<LoadingScreenState, K>): void {
-        this.setState<K & 'loadingComplete'>({ ...state, loadingComplete: true });
-        this.props.onLoadingComplete();
-    }
-}
-
-function mapStateToProps(state: State): Pick<LoadingScreenProps, 'loadingJobProgress'> {
+function mapStateToProps(state: State): Pick<LoadingScreenProps, 'progress' | 'task'> {
     return {
-        loadingJobProgress: getLoadingJobProgress(state),
+        task    : state.loadingTasks.task,
+        progress: state.loadingTasks.progress,
     };
 }
 
-function mapDispatchToProps(dispatch: Dispatch): Pick<LoadingScreenProps, 'onLoadingComplete'> {
-    return {
-        onLoadingComplete(): void {
-            dispatch(jobClearLoadingJobs());
-        },
-    };
-}
-
-export const LoadingScreen = connect(mapStateToProps, mapDispatchToProps)(LoadingScreenClass);
+export const LoadingScreen = connect(mapStateToProps)(LoadingScreenComponent);

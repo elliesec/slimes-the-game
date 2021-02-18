@@ -1,6 +1,6 @@
 import { IPointData } from 'pixi.js';
 import { Action, Reducer } from 'redux';
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
+import { PayloadAction } from '../reduxUtils';
 import { AppAction } from './appActions';
 
 const reducers: Record<string, Reducer<IPointData>> = {

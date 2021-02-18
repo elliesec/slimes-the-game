@@ -1,7 +1,7 @@
 import { Action, Reducer } from 'redux';
+import { PayloadAction } from '../../../common/redux/reduxUtils';
 import { Scene } from '../../enums';
 import { GameActions } from '../actions/game-actions';
-import { PayloadAction } from '../redux-utils';
 
 const reducers: Record<string, Reducer<Scene>> = {
     [GameActions.SET_SCENE]: setSceneReducer,

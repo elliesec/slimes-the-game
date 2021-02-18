@@ -1,76 +1,38 @@
-import React, { Component, ReactElement } from 'react';
-import { connect } from 'react-redux';
-import { Action } from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
+import React, { useCallback, useContext } from 'react';
 import { ButtonGrid } from '../../../../common/components/ButtonGrid/ButtonGrid';
-import { noop } from '../../../../common/functions';
-import { State } from '../../../redux/store';
-import { newGameThunk } from '../../../redux/thunks/newGame';
+import { appSetView } from '../../../../common/redux/app/appActions';
+import { AppView } from '../../../../common/redux/app/appState';
+import { DispatchContext } from '../../../../index';
+import { newGameAction } from '../../../redux/thunks/newGame';
 import { MainMenuButton } from './MainMenuButton';
 
-export interface MainMenuButtonsProps {
-    onNewGame(): void;
-    onLoadGame(): void;
-    onSettings(): void;
-}
+export const MainMenuButtons = () => {
+    const dispatch = useContext(DispatchContext);
 
-export class MainMenuButtonsClass extends Component<MainMenuButtonsProps> {
-    public static defaultProps: MainMenuButtonsProps = {
-        onNewGame: noop,
-        onLoadGame: noop,
-        onSettings: noop,
-    };
+    const onNewGame = useCallback(() => {
+        dispatch(newGameAction());
+        dispatch(appSetView(AppView.DEFAULT));
+    }, []);
 
-    public constructor(props: MainMenuButtonsProps) {
-        super(props);
-        this.onNewGame = this.onNewGame.bind(this);
-        this.onLoadGame = this.onLoadGame.bind(this);
-        this.onSettings = this.onSettings.bind(this);
-    }
+    const onLoadGame = useCallback(() => {
+        console.log('onLoadGame');
+    }, []);
 
-    public render(): ReactElement {
-        return (
-            <ButtonGrid rows={3} columns={1}>
-                <MainMenuButton row={0} column={0} onSelect={this.onNewGame}>
-                    New Game
-                </MainMenuButton>
-                <MainMenuButton row={1} column={0} onSelect={this.onLoadGame}>
-                    Load Game
-                </MainMenuButton>
-                <MainMenuButton row={2} column={0} onSelect={this.onSettings}>
-                    Settings
-                </MainMenuButton>
-            </ButtonGrid>
-        );
-    }
+    const onSettings = useCallback(() => {
+        console.log('onSettings');
+    }, []);
 
-    private onNewGame(): void {
-        this.props.onNewGame();
-    }
-
-    private onLoadGame(): void {
-        this.props.onLoadGame();
-    }
-
-    private onSettings(): void {
-        this.props.onSettings();
-    }
-}
-
-function mapDispatchToProps(
-    dispatch: ThunkDispatch<State, any, Action>
-): Pick<MainMenuButtonsProps, 'onNewGame' | 'onLoadGame' | 'onSettings'> {
-    return {
-        onNewGame(): void {
-            dispatch(newGameThunk());
-        },
-        onLoadGame(): void {
-            console.log('dispatch load game');
-        },
-        onSettings(): void {
-            console.log('dispatch settings');
-        },
-    };
-}
-
-export const MainMenuButtons = connect(null, mapDispatchToProps)(MainMenuButtonsClass);
+    return (
+        <ButtonGrid rows={3} columns={1}>
+            <MainMenuButton row={0} column={0} onSelect={onNewGame}>
+                New Game
+            </MainMenuButton>
+            <MainMenuButton row={1} column={0} onSelect={onLoadGame}>
+                Load Game
+            </MainMenuButton>
+            <MainMenuButton row={2} column={0} onSelect={onSettings}>
+                Settings
+            </MainMenuButton>
+        </ButtonGrid>
+    );
+};

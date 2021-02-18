@@ -1,7 +1,4 @@
-import React, { ReactElement } from 'react';
-import { Observable } from 'rxjs';
-import { PixiAppView } from '../../../../common/components/PixiAppView/PixiAppView';
-import { ProgressStats } from '../../../../common/model/job/jobUtils';
+import React, { useEffect, useState } from 'react';
 import { LoadingScreen } from '../../LoadingScreen/LoadingScreen';
 import { Sidebar } from '../../Sidebar/Sidebar';
 import { CharacterWindow } from '../../windows/CharacterWindow/CharacterWindow';
@@ -10,37 +7,26 @@ import { NPCWindow } from '../../windows/NPCWindow/NPCWindow';
 import { TextWindow } from '../../windows/TextWindow/TextWindow';
 import './DefaultView.scss';
 
-export class DefaultView extends PixiAppView {
-    private observable = new Observable<ProgressStats>((subscriber) => {
-        let progress = 0;
-        const interval = window.setInterval(() => {
-            if (progress >= 4) {
-                subscriber.complete();
-                clearInterval(interval);
-            } else {
-                progress++;
-                subscriber.next({ min: 0, max: 4, progress });
-            }
-        }, 1200);
-    });
+export const DefaultView = () => {
+    const [ready, setReady] = useState(false);
 
-    public render(): ReactElement {
-        return (
-            <LoadingScreen observable={this.observable}>
-                <div className="AppView DefaultView">
-                    <Sidebar />
-                    <div className="windows">
-                        <TextWindow />
-                        <div className="context-windows">
-                            <CharacterWindow />
-                            <div className="context-windows-lower">
-                                <MapWindow />
-                                <NPCWindow />
-                            </div>
+    useEffect(() => setReady(true), []);
+
+    return (
+        <LoadingScreen ready={ready}>
+            <div className="AppView DefaultView">
+                <Sidebar />
+                <div className="windows">
+                    <TextWindow />
+                    <div className="context-windows">
+                        <CharacterWindow />
+                        <div className="context-windows-lower">
+                            <MapWindow />
+                            <NPCWindow />
                         </div>
                     </div>
                 </div>
-            </LoadingScreen>
-        );
-    }
-}
+            </div>
+        </LoadingScreen>
+    );
+};

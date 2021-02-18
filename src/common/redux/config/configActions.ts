@@ -1,4 +1,4 @@
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
+import { PayloadAction } from '../reduxUtils';
 import { Hotkey } from './configState';
 
 export enum ConfigAction {

@@ -1,7 +1,7 @@
 import produce from 'immer';
 import { Action, Reducer } from 'redux';
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { ItemFamily } from '../../model/appearance/ItemFamily';
+import { PayloadAction } from '../reduxUtils';
 import { ItemFamilyAction } from './itemFamilyActions';
 import { ItemFamilyByTypeState } from './itemFamilyState';
 

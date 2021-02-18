@@ -1,6 +1,5 @@
 import { Action, Reducer } from 'redux';
 import { Player } from '../../../combat-sandbox-1/Player';
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { getRequiredStats } from '../../encounter/encounterUtils';
 import {
     ActiveEncounter,
@@ -16,6 +15,7 @@ import {
 } from '../../model/encounter/EncounterChoice';
 import { EncounterOutcome } from '../../model/encounter/EncounterOutcome';
 import { instanceOfChoicesStage } from '../../model/encounter/EncounterStage';
+import { PayloadAction } from '../reduxUtils';
 import { EncounterAction, EncounterRollDef } from './encounterActions';
 
 function defaultActiveEncounter(): ActiveEncounter {

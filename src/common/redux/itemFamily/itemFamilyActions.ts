@@ -1,5 +1,5 @@
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { ItemFamily } from '../../model/appearance/ItemFamily';
+import { PayloadAction } from '../reduxUtils';
 
 export enum ItemFamilyAction {
     REGISTER_FAMILY = 'itemFamily/register-family',

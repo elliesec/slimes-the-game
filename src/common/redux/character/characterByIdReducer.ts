@@ -1,6 +1,5 @@
 import produce from 'immer';
 import { Action, Reducer } from 'redux';
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { AppearanceSlotTypeValues } from '../../model/appearance/AppearanceSlot';
 import { ItemCategoryValues } from '../../model/appearance/ItemCategory';
 import { ItemFamilyType } from '../../model/appearance/ItemFamily';
@@ -18,6 +17,7 @@ import { PlayerDefinition } from '../../model/character/Player';
 import { WithId } from '../../types';
 import { log } from '../../util/Log';
 import { itemId } from '../item/itemByIdReducer';
+import { PayloadAction } from '../reduxUtils';
 import { CharacterAction, SetCharacterAppearanceItemPayload } from './characterActions';
 import { normalizePlayer } from './characterPlayerReducer';
 import { CharacterByIdState } from './characterState';

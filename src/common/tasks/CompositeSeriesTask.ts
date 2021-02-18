@@ -1,4 +1,5 @@
 import { BehaviorSubject, Observable } from 'rxjs';
+import { log } from '../util/Log';
 import { CompositeTask } from './CompositeTask';
 import { TaskProgress } from './TaskProgress';
 
@@ -6,6 +7,7 @@ export class CompositeSeriesTask extends CompositeTask {
     private readonly subject = new BehaviorSubject<TaskProgress>(this.getProgress());
 
     public execute(): Observable<TaskProgress> {
+        log.debug(`[${this.id}] Executing composite series task "${this.name}"`);
         this.executeSubtask(0);
         return this.subject;
     }

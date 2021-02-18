@@ -1,5 +1,5 @@
+import { PayloadAction } from '../../../common/redux/reduxUtils';
 import { Scene } from '../../enums';
-import { PayloadAction } from '../redux-utils';
 
 export enum GameActions {
     SET_SCENE = 'SET_SCENE',

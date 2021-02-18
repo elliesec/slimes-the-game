@@ -1,9 +1,9 @@
 import produce from 'immer';
 import { Action, Reducer } from 'redux';
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { NormalizedPlayer, PlayerDefinition } from '../../model/character/Player';
 import { WithId } from '../../types';
 import { log } from '../../util/Log';
+import { PayloadAction } from '../reduxUtils';
 import { normalizeCharacter } from './characterByIdReducer';
 import { PlayerAction } from './playerActions';
 

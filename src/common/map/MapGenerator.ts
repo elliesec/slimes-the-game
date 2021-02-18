@@ -1,4 +1,4 @@
-import { BaseJob } from '../model/job/BaseJob';
+import { Task } from '../tasks/Task';
 import { Map } from './Map';
 import { MapCell } from './MapCell';
 
@@ -17,7 +17,7 @@ export abstract class MapGenerator<
         return this.map;
     }
 
-    public abstract generate(): BaseJob<any, any>;
+    public abstract generate(): Task;
 
     protected abstract createMap(config?: Config): MapType;
 }

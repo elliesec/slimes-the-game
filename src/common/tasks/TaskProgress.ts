@@ -11,3 +11,11 @@ export function aggregateProgress(p1: TaskProgress, p2: TaskProgress): TaskProgr
         complete: p1.complete && p2.complete,
     };
 }
+
+export function emptyTaskProgress(): TaskProgress {
+    return {
+        max     : 0,
+        value   : 0,
+        complete: true,
+    };
+}

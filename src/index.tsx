@@ -1,20 +1,22 @@
 import 'pixi.js';
-import React from 'react';
+import React, { createContext } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { Action } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 import './index.scss';
-import { store } from './slimes-the-game/redux/store';
+import { State, store } from './slimes-the-game/redux/store';
 import './slimes-the-game/SlimesTheGame';
 import { SlimesTheGame } from './slimes-the-game/SlimesTheGame';
-import { Store } from './slimes-the-game/store/Store';
 
 const appRoot = document.getElementById('app-root');
+export const DispatchContext = createContext<ThunkDispatch<State, any, Action>>(store.dispatch);
 
 render(
     <Provider store={store}>
-        <Store>
+        <DispatchContext.Provider value={store.dispatch}>
             <SlimesTheGame />
-        </Store>
+        </DispatchContext.Provider>
     </Provider>,
     appRoot
 );

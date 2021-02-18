@@ -1,10 +1,10 @@
 import cuid from 'cuid';
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { AppearanceItem } from '../../model/appearance/AppearanceItem';
 import { AppearanceSlotType } from '../../model/appearance/AppearanceSlot';
 import { ItemCategory } from '../../model/appearance/ItemCategory';
 import { CharacterDefinition } from '../../model/character/CharacterDefinition';
 import { WithId } from '../../types';
+import { PayloadAction } from '../reduxUtils';
 
 export enum CharacterAction {
     REGISTER_CHARACTER = 'character/register-character',

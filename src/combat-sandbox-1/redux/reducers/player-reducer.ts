@@ -3,13 +3,13 @@ import {
     EncounterAction,
     EncounterRollDef,
 } from '../../../common/redux/encounter/encounterActions';
+import { PayloadAction } from '../../../common/redux/reduxUtils';
 import { Player } from '../../Player';
 import {
     PlayerActions,
     PlayerDescriptionUpdate,
     PlayerStatUpdate,
 } from '../actions/player-actions';
-import { PayloadAction } from '../redux-utils';
 
 const reducerMap: Record<string, Reducer<Player>> = {
     [PlayerActions.SET_PLAYER]: setPlayerReducer,

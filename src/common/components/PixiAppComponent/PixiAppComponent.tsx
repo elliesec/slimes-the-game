@@ -1,5 +1,6 @@
 import { IPointData, ISize } from 'pixi.js';
 import React, {
+    ComponentType,
     createRef,
     NamedExoticComponent,
     PureComponent,
@@ -20,12 +21,12 @@ import { PixiAppUpdateManager } from '../../pixi/PixiAppUpdateManager';
 import { appSetPixiApp, appSetPosition } from '../../redux/app/appActions';
 import { getCurrentView } from '../../redux/app/appSelectors';
 import { AppView } from '../../redux/app/appState';
-import { PixiAppView } from '../PixiAppView/PixiAppView';
+import { PixiAppViewProps } from '../PixiAppView/PixiAppView';
 import './PixiAppComponent.scss';
 
 export interface PixiAppComponentProps extends ISize {
     children: ReactNode;
-    view: typeof PixiAppView;
+    view: ComponentType<PixiAppViewProps>;
     onPixiAppSet: Callback<PixiApp>;
     onAppResize: Callback<IPointData>;
 }
@@ -80,9 +81,9 @@ export class PixiAppComponentClass extends PureComponent<PixiAppComponentProps> 
     }
 }
 
-const viewMapping: Record<AppView, typeof PixiAppView> = {
-    [AppView.MAIN_MENU]: MainMenuView,
-    [AppView.DEFAULT]: DefaultView,
+const viewMapping: Record<AppView, ComponentType<PixiAppViewProps>> = {
+    [AppView.MAIN_MENU]    : MainMenuView,
+    [AppView.DEFAULT]      : DefaultView,
     [AppView.DRESSING_ROOM]: DressingRoomView,
 };
 

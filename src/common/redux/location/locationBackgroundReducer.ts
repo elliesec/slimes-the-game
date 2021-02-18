@@ -1,7 +1,7 @@
 import produce from 'immer';
 import { Action, Reducer } from 'redux';
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { Background, instanceOfBackground } from '../../model/location/Background';
+import { PayloadAction } from '../reduxUtils';
 import { LocationAction } from './locationActions';
 
 const setBackgroundReducer = produce(

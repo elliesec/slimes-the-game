@@ -1,6 +1,6 @@
 import produce from 'immer';
 import { Action, Reducer } from 'redux';
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
+import { PayloadAction } from '../reduxUtils';
 import { AppAction } from './appActions';
 
 const setFadeOutReducer = produce((state: boolean, { payload }: PayloadAction<boolean>) => {

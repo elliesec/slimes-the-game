@@ -1,10 +1,10 @@
 import produce from 'immer';
 import objectHash from 'object-hash';
 import { Action, Reducer } from 'redux';
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { ItemFamilyType } from '../../model/appearance/ItemFamily';
 import { AppearanceItemDefinition } from '../../model/appearance/AppearanceItem';
 import { AppearanceSlotType } from '../../model/appearance/AppearanceSlot';
+import { PayloadAction } from '../reduxUtils';
 import { ItemAction } from './itemActions';
 import { ItemByIdState } from './itemState';
 

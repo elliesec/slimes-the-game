@@ -1,5 +1,5 @@
+import { PayloadAction } from '../../../common/redux/reduxUtils';
 import { Player, PlayerDescription, PlayerStats } from '../../Player';
-import { PayloadAction } from '../redux-utils';
 
 export enum PlayerActions {
     SET_PLAYER = 'SET_PLAYER',

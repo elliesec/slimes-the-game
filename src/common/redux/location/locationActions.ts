@@ -1,5 +1,5 @@
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { Background } from '../../model/location/Background';
+import { PayloadAction } from '../reduxUtils';
 
 export enum LocationAction {
     SET_BACKGROUND = 'location/set-background',

@@ -1,6 +1,6 @@
 import { Action, Reducer } from 'redux';
-import { PayloadAction } from '../../../combat-sandbox-1/redux/redux-utils';
 import { Encounter } from '../../model/encounter/Encounter';
+import { PayloadAction } from '../reduxUtils';
 import { EncounterAction } from './encounterActions';
 
 const reducers: Record<string, Reducer<Record<string, Encounter>>> = {
