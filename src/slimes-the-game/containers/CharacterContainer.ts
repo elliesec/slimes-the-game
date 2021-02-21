@@ -1,7 +1,9 @@
 import { Sprite } from 'pixi.js';
+import { Unsubscribe } from 'redux';
 import { AppearanceItem } from '../../common/model/appearance/AppearanceItem';
 import { LayoutContainer } from '../../common/pixi/containers/LayoutContainer';
 import { getPlayerAppearanceItems } from '../../common/redux/character/playerSelectors';
+import { ContainerDestroyOptions } from '../../common/types';
 import { store } from '../redux/store';
 
 export interface CharacterContainerProps {
@@ -9,11 +11,13 @@ export interface CharacterContainerProps {
 }
 
 export class CharacterContainer extends LayoutContainer<CharacterContainerProps> {
+    private readonly unsubscribeFromStore: Unsubscribe;
+
     public constructor(props?: CharacterContainerProps) {
         super(props);
         this.setPropsFromState = this.setPropsFromState.bind(this);
         this.setPropsFromState();
-        store.subscribe(this.setPropsFromState);
+        this.unsubscribeFromStore = store.subscribe(this.setPropsFromState);
     }
 
     public layout(): void {
@@ -32,6 +36,11 @@ export class CharacterContainer extends LayoutContainer<CharacterContainerProps>
                 });
             }
         });
+    }
+
+    public destroy(options?: ContainerDestroyOptions) {
+        this.unsubscribeFromStore();
+        super.destroy(options);
     }
 
     private setPropsFromState(): void {

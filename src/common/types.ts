@@ -9,3 +9,22 @@ export interface DefaultModule<T> {
 export interface Serializable<T> {
     serialize(): T;
 }
+
+export interface Point {
+    x: number;
+    y: number;
+}
+
+export interface Dimensions {
+    width: number;
+    height: number;
+}
+
+export interface Rect extends Point, Dimensions {
+}
+
+export interface ContainerDestroyOptions {
+    children?: boolean;
+    texture?: boolean;
+    baseTexture?: boolean;
+}

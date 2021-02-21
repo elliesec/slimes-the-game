@@ -1,5 +1,6 @@
 import { Graphics } from 'pixi.js';
 import { LayoutContainer } from './LayoutContainer';
+import { shouldSizedContainerUpdate } from './sizedContainerUtils';
 
 export interface DomTrackingContainerProps {
     highlight?: boolean;
@@ -33,5 +34,9 @@ export class DomTrackingContainer<P extends DomTrackingContainerProps> extends L
         mask.renderable = true;
         this.addChild(mask);
         this.mask = mask;
+    }
+
+    protected shouldContainerUpdate(prevProps: Readonly<P>): boolean {
+        return shouldSizedContainerUpdate(prevProps, this.props);
     }
 }

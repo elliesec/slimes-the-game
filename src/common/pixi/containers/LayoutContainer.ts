@@ -1,5 +1,6 @@
 import { Container } from 'pixi.js';
 import { memoize } from '../../functions';
+import { ContainerDestroyOptions } from '../../types';
 import { PixiAppUpdateManager } from '../PixiAppUpdateManager';
 
 export abstract class LayoutContainer<P = {}> extends Container {
@@ -11,7 +12,6 @@ export abstract class LayoutContainer<P = {}> extends Container {
         this.tick = this.tick.bind(this);
         PixiAppUpdateManager.addUpdateListener(this.tick);
         this.setProps(props);
-        this.layout();
     }
 
     public setProps<K extends keyof P>(props: Pick<P, K>): void {
@@ -24,6 +24,11 @@ export abstract class LayoutContainer<P = {}> extends Container {
 
     public clear(): void {
         this.removeChildren();
+    }
+
+    public destroy(options?: ContainerDestroyOptions) {
+        PixiAppUpdateManager.removeUpdateListener(this.tick);
+        super.destroy(options);
     }
 
     public abstract layout(): void;

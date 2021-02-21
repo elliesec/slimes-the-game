@@ -1,4 +1,4 @@
-import { IPointData, ISize } from 'pixi.js';
+import { IPointData } from 'pixi.js';
 import { createRef, PureComponent } from 'react';
 import { WithAppPositionProps } from '../../hocs/withAppPosition';
 import {
@@ -6,8 +6,9 @@ import {
     DomTrackingContainerProps,
 } from '../../pixi/containers/DomTrackingContainer';
 import { PixiApp } from '../../pixi/PixiApp';
+import { Dimensions } from '../../types';
 
-export interface ContainerLinkedComponentProps extends WithAppPositionProps, ISize {
+export interface ContainerLinkedComponentProps extends WithAppPositionProps, Dimensions {
     app: PixiApp;
 }
 
@@ -31,18 +32,12 @@ export abstract class ContainerLinkedComponent<
 
     public componentDidMount(): void {
         this.container = this.createContainer(this.props);
+        this.container.layout();
         this.addContainerToApp();
     }
 
     public componentDidUpdate(prevProps: Readonly<P>): void {
-        const { appPosition, width, height } = this.props;
-        if (
-            width !== prevProps.width ||
-            height !== prevProps.height ||
-            appPosition !== prevProps.appPosition
-        ) {
-            this.container.setProps(this.getContainerProps());
-        }
+        this.container.setProps(this.getContainerProps());
         this.addContainerToApp();
     }
 
@@ -50,7 +45,8 @@ export abstract class ContainerLinkedComponent<
         this.container.destroy();
     }
 
-    protected getContainerProps(): IPointData & ISize {
+    protected getContainerProps<K extends keyof C>(): Pick<C,
+        K & keyof IPointData & keyof Dimensions> {
         const currentRef = this.ref.current;
         if (!currentRef) {
             return { x: 0, y: 0, width: this.props.width, height: this.props.height };

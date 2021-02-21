@@ -1,9 +1,9 @@
-import { IPointData } from 'pixi.js';
 import { connect } from 'react-redux';
 import { State } from '../../slimes-the-game/redux/store';
+import { Point } from '../types';
 
 export interface WithAppPositionProps {
-    appPosition: IPointData;
+    appPosition: Point;
 }
 
 function mapStateToProps<P extends WithAppPositionProps>(

@@ -5,7 +5,9 @@ import {
 import { MapContainer } from '../../../containers/MapContainer';
 import { MapRegistry } from '../../../maps/MapRegistry';
 
-export interface MapWindowContainerProps extends DomTrackingContainerProps {}
+export interface MapWindowContainerProps extends DomTrackingContainerProps {
+    position: [number, number];
+}
 
 export class MapWindowContainer extends DomTrackingContainer<MapWindowContainerProps> {
     public layout(): void {

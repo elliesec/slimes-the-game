@@ -10,9 +10,8 @@ const addLoadingTaskReducer = produce(
     (draft: LoadingTasksState, { payload }: PayloadAction<Task>) => {
         if (payload) {
             draft.task.add(payload);
+            draft.progress = draft.task.getProgress();
         }
-        draft.progress = draft.task.getProgress();
-        console.log(draft.progress);
     },
 );
 

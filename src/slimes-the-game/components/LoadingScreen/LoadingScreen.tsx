@@ -52,11 +52,11 @@ export const LoadingScreenComponent = ({ children, ready, task, progress }: Load
                             })}
                         >
                             <span className={styles.loadingText}>Loading...</span>
-                            <ProgressBar min={0} max={progress.max} progress={progress.value} />
+                            <ProgressBar max={progress.max} progress={progress.value} />
                         </div>
                     </div>
                 </CSSTransition>,
-                appRoot,
+                appRoot
             )}
         </div>
     );
@@ -64,7 +64,7 @@ export const LoadingScreenComponent = ({ children, ready, task, progress }: Load
 
 function mapStateToProps(state: State): Pick<LoadingScreenProps, 'progress' | 'task'> {
     return {
-        task    : state.loadingTasks.task,
+        task: state.loadingTasks.task,
         progress: state.loadingTasks.progress,
     };
 }

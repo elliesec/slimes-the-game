@@ -7,7 +7,6 @@ import { WithCharacterState } from '../../common/redux/character/characterState'
 import { WithConfigState } from '../../common/redux/config/configState';
 import { WithItemState } from '../../common/redux/item/itemState';
 import { WithItemFamilyState } from '../../common/redux/itemFamily/itemFamilyState';
-import { WithJobState } from '../../common/redux/job/jobState';
 import { WithLoadingTasksState } from '../../common/redux/loadingTasks/loadingTasksState';
 import { WithLocationState } from '../../common/redux/location/locationState';
 import { rootReducer } from './rootReducer';
@@ -19,7 +18,6 @@ export interface State
         WithCharacterState,
         WithLocationState,
         WithConfigState,
-        WithJobState,
         WithLoadingTasksState {
 }
 
@@ -30,7 +28,7 @@ const composeEnhancers = composeWithDevTools({
         }
         return action;
     },
-    stateSanitizer : (state: any) => {
+    stateSanitizer: (state: any) => {
         if (state.app?.pixiApp) {
             return {
                 ...state,
