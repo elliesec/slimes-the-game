@@ -21,25 +21,7 @@ export class MapContainer extends LayoutContainer<MapContainerProps> {
 
     public constructor(props: MapContainerProps) {
         super(props);
-
-        const quarter = TILE_SIZE / 4;
-        this.locationIndicator
-            .beginFill(0x000000, 0)
-            .lineStyle(4, 0xd84315)
-            .moveTo(0, quarter)
-            .lineTo(0, 0)
-            .lineTo(quarter, 0)
-            .moveTo(3 * quarter, 0)
-            .lineTo(TILE_SIZE, 0)
-            .lineTo(TILE_SIZE, quarter)
-            .moveTo(TILE_SIZE, 3 * quarter)
-            .lineTo(TILE_SIZE, TILE_SIZE)
-            .lineTo(3 * quarter, TILE_SIZE)
-            .moveTo(quarter, TILE_SIZE)
-            .lineTo(0, TILE_SIZE)
-            .lineTo(0, 3 * quarter);
-        this.locationIndicator.pivot.set(0.5 * TILE_SIZE, 0.5 * TILE_SIZE);
-
+        this.createLocationIndicator();
         this.setPropsFromState = this.setPropsFromState.bind(this);
         this.unsubscribeFromStore = store.subscribe(this.setPropsFromState);
     }
@@ -80,15 +62,24 @@ export class MapContainer extends LayoutContainer<MapContainerProps> {
         this.setPosition();
     }
 
-    protected shouldContainerUpdate(prevProps: Readonly<MapContainerProps>): boolean {
-        return true;
-        // console.log(prevProps.position, this.props.position);
-        // return (
-        //     shouldSizedContainerUpdate(prevProps, this.props) ||
-        //     this.props.map !== prevProps.map ||
-        //     typeof prevProps.position[0] === 'undefined' ||
-        //     typeof prevProps.position[1] === 'undefined'
-        // );
+    private createLocationIndicator(): void {
+        const quarter = TILE_SIZE / 4;
+        this.locationIndicator
+            .beginFill(0x000000, 0)
+            .lineStyle(4, 0xd84315)
+            .moveTo(0, quarter)
+            .lineTo(0, 0)
+            .lineTo(quarter, 0)
+            .moveTo(3 * quarter, 0)
+            .lineTo(TILE_SIZE, 0)
+            .lineTo(TILE_SIZE, quarter)
+            .moveTo(TILE_SIZE, 3 * quarter)
+            .lineTo(TILE_SIZE, TILE_SIZE)
+            .lineTo(3 * quarter, TILE_SIZE)
+            .moveTo(quarter, TILE_SIZE)
+            .lineTo(0, TILE_SIZE)
+            .lineTo(0, 3 * quarter)
+            .pivot.set(0.5 * TILE_SIZE, 0.5 * TILE_SIZE);
     }
 
     private setPropsFromState(): void {
