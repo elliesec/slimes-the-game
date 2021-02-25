@@ -88,7 +88,7 @@
         "redux-thunk": "^2.3.0",
         "reselect": "^4.0.0",
         "reset-css": "^5.0.1",
-        "rxjs": "^6.6.3",
+        "rxjs": "^6.6.6",
         "seedrandom": "^3.0.5",
         "ts-key-enum": "^3.0.7"
     }
